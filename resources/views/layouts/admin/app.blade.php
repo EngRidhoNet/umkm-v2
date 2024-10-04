@@ -31,7 +31,7 @@
 
     @include('layouts.admin.header')
 
-    @include('layouts.sidebar')
+    @include('layouts.admin.sidebar')
 
     <main id="main" class="main">
         <div class="pagetitle">

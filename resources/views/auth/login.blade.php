@@ -7,7 +7,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="dark:bg-gray-900">
+<body class="bg-gradient-to-r from-blue-200 via-blue-300 to-blue-500 text-blue-900">
     <div class="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
         <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
             <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
