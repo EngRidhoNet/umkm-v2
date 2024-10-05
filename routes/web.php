@@ -37,7 +37,7 @@ Route::get('/api/districts/{regency_id}', function ($regency_id) {
 
 // Middleware untuk mahasiswa
 Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(function () {
-    Route::get('/mahasiswa',function(){
+    Route::get('/mahasiswa', function () {
         return view('mahasiswa.index');
     })->name('mahasiswa.dashboard');
 });
@@ -54,6 +54,16 @@ Route::middleware(['auth', RoleMiddleware::class . ':superadmin'])->group(functi
     Route::get('/superadmin', function () {
         return view('superadmin.index');
     })->name('superadmin.dashboard');
+
+
+// mahasiswa
+    Route::get('/superadmin/mahasiswa', [SuperadminController::class, 'indexMahasiswa'])->name('superadmin.mahasiswa');
+    Route::get('/superadmin/mahasiswa/create', [SuperadminController::class, 'createMahasiswa'])->name('superadmin.mahasiswa.create');
+
+
+    // umkm
+    Route::get('/superadmin/umkm', [SuperadminController::class, 'indexUmkm'])->name('superadmin.umkm');
+    Route::get('/superadmin/umkm/create', [SuperadminController::class, 'createUmkm'])->name('superadmin.umkm.create');
 });
 
 
@@ -76,7 +86,7 @@ Route::get('/registerumkm', function () {
 
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
 Route::post('/postregister', [AuthController::class, 'postregister'])->name('postregister');
 Route::post('/registermahasiswa', [AuthController::class, 'registermahasiswa'])->name('registermahasiswa');

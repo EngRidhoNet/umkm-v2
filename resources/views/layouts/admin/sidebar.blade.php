@@ -2,19 +2,19 @@
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
             <a class="nav-link " href="{{ url('/') }}">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-house"></i>
                 <span>Dashboard</span>
             </a>
-            <a class="nav-link " href="{{ url('/') }}">
-                <i class="bi bi-grid"></i>
+            <a class="nav-link " href="{{ route('superadmin.mahasiswa') }}">
+                <i class="bi bi-person"></i>
                 <span>Mahasiswa</span>
             </a>
-            <a class="nav-link " href="{{ url('/') }}">
-                <i class="bi bi-grid"></i>
+            <a class="nav-link " href="{{ route('superadmin.umkm') }}">
+                <i class="bi bi-shop"></i>
                 <span>Umkm</span>
             </a>
             <a class="nav-link " href="{{ url('/') }}">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-chat-dots"></i>
                 <span>Konsultasi Bisnis</span>
             </a>
         </li>

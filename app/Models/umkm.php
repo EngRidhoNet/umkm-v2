@@ -20,7 +20,6 @@ class umkm extends Model
         'provinsi',
         'kota',
         'kecamatan',
-        // 'kelurahan',
         'kode_pos',
         'alamat',
         'informasi_pemilik',

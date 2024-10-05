@@ -6,27 +6,80 @@
 <section class="section dashboard">
     <div class="row">
         <!-- Left side columns -->
-        <div class="col-lg-8">
-            <div class="row">
-                <!-- Sales Card -->
-                <div class="col-xxl-4 col-md-6">
-                    <div class="card info-card sales-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Sales <span>| Today</span></h5>
-                            <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-cart"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6>145</h6>
-                                    <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- End Sales Card -->
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Data UMKM</h4>
+                    <a href="{{ route('superadmin.umkm.create') }}" class="btn btn-primary float-right">Tambah UMKM</a>
+                </div>
+                <div class="card-body">
+                    <table id="umkmTable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama UMKM</th>
+                                <th>Foto Profil</th>
+                                <th>Foto Sampul</th>
+                                <th>Deskripsi</th>
+                                <th>Kategori</th>
+                                <th>Provinsi</th>
+                                <th>Kota</th>
+                                <th>Kecamatan</th>
+                                <th>Kode Pos</th>
+                                <th>Alamat</th>
+                                <th>Informasi Pemilik</th>
+                                <th>Informasi Bisnis</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($umkm as $umkm)
+                            <tr>
+                                <td>{{ $umkm->id }}</td>
+                                <td>{{ $umkm->nama_umkm }}</td>
+                                <td>
+                                    <img src="{{ asset('storage/app/public/umkm/foto_profil/' . $umkm->foto_profil) }}" alt="Foto Profil" width="50" height="50">
+                                </td>
+                                <td>
+                                    <img src="{{ asset('storage/' . $umkm->foto_sampul) }}" alt="Foto Sampul" width="100" height="50">
+                                </td>
+                                <td>{{ $umkm->deskripsi }}</td>
+                                <td>{{ $umkm->kategori }}</td>
+                                <td>{{ $umkm->provinsi }}</td>
+                                <td>{{ $umkm->kota }}</td>
+                                <td>{{ $umkm->kecamatan }}</td>
+                                <td>{{ $umkm->kode_pos }}</td>
+                                <td>{{ $umkm->alamat }}</td>
+                                <td>{{ $umkm->informasi_pemilik }}</td>
+                                <td>{{ $umkm->informasi_bisnis }}</td>
+                                <td>
+                                    <a href="" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div><!-- End Left side columns -->
+        </div>
     </div>
 </section>
+
+<script>
+$(document).ready(function() {
+    $('#umkmTable').DataTable();
+});
+</script>
 @endsection
