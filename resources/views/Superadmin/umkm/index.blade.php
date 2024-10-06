@@ -56,7 +56,7 @@
                                     <a href="{{ route('superadmin.umkm.show', $umkm->id) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="" class="btn btn-warning btn-sm">
+                                    <a href=" {{ route('superadmin.umkm.edit', $umkm->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <form action="" method="POST" style="display:inline;">

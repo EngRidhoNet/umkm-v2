@@ -152,19 +152,22 @@ class AuthController extends Controller
                 return back()->withErrors($validator)->withInput();
             }
 
-            // Store the profile and cover photos
-
-            $fotoProfil = $request->file('foto_profil')->store('umkm/foto_profil', 'public');
-            $fotoSampul = $request->file('foto_sampul')->store('umkm/foto_sampul', 'public');
-            function renameFile($file, $prefix)
+            // Function to rename file and store it
+            function renameAndStoreFile($file, $folder, $prefix)
             {
+                // Generate a new file name
                 $extension = $file->getClientOriginalExtension();
                 $newFileName = $prefix . '_' . time() . '.' . $extension;
+
+                // Store the file with the new name
+                $file->storeAs($folder, $newFileName, 'public');
+
                 return $newFileName;
             }
 
-            $fotoProfil = renameFile($request->file('foto_profil'), 'profil');
-            $fotoSampul = renameFile($request->file('foto_sampul'), 'sampul');
+            // Rename and store profile and cover photos
+            $fotoProfil = renameAndStoreFile($request->file('foto_profil'), 'umkm/foto_profil', 'profil');
+            $fotoSampul = renameAndStoreFile($request->file('foto_sampul'), 'umkm/foto_sampul', 'sampul');
 
             // Create User
             $user = User::create([
@@ -186,9 +189,7 @@ class AuthController extends Controller
                 'provinsi' => $request->provinsi,
                 'kota' => $request->kota,
                 'kecamatan' => $request->kecamatan,
-                // 'kelurahan' => $request->kelurahan,
                 'kode_pos' => $request->kode_pos,
-                // 'alamat' => $request->alamat,
                 'informasi_pemilik' => $request->informasi_pemilik,
                 'informasi_bisnis' => $request->informasi_bisnis,
             ]);
@@ -212,6 +213,7 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
     public function logout()
     {
         auth()->logout();

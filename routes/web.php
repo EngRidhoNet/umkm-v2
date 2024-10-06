@@ -44,9 +44,23 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
 
 // Middleware untuk umkm
 Route::middleware(['auth', RoleMiddleware::class . ':umkm'])->group(function () {
-    Route::get('/umkm', function () {
-        return view('umkm.index');
-    })->name('umkm.dashboard');
+    // Route untuk UMKM
+    Route::get('/umkm', [UmkmController::class, 'index'])->name('umkm.index');
+
+    // Route untuk Artikel
+    Route::get('/umkm/artikel', [UmkmController::class, 'indexArtikel'])->name('umkm.artikel.index');
+    Route::get('/umkm/artikel/create', [UmkmController::class, 'createArtikel'])->name('umkm.artikel.create');
+    Route::post('/umkm/artikel', [UmkmController::class, 'storeArtikel'])->name('umkm.artikel.store');
+    Route::get('/umkm/artikel/{id}', [UmkmController::class, 'showArtikel'])->name('umkm.artikel.show');
+    Route::get('/umkm/artikel/{id}/edit', [UmkmController::class, 'editArtikel'])->name('umkm.artikel.edit');
+    Route::put('/umkm/artikel/{id}', [UmkmController::class, 'updateArtikel'])->name('umkm.artikel.update');
+    Route::delete('/umkm/artikel/{id}', [UmkmController::class, 'destroyArtikel'])->name('umkm.artikel.destroy');
+
+
+
+
+    // Route untuk Pekerjaan
+    Route::get('/umkm/pekerjaan', [UmkmController::class, 'indexPekerjaan'])->name('umkm.pekerjaan.index');
 });
 
 // Middleware untuk superadmin

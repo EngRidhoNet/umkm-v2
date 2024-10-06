@@ -17,7 +17,7 @@ class artikel extends Model
         'deskripsi',
         'tanggal',
     ];
-
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');

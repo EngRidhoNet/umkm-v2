@@ -89,11 +89,7 @@
                         <label for="provinsi" class="text-gray-700 font-bold">Provinsi</label>
                         <select id="provinsi" name="provinsi" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
-                            <option value="">Pilih Provinsi</option>
-                            <!-- Loop through provinces -->
-                            @foreach ($provinces as $province)
-                                <option value="{{ $province->name }}" {{ $umkm->provinsi == $province->name ? 'selected' : '' }}>{{ $province->name }}</option>
-                            @endforeach
+                               <option value="">{{$umkm->provinsi}}</option>
                         </select>
                     </div>
 
@@ -102,11 +98,7 @@
                         <label for="kota" class="text-gray-700 font-bold">Kota</label>
                         <select id="kota" name="kota" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
-                            <option value="">Pilih Kota</option>
-                            <!-- Loop through cities -->
-                            @foreach ($cities as $city)
-                                <option value="{{ $city->name }}" {{ $umkm->kota == $city->name ? 'selected' : '' }}>{{ $city->name }}</option>
-                            @endforeach
+                            <option value="">{{$umkm->kota}}</option>
                         </select>
                     </div>
 
@@ -115,11 +107,7 @@
                         <label for="kecamatan" class="text-gray-700 font-bold">Kecamatan</label>
                         <select id="kecamatan" name="kecamatan" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
-                            <option value="">Pilih Kecamatan</option>
-                            <!-- Loop through districts -->
-                            @foreach ($districts as $district)
-                                <option value="{{ $district->name }}" {{ $umkm->kecamatan == $district->name ? 'selected' : '' }}>{{ $district->name }}</option>
-                            @endforeach
+                            <option value="">{{$umkm->kecamatan}}</option>
                         </select>
                     </div>
 
