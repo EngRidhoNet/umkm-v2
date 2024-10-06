@@ -54,16 +54,23 @@ Route::middleware(['auth', RoleMiddleware::class . ':superadmin'])->group(functi
     Route::get('/superadmin', function () {
         return view('superadmin.index');
     })->name('superadmin.dashboard');
-
-
 // mahasiswa
     Route::get('/superadmin/mahasiswa', [SuperadminController::class, 'indexMahasiswa'])->name('superadmin.mahasiswa');
     Route::get('/superadmin/mahasiswa/create', [SuperadminController::class, 'createMahasiswa'])->name('superadmin.mahasiswa.create');
-
-
+    Route::post('/superadmin/mahasiswa', [SuperadminController::class, 'storeMahasiswa'])->name('superadmin.mahasiswa.store');
+    Route::get('/superadmin/mahasiswa/{id}', [SuperadminController::class, 'showMahasiswa'])->name('superadmin.mahasiswa.show');
+    Route::get('/superadmin/mahasiswa/{id}/edit', [SuperadminController::class, 'editMahasiswa'])->name('superadmin.mahasiswa.edit');
+    Route::put('/superadmin/mahasiswa/{id}', [SuperadminController::class, 'updateMahasiswa'])->name('superadmin.mahasiswa.update');
+    Route::delete('/superadmin/mahasiswa/{id}', [SuperadminController::class, 'destroyMahasiswa'])->name('superadmin.mahasiswa.destroy');
     // umkm
     Route::get('/superadmin/umkm', [SuperadminController::class, 'indexUmkm'])->name('superadmin.umkm');
     Route::get('/superadmin/umkm/create', [SuperadminController::class, 'createUmkm'])->name('superadmin.umkm.create');
+    Route::post('/superadmin/umkm', [SuperadminController::class, 'storeUmkm'])->name('superadmin.umkm.store');
+    Route::get('/superadmin/umkm/{id}', [SuperadminController::class, 'showUmkm'])->name('superadmin.umkm.show');
+    Route::get('/superadmin/umkm/{id}/edit', [SuperadminController::class, 'editUmkm'])->name('superadmin.umkm.edit');
+    Route::put('/superadmin/umkm/{id}', [SuperadminController::class, 'updateUmkm'])->name('superadmin.umkm.update');
+    Route::delete('/superadmin/umkm/{id}', [SuperadminController::class, 'destroyUmkm'])->name('superadmin.umkm.destroy');
+
 });
 
 

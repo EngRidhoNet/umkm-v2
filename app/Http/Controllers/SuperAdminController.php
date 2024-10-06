@@ -8,6 +8,7 @@ use App\Models\mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class SuperAdminController extends Controller
 {
@@ -20,6 +21,12 @@ class SuperAdminController extends Controller
     public function createMahasiswa()
     {
         return view('superadmin.mahasiswa.create');
+    }
+
+    public function showMahasiswa($id)
+    {
+        $mahasiswa = mahasiswa::findOrFail($id);
+        return view('superadmin.mahasiswa.show', compact('mahasiswa'));
     }
 
     public function storeMahasiswa(Request $request)
@@ -73,10 +80,24 @@ class SuperAdminController extends Controller
                 'alamat_mahasiswa' => $request->alamat,
             ]);
 
-            return redirect()->route('superadmin.mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan');
+            return redirect()->route('superadmin.mahasiswa')->with('success', 'Mahasiswa berhasil ditambahkan');
         } catch (\Exception $e) {
             Log::error('Error in storeMahasiswa: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Gagal menambahkan mahasiswa');
+        }
+    }
+
+    public function destroyMahasiswa($id)
+    {
+        try {
+            $mahasiswa = mahasiswa::findOrFail($id);
+            $mahasiswa->delete();
+            $mahasiswa->user->delete();
+
+            return redirect()->route('superadmin.mahasiswa')->with('success', 'Mahasiswa berhasil dihapus');
+        } catch (\Exception $e) {
+            Log::error('Error in destroyMahasiswa: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal menghapus mahasiswa');
         }
     }
 
@@ -123,7 +144,7 @@ class SuperAdminController extends Controller
                 ]);
             }
 
-            return redirect()->route('superadmin.mahasiswa.index')->with('success', 'Mahasiswa berhasil diperbarui');
+            return redirect()->route('superadmin.mahasiswa')->with('success', 'Mahasiswa berhasil diperbarui');
         } catch (\Exception $e) {
             Log::error('Error in updateMahasiswa: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Gagal memperbarui mahasiswa');
@@ -142,28 +163,48 @@ class SuperAdminController extends Controller
         return view('superadmin.umkm.create');
     }
 
+    public function showUmkm(Request $request, $id){
+        $umkm = umkm::findOrFail($id);
+        return view('superadmin.umkm.show', compact('umkm'));
+    }
+
     public function storeUmkm(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'nama_umkm' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'alamat' => 'required|string',
-            'kategori' => 'required|string',
-            'foto_profil' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'foto_sampul' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'provinsi' => 'required|string',
-            'kota' => 'required|string',
-            'kecamatan' => 'required|string',
-            'kode_pos' => 'required|string',
-            'informasi_pemilik' => 'required|string',
-            'informasi_bisnis' => 'required|string',
-        ]);
-
         try {
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email|unique:users',
+                'password' => 'required',
+                'nama_umkm' => 'required|string|max:255',
+                'deskripsi' => 'required|string',
+                'alamat' => 'required|string',
+                'kategori' => 'required|string',
+                'foto_profil' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'foto_sampul' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'provinsi' => 'required|string',
+                'kota' => 'required|string',
+                'kecamatan' => 'required|string',
+                'kode_pos' => 'required|string',
+                'informasi_pemilik' => 'required|string',
+                'informasi_bisnis' => 'required|string',
+            ]);
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+
+            // Store the profile and cover photos
+
             $fotoProfil = $request->file('foto_profil')->store('umkm/foto_profil', 'public');
             $fotoSampul = $request->file('foto_sampul')->store('umkm/foto_sampul', 'public');
+            function renameFile($file, $prefix)
+            {
+                $extension = $file->getClientOriginalExtension();
+                $newFileName = $prefix . '_' . time() . '.' . $extension;
+                return $newFileName;
+            }
+
+            $fotoProfil = renameFile($request->file('foto_profil'), 'profil');
+            $fotoSampul = renameFile($request->file('foto_sampul'), 'sampul');
 
             // Create User
             $user = User::create([
@@ -173,8 +214,8 @@ class SuperAdminController extends Controller
                 'role' => 'umkm',
             ]);
 
-            // Create UMKM profile
-            umkm::create([
+            // Create UMKM profile linked to the User
+            Umkm::create([
                 'id_user' => $user->id,
                 'nama_umkm' => $request->nama_umkm,
                 'deskripsi' => $request->deskripsi,
@@ -186,14 +227,28 @@ class SuperAdminController extends Controller
                 'kota' => $request->kota,
                 'kecamatan' => $request->kecamatan,
                 'kode_pos' => $request->kode_pos,
+                'alamat' => $request->alamat,
                 'informasi_pemilik' => $request->informasi_pemilik,
                 'informasi_bisnis' => $request->informasi_bisnis,
             ]);
 
-            return redirect()->route('superadmin.umkm.index')->with('success', 'UMKM berhasil ditambahkan');
+            return redirect()->route('superadmin.umkm')->with('success', 'UMKM account created successfully');
         } catch (\Exception $e) {
-            Log::error('Error in storeUmkm: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Gagal menambahkan UMKM');
+            // Log the error
+            Log::error('Error in registerumkm: ' . $e->getMessage(), [
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            // Return a JSON response with the error details
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
         }
     }
 
@@ -205,6 +260,7 @@ class SuperAdminController extends Controller
 
     public function updateUmkm(Request $request, $id)
     {
+
         $request->validate([
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'sometimes|nullable|string',

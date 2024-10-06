@@ -18,8 +18,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nama UMKM</th>
-                                <th>Foto Profil</th>
-                                <th>Foto Sampul</th>
+                                {{-- <th>Foto Profil</th>
+                                <th>Foto Sampul</th> --}}
                                 <th>Deskripsi</th>
                                 <th>Kategori</th>
                                 <th>Provinsi</th>
@@ -27,8 +27,8 @@
                                 <th>Kecamatan</th>
                                 <th>Kode Pos</th>
                                 <th>Alamat</th>
-                                <th>Informasi Pemilik</th>
-                                <th>Informasi Bisnis</th>
+                                {{-- <th>Informasi Pemilik</th>
+                                <th>Informasi Bisnis</th> --}}
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -37,12 +37,12 @@
                             <tr>
                                 <td>{{ $umkm->id }}</td>
                                 <td>{{ $umkm->nama_umkm }}</td>
-                                <td>
+                                {{-- <td>
                                     <img src="{{ asset('storage/app/public/umkm/foto_profil/' . $umkm->foto_profil) }}" alt="Foto Profil" width="50" height="50">
                                 </td>
                                 <td>
                                     <img src="{{ asset('storage/' . $umkm->foto_sampul) }}" alt="Foto Sampul" width="100" height="50">
-                                </td>
+                                </td> --}}
                                 <td>{{ $umkm->deskripsi }}</td>
                                 <td>{{ $umkm->kategori }}</td>
                                 <td>{{ $umkm->provinsi }}</td>
@@ -50,10 +50,10 @@
                                 <td>{{ $umkm->kecamatan }}</td>
                                 <td>{{ $umkm->kode_pos }}</td>
                                 <td>{{ $umkm->alamat }}</td>
-                                <td>{{ $umkm->informasi_pemilik }}</td>
-                                <td>{{ $umkm->informasi_bisnis }}</td>
+                                {{-- <td>{{ $umkm->informasi_pemilik }}</td>
+                                <td>{{ $umkm->informasi_bisnis }}</td> --}}
                                 <td>
-                                    <a href="" class="btn btn-info btn-sm">
+                                    <a href="{{ route('superadmin.umkm.show', $umkm->id) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     <a href="" class="btn btn-warning btn-sm">

@@ -11,7 +11,7 @@
                     <h2 class="text-2xl font-bold text-white text-center">Form Tambah Mahasiswa</h2>
                 </div>
                 <div class="p-6">
-                    <form action="" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <form action="{{ route('superadmin.mahasiswa.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Personal Information -->
@@ -180,6 +180,7 @@
                                 </svg>
                                 Tambah Mahasiswa
                             </button>
+                            <a href="{{ route('superadmin.mahasiswa') }}" class="btn btn-secondary">Kembali</a>
                         </div>
                     </form>
                 </div>
