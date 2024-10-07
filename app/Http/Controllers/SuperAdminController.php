@@ -342,4 +342,18 @@ class SuperAdminController extends Controller
             return redirect()->back()->with('error', 'Gagal memperbarui UMKM');
         }
     }
+
+    public function destroyUmkm($id)
+    {
+        try {
+            $umkm = umkm::findOrFail($id);
+            $umkm->delete();
+            $umkm->user->delete();
+
+            return redirect()->route('superadmin.umkm')->with('success', 'UMKM berhasil dihapus');
+        } catch (\Exception $e) {
+            Log::error('Error in destroyUmkm: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal menghapus UMKM');
+        }
+    }
 }
