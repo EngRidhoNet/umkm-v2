@@ -3,31 +3,66 @@
 @section('title', 'Edit Article')
 
 @section('content')
-<section class="section edit-article">
+<section class="section edit-article py-5">
     <div class="container">
-        <h1>Edit Article</h1>
-        <form action="{{ route('articles.update', $article->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="mb-3">
-                <label for="judul" class="form-label">Title</label>
-                <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul', $article->judul) }}" required>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h1 class="h3 mb-0">Edit Article</h1>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('umkm.artikel.update', $artikel->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-4">
+                                <label for="judul" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul', $artikel->judul) }}" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="isi" class="form-label">Description</label>
+                                <textarea class="form-control" id="isi" name="isi" rows="5" required>{{ old('isi', $artikel->isi) }}</textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label for="foto" class="form-label">Image</label>
+                                <input type="file" class="form-control" id="foto" name="foto">
+                                <div class="mt-2">
+                                    <img src="{{ Storage::url($artikel->foto) }}" alt="Current image" class="img-thumbnail" style="max-width: 200px;">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="tanggal" class="form-label">Publish Date</label>
+                                <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ old('tanggal', $artikel->tanggal) }}" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Update Article</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="deskripsi" class="form-label">Description</label>
-                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required>{{ old('deskripsi', $article->deskripsi) }}</textarea>
-            </div>
-            <div class="mb-3">
-                <label for="gambar" class="form-label">Image</label>
-                <input type="file" class="form-control" id="gambar" name="gambar">
-                <img src="{{ $article->gambar }}" alt="Current image" class="img-fluid mt-2" width="200">
-            </div>
-            <div class="mb-3">
-                <label for="tanggal" class="form-label">Publish Date</label>
-                <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ old('tanggal', $article->tanggal) }}" required>
-            </div>
-            <button type="submit" class="btn btn-success">Update</button>
-        </form>
+        </div>
     </div>
 </section>
+
+<style>
+    .edit-article {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+    .card-header {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+    .form-label {
+        font-weight: 600;
+    }
+    .btn-primary {
+        padding: 10px 20px;
+        font-weight: 600;
+    }
+</style>
 @endsection

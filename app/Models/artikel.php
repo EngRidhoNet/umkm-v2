@@ -13,11 +13,11 @@ class artikel extends Model
     protected $fillable = [
         'id_user',
         'judul',
-        'gambar',
-        'deskripsi',
+        'foto',
+        'isi',
         'tanggal',
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');

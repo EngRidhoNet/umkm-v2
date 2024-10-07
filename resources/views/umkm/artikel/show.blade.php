@@ -5,16 +5,31 @@
 @section('content')
 <section class="section view-article">
     <div class="container">
-        <h1>{{ $article->judul }}</h1>
-        <img src="{{ $article->gambar }}" alt="Image of {{ $article->judul }}" class="img-fluid mb-3">
-        <p>{{ $article->deskripsi }}</p>
-        <p><strong>Published on:</strong> {{ $article->tanggal }}</p>
-        <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning">Edit</a>
-        <form action="{{ route('articles.destroy', $article->id) }}" method="POST" class="d-inline">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card shadow-sm">
+                    <!-- Gambar Artikel -->
+                    <img src="{{ Storage::url($artikel->foto) }}" class="card-img-top img-fluid w-100" alt="Gambar {{ $artikel->judul }}" style="object-fit: cover; height: 400px;">
+
+                    <!-- Body Artikel -->
+                    <div class="card-body">
+                        <h1 class="card-title">{{ $artikel->judul }}</h1>
+                        <p class="card-text">{{ $artikel->isi }}</p>
+                        <p><strong>Published on:</strong> {{ $artikel->tanggal }}</p>
+
+                        <!-- Tombol Edit dan Delete -->
+                        <div class="d-flex justify-content-start">
+                            <a href="{{ route('umkm.artikel.edit', $artikel->id) }}" class="btn btn-warning me-2">Edit</a>
+                            <form action="{{ route('umkm.artikel.destroy', $artikel->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus artikel ini?')">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 @endsection

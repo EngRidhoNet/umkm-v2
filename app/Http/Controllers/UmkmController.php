@@ -95,23 +95,23 @@ class UmkmController extends Controller
         // Validasi input
         $request->validate([
             'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'isi' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         // Buat array untuk menyimpan data artikel
-        $data = $request->only(['judul', 'deskripsi', 'tanggal']);
+        $data = $request->only(['judul', 'isi', 'tanggal']);
 
         // Menyimpan id_user dari user yang sedang login
         $data['id_user'] = auth()->user()->id;
 
         // Cek apakah gambar diupload
-        if ($request->hasFile('gambar')) {
-            // Simpan gambar ke folder 'public/uploads/artikel'
-            $path = $request->file('gambar')->store('uploads/artikel', 'public');
+        if ($request->hasFile('foto')) {
+            // Simpan foto ke folder 'public/uploads/artikel'
+            $path = $request->file('foto')->store('uploads/artikel', 'public');
 
-            // Tambahkan path gambar ke dalam data artikel
-            $data['gambar'] = $path;
+            // Tambahkan path foto ke dalam data artikel
+            $data['foto'] = $path;
         }
 
         // Simpan artikel ke database
@@ -144,8 +144,8 @@ class UmkmController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'konten' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'isi' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $artikel = artikel::findOrFail($id);

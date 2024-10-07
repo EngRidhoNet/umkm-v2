@@ -37,7 +37,7 @@ class AuthController extends Controller
                 case 'mahasiswa':
                     return redirect()->route('mahasiswa.dashboard');
                 case 'umkm':
-                    return redirect()->route('umkm.dashboard');
+                    return redirect()->route('umkm.index');
                 case 'superadmin':
                     return redirect()->route('superadmin.dashboard');
                 default:
@@ -175,6 +175,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => 'umkm',
+                'status' => 'inactive',
             ]);
 
             // Create UMKM profile linked to the User

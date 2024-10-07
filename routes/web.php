@@ -84,6 +84,10 @@ Route::middleware(['auth', RoleMiddleware::class . ':superadmin'])->group(functi
     Route::get('/superadmin/umkm/{id}/edit', [SuperadminController::class, 'editUmkm'])->name('superadmin.umkm.edit');
     Route::put('/superadmin/umkm/{id}', [SuperadminController::class, 'updateUmkm'])->name('superadmin.umkm.update');
     Route::delete('/superadmin/umkm/{id}', [SuperadminController::class, 'destroyUmkm'])->name('superadmin.umkm.destroy');
+    Route::get('/superadmin/verifikasi', [SuperAdminController::class, 'verifikasiUmkm'])->name('superadmin.verifikasi');
+    Route::put('/superadmin/umkm/{id}/verify', [SuperAdminController::class, 'verify'])->name('superadmin.umkm.verify');
+    Route::get('/superadmin/umkm/tinjau/{id}',[SuperAdminController::class, 'tinjau'])->name('superadmin.umkm.tinjau');
+
 
 });
 

@@ -19,12 +19,12 @@
                                 <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul') }}" required>
                             </div>
                             <div class="mb-4">
-                                <label for="deskripsi" class="form-label">Description</label>
-                                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required>{{ old('deskripsi') }}</textarea>
+                                <label for="isi" class="form-label">Description</label>
+                                <textarea class="form-control" id="isi" name="isi" rows="5" required>{{ old('isi') }}</textarea>
                             </div>
                             <div class="mb-4">
-                                <label for="gambar" class="form-label">Image</label>
-                                <input type="file" class="form-control" id="gambar" name="gambar" required>
+                                <label for="foto" class="form-label">Image</label>
+                                <input type="file" class="form-control" id="foto" name="foto" required>
                             </div>
                             <div class="mb-4">
                                 <label for="tanggal" class="form-label">Publish Date</label>

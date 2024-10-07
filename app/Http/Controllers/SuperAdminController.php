@@ -152,10 +152,47 @@ class SuperAdminController extends Controller
     }
 
     // Manajemen data UMKM
+
+    // Menampilkan data Umkm yang active
     public function indexUmkm()
     {
-        $umkm = umkm::all();
+
+        $umkm = umkm::whereHas('user', function ($query) {
+            $query->where('status', 'active');
+        })->get();
         return view('superadmin.umkm.index', compact('umkm'));
+    }
+
+    public function verifikasiUmkm()
+    {
+        // Mendapatkan UMKM yang user-nya berstatus inactive
+        $umkm = umkm::whereHas('user', function ($query) {
+            $query->where('status', 'inactive');
+        })->get();
+
+        // Mengembalikan view beserta data UMKM yang tidak aktif
+        return view('superadmin.verifikasi.index', compact('umkm'));
+    }
+
+    public function verify($id)
+    {
+        $umkm = umkm::findOrFail($id);
+        $user = $umkm->user; // Ambil user terkait
+
+        // Ubah status user menjadi active
+        $user->status = 'active';
+        $user->save();
+
+        return redirect()->route('superadmin.verifikasi', $umkm->id)->with('success', 'UMKM berhasil diverifikasi dan status diubah menjadi active.');
+    }
+
+    public function tinjau($id)
+    {
+        // Mengambil data UMKM berdasarkan ID
+        $umkm = umkm::findOrFail($id);
+
+        // Mengirim data UMKM ke view untuk ditinjau
+        return view('superadmin.verifikasi.tinjau', compact('umkm'));
     }
 
     public function createUmkm()

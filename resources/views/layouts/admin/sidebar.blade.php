@@ -14,8 +14,12 @@
                 <span>Umkm</span>
             </a>
             <a class="nav-link " href="{{ url('/') }}">
-                <i class="bi bi-chat-dots"></i>
+                <i class="bi bi-briefcase"></i>
                 <span>Konsultasi Bisnis</span>
+            </a>
+            <a class="nav-link " href="{{ route('superadmin.verifikasi') }}">
+                <i class="bi bi-patch-check"></i>
+                <span>Verifikasi UMKM</span>
             </a>
         </li>
     </ul>
