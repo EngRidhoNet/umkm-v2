@@ -59,7 +59,7 @@
                                     <a href=" {{ route('superadmin.umkm.edit', $umkm->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form action="" method="POST" style="display:inline;">
+                                    <form action="{{ route('superadmin.umkm.destroy', $umkm->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
