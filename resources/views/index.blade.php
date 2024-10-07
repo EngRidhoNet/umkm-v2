@@ -36,6 +36,7 @@
                         </li>
                         <li><a class="nav-link" href="shop.html">Event</a></li>
                         <li><a class="nav-link" href="about.html">UMKM</a></li>
+                        <li><a class="nav-link" href="about.html">TEST</a></li>
 
                     </ul>
 
