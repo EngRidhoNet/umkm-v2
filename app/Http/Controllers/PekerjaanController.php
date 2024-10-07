@@ -2,67 +2,90 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\pekerjaan;
 use Illuminate\Http\Request;
-use App\Models\Pekerjaan;
+use Illuminate\Support\Facades\Auth;
+
 class PekerjaanController extends Controller
 {
+    // Display a listing of the resource
     public function index()
     {
-        $pekerjaan = Pekerjaan::all();
-        return response()->json([
-            'success' => true,
-            'message' => 'Daftar data pekerjaan',
-            'data'    => $pekerjaan
-        ], 200);
+        // Fetch jobs only for the authenticated user
+        $pekerjaan = pekerjaan::where('id_user', Auth::id())->get();
+        return view('umkm.pekerjaan.index', compact('pekerjaan'));
     }
 
-    public function show($id)
+    // Show the form for creating a new resource
+    public function create()
     {
-        $pekerjaan = Pekerjaan::findOrfail($id);
-        return response()->json([
-            'success' => true,
-            'message' => 'Detail Data pekerjaan',
-            'data'    => $pekerjaan
-        ], 200);
+        return view('umkm.pekerjaan.create');
     }
 
+    // Store a newly created resource in storage
     public function store(Request $request)
     {
-        $pekerjaan = Pekerjaan::create([
-            'id_umkm' => $request->id_umkm,
-            'nama_pekerjaan' => $request->nama_pekerjaan,
-            'deskripsi' => $request->deskripsi,
-            'gaji' => $request->gaji,
-            'tanggal' => $request->tanggal,
+        $validatedData = $request->validate([
+            'posisi' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'tanggal' => 'required|date',
+            'tempat_bekerja' => 'required|string|max:255',
         ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data pekerjaan berhasil disimpan',
-            'data'    => $pekerjaan
-        ], 200);
+        // Create a new job for the authenticated user
+        pekerjaan::create([
+            'posisi' => $validatedData['posisi'],
+            'deskripsi' => $validatedData['deskripsi'],
+            'tanggal' => $validatedData['tanggal'],
+            'tempat_bekerja' => $validatedData['tempat_bekerja'],
+            'id_user' => Auth::id(), // Associate job with the authenticated user
+        ]);
+
+        return redirect()->route('umkm.pekerjaan.index')->with('success', 'pekerjaan berhasil ditambahkan');
     }
 
+    // Display the specified resource
+    public function show($id)
+    {
+        $pekerjaan = pekerjaan::find($id); // Manually fetch the pekerjaan
+        // dd($pekerjaan); // Dump the pekerjaan data
+
+        return view('umkm.pekerjaan.show', compact('pekerjaan'));
+    }
+
+
+    // Show the form for editing the specified resource
+    public function edit($id)
+    {
+        $pekerjaan = pekerjaan::find($id);
+        if (!$pekerjaan) {
+            abort(404); // Handle not found
+        }
+
+        return view('umkm.pekerjaan.edit', compact('pekerjaan'));
+    }
+
+    // Update the specified resource in storage
     public function update(Request $request, $id)
     {
-        $pekerjaan = Pekerjaan::findOrfail($id);
-        $pekerjaan->update($request->all());
+        $pekerjaan = pekerjaan::find($id);
+        if (!$pekerjaan) {
+            abort(404); // Handle not found
+        }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data pekerjaan berhasil diupdate',
-            'data'    => $pekerjaan
-        ], 200);
+        $pekerjaan->update($request->all());
+        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Pekerjaan updated successfully!');
     }
 
+    // Remove the specified resource from storage
     public function destroy($id)
     {
-        $pekerjaan = Pekerjaan::findOrfail($id);
+        $pekerjaan = pekerjaan::find($id);
+        if (!$pekerjaan) {
+            abort(404); // Handle not found
+        }
+
         $pekerjaan->delete();
-        return response()->json([
-            'success' => true,
-            'message' => 'Data pekerjaan berhasil dihapus',
-            'data'    => $pekerjaan
-        ], 200);
+        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Pekerjaan deleted successfully!');
     }
 }

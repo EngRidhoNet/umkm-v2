@@ -60,7 +60,14 @@ Route::middleware(['auth', RoleMiddleware::class . ':umkm'])->group(function () 
 
 
     // Route untuk Pekerjaan
-    Route::get('/umkm/pekerjaan', [UmkmController::class, 'indexPekerjaan'])->name('umkm.pekerjaan.index');
+    Route::get('/umkm/pekerjaan', [PekerjaanController::class, 'index'])->name('umkm.pekerjaan.index');
+    Route::get('/umkm/pekerjaan/create', [PekerjaanController::class, 'create'])->name('umkm.pekerjaan.create');
+    Route::post('/umkm/pekerjaan', [PekerjaanController::class, 'store'])->name('umkm.pekerjaan.store');
+    Route::get('/umkm/pekerjaan/{id}', [PekerjaanController::class, 'show'])->name('umkm.pekerjaan.show');
+    Route::get('/umkm/pekerjaan/{id}/edit', [PekerjaanController::class, 'edit'])->name('umkm.pekerjaan.edit');
+    Route::put('/umkm/pekerjaan/{id}', [PekerjaanController::class, 'update'])->name('umkm.pekerjaan.update');
+    Route::delete('/umkm/pekerjaan/{id}', [PekerjaanController::class, 'destroy'])->name('umkm.pekerjaan.destroy');
+
 });
 
 // Middleware untuk superadmin

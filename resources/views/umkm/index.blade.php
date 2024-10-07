@@ -11,7 +11,7 @@
                 <div class="col-md-4">
                     <!-- Foto Profil -->
                     <div class="card mb-4">
-                        <img src="" class="card-img-top" alt="Foto Profil UMKM">
+                        <img src="{{ Storage::url('umkm/foto_profil/' . $umkm->foto_profil) }}" class="card-img-top" alt="Foto Profil UMKM">
                         <div class="card-body">
                             <h5 class="card-title"></h5>
                             <p class="card-text"></p>
@@ -22,7 +22,7 @@
                 <div class="col-md-8">
                     <!-- Foto Sampul -->
                     <div class="card mb-4">
-                        <img src="{{ asset('storage/umkm/foto_profil/' . $umkm->foto_sampul) }}" class="card-img-top"
+                        <img src="{{ Storage::url('umkm/foto_sampul/' . $umkm->foto_sampul) }}" class="card-img-top"
                             alt="Foto Sampul UMKM">
                     </div>
 

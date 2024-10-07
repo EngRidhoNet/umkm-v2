@@ -31,11 +31,6 @@ class UmkmController extends Controller
     }
 
     // Menampilkan data pekerjaan
-    public function indexPekerjaan()
-    {
-        $pekerjaan = pekerjaan::all();
-        return view('umkm.pekerjaan.index', compact('pekerjaan'));
-    }
 
     // Method show untuk menampilkan detail UMKM
     public function showUmkm($id)
@@ -164,60 +159,5 @@ class UmkmController extends Controller
     }
 
     // Method untuk menampilkan form create pekerjaan
-    public function createPekerjaan()
-    {
-        return view('umkm.pekerjaan.create');
-    }
 
-    // Method untuk menyimpan data pekerjaan baru
-    public function storePekerjaan(Request $request)
-    {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-        ]);
-
-        pekerjaan::create($request->all());
-
-        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Pekerjaan berhasil dibuat');
-    }
-
-    // Method untuk menampilkan detail pekerjaan
-    public function showPekerjaan($id)
-    {
-        $pekerjaan = pekerjaan::findOrFail($id);
-
-        return view('umkm.pekerjaan.show', compact('pekerjaan'));
-    }
-
-    // Method untuk menampilkan form edit pekerjaan
-    public function editPekerjaan($id)
-    {
-        $pekerjaan = pekerjaan::findOrFail($id);
-
-        return view('umkm.pekerjaan.edit', compact('pekerjaan'));
-    }
-
-    // Method untuk mengupdate pekerjaan
-    public function updatePekerjaan(Request $request, $id)
-    {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-        ]);
-
-        $pekerjaan = pekerjaan::findOrFail($id);
-        $pekerjaan->update($request->all());
-
-        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Pekerjaan berhasil diperbarui');
-    }
-
-    // Method untuk menghapus pekerjaan
-    public function destroyPekerjaan($id)
-    {
-        $pekerjaan = pekerjaan::findOrFail($id);
-        $pekerjaan->delete();
-
-        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Pekerjaan berhasil dihapus');
-    }
 }

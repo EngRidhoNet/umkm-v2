@@ -1,13 +1,13 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between w-100">
         <a href="{{ url('/') }}" class="logo d-flex align-items-center">
-            <img src="{{ asset('assets/img/logoo.png') }}" alt="">
-            <span class="d-none d-lg-block">UMKM</span>
+            <img src="{{ asset('assets/img/logoo.jpg') }}" alt="Logo" style="height: 40px;"> <!-- Set height for better appearance -->
+            <span class="d-none d-lg-block ms-2">UMKM</span> <!-- Added margin for spacing -->
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-flex align-items-center ml-auto" style="margin-right: 20px;">
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-flex align-items-center" style="margin-left: auto;">
             @csrf
-            <button type="submit" class="btn btn-danger">Logout</button>
+            <button type="submit" class="btn btn-danger ms-3" style="margin-right: 20px;">Logout</button> <!-- Added margin for spacing -->
         </form>
     </div>
 </header>

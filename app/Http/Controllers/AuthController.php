@@ -33,6 +33,13 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
+            // Cek apakah user statusnya 'active'
+            if ($user->status !== 'active') {
+                Auth::logout(); // Logout jika status tidak aktif
+                return redirect()->route('login')->with('error', 'Akun anda sedang dalam verifikasi.')->withInput();
+            }
+
+            // Redirect berdasarkan role pengguna
             switch ($user->role) {
                 case 'mahasiswa':
                     return redirect()->route('mahasiswa.dashboard');
@@ -45,7 +52,7 @@ class AuthController extends Controller
                     return redirect()->route('login')->with('error', 'Role tidak dikenali.');
             }
         } else {
-            return redirect()->route('login')->with('error', 'Email atau password salah.');
+            return redirect()->route('login')->with('error', 'Email atau password salah.')->withInput();
         }
     }
 
@@ -195,7 +202,7 @@ class AuthController extends Controller
                 'informasi_bisnis' => $request->informasi_bisnis,
             ]);
 
-            return redirect()->route('login')->with('success', 'UMKM account created successfully');
+            return redirect()->route('login')->with('success', 'Akun anda sedang dalam verifikasi.');
         } catch (\Exception $e) {
             // Log the error
             Log::error('Error in registerumkm: ' . $e->getMessage(), [

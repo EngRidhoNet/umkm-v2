@@ -65,7 +65,7 @@
                         <input type="file" id="foto_profil" name="foto_profil" accept="image/jpeg, image/png"
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
                         @if($umkm->foto_profil)
-                            <img src="{{ asset('storage/' . $umkm->foto_profil) }}" alt="Foto Profil" class="mt-2 w-32 h-32 rounded">
+                            <img src="{{ Storage::url('umkm/foto_profil/' . $umkm->foto_profil) }}" alt="Foto Profil" class="mt-2 w-32 h-32 rounded">
                         @endif
                     </div>
 
@@ -75,7 +75,7 @@
                         <input type="file" id="foto_sampul" name="foto_sampul" accept="image/jpeg, image/png"
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
                         @if($umkm->foto_sampul)
-                            <img src="{{ asset('storage/' . $umkm->foto_sampul) }}" alt="Foto Sampul" class="mt-2 w-full rounded">
+                            <img src="{{ Storage::url('umkm/foto_sampul/' . $umkm->foto_sampul) }}" alt="Foto Sampul" class="mt-2 w-full rounded">
                         @endif
                     </div>
                 </div>
