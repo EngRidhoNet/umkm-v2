@@ -18,7 +18,7 @@
                     <table id="pekerjaanTable" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                {{-- <th>ID</th> --}}
                                 <th>Posisi</th>
                                 <th>Deskripsi</th>
                                 <th>Tanggal</th>
@@ -29,7 +29,7 @@
                         <tbody>
                             @foreach($pekerjaan as $data)
                             <tr>
-                                <td>{{ $data->id }}</td>
+                                {{-- <td>{{ $data->id }}</td> --}}
                                 <td>{{ $data->posisi }}</td>
                                 <td>{{ $data->deskripsi }}</td>
                                 <td>{{ $data->tanggal }}</td>

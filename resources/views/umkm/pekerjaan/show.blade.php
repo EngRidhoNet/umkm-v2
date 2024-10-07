@@ -12,10 +12,10 @@
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
-                        <tr>
+                        {{-- <tr>
                             <th>ID</th>
                             <td>{{ $pekerjaan->id }}</td>
-                        </tr>
+                        </tr> --}}
                         <tr>
                             <th>Posisi</th>
                             <td>{{ $pekerjaan->posisi }}</td>

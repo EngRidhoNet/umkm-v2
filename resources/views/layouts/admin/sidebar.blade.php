@@ -1,7 +1,7 @@
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-            <a class="nav-link " href="{{ url('/') }}">
+            <a class="nav-link " href="{{ route('superadmin.dashboard') }}">
                 <i class="bi bi-house"></i>
                 <span>Dashboard</span>
             </a>
