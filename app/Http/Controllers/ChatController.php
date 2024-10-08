@@ -6,69 +6,36 @@ use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
-    public function index()
+    public function sendMessage(Request $request)
     {
-        $chat = chat::all();
-        return response()->json([
-            'success' => true,
-            'message' => 'Daftar data chat',
-            'data'    => $chat
-        ], 200);
-    }
-
-    public function show($id)
-    {
-        $chat = chat::findOrfail($id);
-        return response()->json([
-            'success' => true,
-            'message' => 'Detail Data chat',
-            'data'    => $chat
-        ], 200);
-    }
-
-    public function store(Request $request)
-    {
-        $chat = chat::create([
-            'id_mahasiswa' => $request->id_mahasiswa,
-            'id_umkm' => $request->id_umkm,
-            'pesan' => $request->pesan,
-            'tanggal' => $request->tanggal,
+        $request->validate([
+            'id_receiver' => 'required|exists:users,id',
+            'pesan' => 'required|string',
         ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data chat berhasil disimpan',
-            'data'    => $chat
-        ], 200);
+        Chat::create([
+            'id_sender' => auth()->user()->id,
+            'id_receiver' => $request->receiver_id,
+            'pesan' => $request->pesan,
+            'tanggal' => now(),
+            'is_read' => false,
+        ]);
+
+        return response()->json(['success' => 'Message sent successfully!']);
     }
 
-    public function update(Request $request, $id)
+    public function getMessages($receiverId)
     {
-        $chat = chat::findOrfail($id);
-        $chat->update($request->all());
+        $messages = Chat::where(function ($query) use ($receiverId) {
+            $query->where('id_sender', auth()->id())
+                ->where('id_receiver', $receiverId);
+        })->orWhere(function ($query) use ($receiverId) {
+            $query->where('id_sender', $receiverId)
+                ->where('id_receiver', auth()->id());
+        })->orderBy('tanggal', 'asc')->get();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data chat berhasil diupdate',
-            'data'    => $chat
-        ], 200);
+        return response()->json($messages);
     }
 
-    public function destroy($id)
-    {
-        $chat = chat::findOrfail($id);
 
-        if($chat){
-            $chat->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'Data chat berhasil dihapus',
-            ], 200);
-        }else{
-            return response()->json([
-                'success' => false,
-                'message' => 'Data chat tidak ditemukan',
-            ], 404);
-        }
-    }
 }

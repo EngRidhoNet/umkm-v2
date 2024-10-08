@@ -46,4 +46,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Chat::class, 'id_sender');
+    }
+
+    // Pesan yang diterima oleh user
+    public function receivedMessages()
+    {
+        return $this->hasMany(Chat::class, 'id_receiver');
+    }
 }

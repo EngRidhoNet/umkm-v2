@@ -47,7 +47,6 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
 Route::middleware(['auth', RoleMiddleware::class . ':umkm'])->group(function () {
     // Route untuk UMKM
     Route::get('/umkm', [UmkmController::class, 'index'])->name('umkm.index');
-
     // Route untuk Artikel
     Route::get('/umkm/artikel', [UmkmController::class, 'indexArtikel'])->name('umkm.artikel.index');
     Route::get('/umkm/artikel/create', [UmkmController::class, 'createArtikel'])->name('umkm.artikel.create');
@@ -56,7 +55,6 @@ Route::middleware(['auth', RoleMiddleware::class . ':umkm'])->group(function () 
     Route::get('/umkm/artikel/{id}/edit', [UmkmController::class, 'editArtikel'])->name('umkm.artikel.edit');
     Route::put('/umkm/artikel/{id}', [UmkmController::class, 'updateArtikel'])->name('umkm.artikel.update');
     Route::delete('/umkm/artikel/{id}', [UmkmController::class, 'destroyArtikel'])->name('umkm.artikel.destroy');
-
     // konsultasi
     Route::get('/umkm/konsultasi', [KonsultasiController::class, 'index'])->name('umkm.konsultasi.index');
     Route::get('/umkm/konsultasi/create', [KonsultasiController::class, 'create'])->name('umkm.konsultasi.create');
@@ -65,11 +63,6 @@ Route::middleware(['auth', RoleMiddleware::class . ':umkm'])->group(function () 
     Route::get('/umkm/konsultasi/{id}/edit', [KonsultasiController::class, 'edit'])->name('umkm.konsultasi.edit');
     Route::put('/umkm/konsultasi/{id}', [KonsultasiController::class, 'update'])->name('umkm.konsultasi.update');
     Route::delete('/umkm/konsultasi/{id}', [KonsultasiController::class, 'destroy'])->name('umkm.konsultasi.destroy');
-
-
-
-
-
     // Route untuk Pekerjaan
     Route::get('/umkm/pekerjaan', [PekerjaanController::class, 'index'])->name('umkm.pekerjaan.index');
     Route::get('/umkm/pekerjaan/create', [PekerjaanController::class, 'create'])->name('umkm.pekerjaan.create');
@@ -110,20 +103,21 @@ Route::middleware(['auth', RoleMiddleware::class . ':superadmin'])->group(functi
     Route::get('/superadmin/konsultasi', [KonsultasiController::class, 'indexall'])->name('superadmin.konsultasi');
     Route::get('/superadmin/konsultasi/{id}', [KonsultasiController::class, 'showadmin'])->name('superadmin.konsultasi.show');
     Route::put('/konsultasi/{id}/jawaban', [KonsultasiController::class, 'updateJawaban'])->name('superadmin.konsultasi.updateJawaban');
-
-
-
 });
-
-
-
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/postlogin', [AuthController::class, 'postlogin']);
 
-
+// beranda
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
+Route::get('/event', function () {
+    return view('event');
+})->name('event');
+Route::get('/umkm', function () {
+    return view('umkm');
+})->name('umkm');
+
 
 Route::get('/register', function () {
     return view('auth.register');
@@ -140,3 +134,4 @@ Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin
 Route::post('/postregister', [AuthController::class, 'postregister'])->name('postregister');
 Route::post('/registermahasiswa', [AuthController::class, 'registermahasiswa'])->name('registermahasiswa');
 Route::post('/registerumkm', [AuthController::class, 'registerumkm'])->name('umkmregister');
+
