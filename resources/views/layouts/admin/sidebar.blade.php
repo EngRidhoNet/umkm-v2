@@ -13,7 +13,7 @@
                 <i class="bi bi-shop"></i>
                 <span>Umkm</span>
             </a>
-            <a class="nav-link " href="{{ url('/') }}">
+            <a class="nav-link " href="{{ route('superadmin.konsultasi') }}">
                 <i class="bi bi-briefcase"></i>
                 <span>Konsultasi Bisnis</span>
             </a>

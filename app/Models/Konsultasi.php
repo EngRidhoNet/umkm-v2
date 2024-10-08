@@ -19,6 +19,7 @@ class Konsultasi extends Model
         'email',
         'alamat',
         'provinsi',
+        'no_identitas',
         'kota',
         'detail_kendala_bisnis',
         'kendala_bisnis',

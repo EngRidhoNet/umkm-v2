@@ -179,61 +179,85 @@
     </div>
 </body>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const provinsiSelect = document.getElementById('provinsi');
-        const kotaSelect = document.getElementById('kota');
-        const kecamatanSelect = document.getElementById('kecamatan');
+        document.addEventListener('DOMContentLoaded', function() {
+            const provinsiSelect = document.getElementById('provinsi');
+            const kotaSelect = document.getElementById('kota');
+            const kecamatanSelect = document.getElementById('kecamatan');
 
-        // Load provinces
-        fetch('/api/provinces')
-            .then(response => response.json())
-            .then(data => {
-                provinsiSelect.innerHTML = '<option value="">Pilih Provinsi</option>';
-                data.forEach(province => {
-                    provinsiSelect.innerHTML +=
-                        `<option value="${province.id}">${province.name}</option>`;
+            let selectedProvinceName = ''; // Variable to store the selected province name
+            let selectedKotaName = ''; // Variable to store the selected city name
+            let selectedKecamatanName = ''; // Variable to store the selected district name
+
+            // Load provinces
+            fetch('/api/provinces')
+                .then(response => response.json())
+                .then(data => {
+                    provinsiSelect.innerHTML = '<option value="">Pilih Provinsi</option>';
+                    data.forEach(province => {
+                        provinsiSelect.innerHTML +=
+                            `<option value="${province.name}" data-id="${province.id}">${province.name}</option>`;
+                    });
                 });
+
+            // Load cities (regencies) based on selected province
+            provinsiSelect.addEventListener('change', function() {
+                const provinceId = provinsiSelect.options[provinsiSelect.selectedIndex].getAttribute(
+                    'data-id');
+                selectedProvinceName = this.value; // Store selected province name
+                if (provinceId) {
+                    fetch(`/api/regencies/${provinceId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            kotaSelect.innerHTML = '<option value="">Pilih Kota</option>';
+                            data.forEach(regency => {
+                                kotaSelect.innerHTML +=
+                                    `<option value="${regency.name}" data-id="${regency.id}">${regency.name}</option>`;
+                            });
+                            kecamatanSelect.innerHTML =
+                                '<option value="">Pilih Kecamatan</option>'; // Reset kecamatan
+                        });
+                } else {
+                    kotaSelect.innerHTML = '<option value="">Pilih Kota</option>';
+                    kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+                }
             });
 
-        // Load cities (regencies) based on selected province
-        provinsiSelect.addEventListener('change', function() {
-            const provinceId = this.value;
-            if (provinceId) {
-                fetch(`/api/regencies/${provinceId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        kotaSelect.innerHTML = '<option value="">Pilih Kota</option>';
-                        data.forEach(regency => {
-                            kotaSelect.innerHTML +=
-                                `<option value="${regency.id}">${regency.name}</option>`;
+            // Load districts based on selected city (regency)
+            kotaSelect.addEventListener('change', function() {
+                const regencyId = kotaSelect.options[kotaSelect.selectedIndex].getAttribute('data-id');
+                selectedKotaName = this.value; // Store selected city name
+                if (regencyId) {
+                    fetch(`/api/districts/${regencyId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+                            data.forEach(district => {
+                                kecamatanSelect.innerHTML +=
+                                    `<option value="${district.name}" data-id="${district.id}">${district.name}</option>`;
+                            });
                         });
-                        kecamatanSelect.innerHTML =
-                            '<option value="">Pilih Kecamatan</option>'; // Reset kecamatan
-                    });
-            } else {
-                kotaSelect.innerHTML = '<option value="">Pilih Kota</option>';
-                kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
-            }
-        });
+                } else {
+                    kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+                }
+            });
 
-        // Load districts based on selected city (regency)
-        kotaSelect.addEventListener('change', function() {
-            const regencyId = this.value;
-            if (regencyId) {
-                fetch(`/api/districts/${regencyId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
-                        data.forEach(district => {
-                            kecamatanSelect.innerHTML +=
-                                `<option value="${district.id}">${district.name}</option>`;
-                        });
-                    });
-            } else {
-                kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
-            }
+            // Store selected district name
+            kecamatanSelect.addEventListener('change', function() {
+                selectedKecamatanName = this.value;
+            });
+
+            // Assuming you have a form submission or some event where you send the data
+            document.getElementById('submit-button').addEventListener('click', function() {
+                const formData = {
+                    province_name: selectedProvinceName,
+                    city_name: selectedKotaName,
+                    district_name: selectedKecamatanName
+                };
+
+                // Now you can send formData to your server via fetch or AJAX
+                console.log(formData); // This is where you'd actually send the data to your server
+            });
         });
-    });
-</script>
+    </script>
 
 </html>
