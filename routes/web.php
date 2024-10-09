@@ -34,13 +34,16 @@ Route::get('/api/districts/{regency_id}', function ($regency_id) {
     return collect($data)->where('regency_id', $regency_id)->values();
 });
 
-
-
 // Middleware untuk mahasiswa
 Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(function () {
     Route::get('/mahasiswa', function () {
         return view('mahasiswa.index');
     })->name('mahasiswa.dashboard');
+
+
+    // Route::get('/chatify')->name('mahasiswa.chat');
+
+
 });
 
 // Middleware untuk umkm
@@ -71,7 +74,9 @@ Route::middleware(['auth', RoleMiddleware::class . ':umkm'])->group(function () 
     Route::get('/umkm/pekerjaan/{id}/edit', [PekerjaanController::class, 'edit'])->name('umkm.pekerjaan.edit');
     Route::put('/umkm/pekerjaan/{id}', [PekerjaanController::class, 'update'])->name('umkm.pekerjaan.update');
     Route::delete('/umkm/pekerjaan/{id}', [PekerjaanController::class, 'destroy'])->name('umkm.pekerjaan.destroy');
-
+    Route::get('/umkm/chat', function () {
+        return redirect()->route(config('chatify.routes.prefix'));  // Redirects to /
+    })->name('umkm.chat');
 });
 
 // Middleware untuk superadmin
@@ -103,6 +108,10 @@ Route::middleware(['auth', RoleMiddleware::class . ':superadmin'])->group(functi
     Route::get('/superadmin/konsultasi', [KonsultasiController::class, 'indexall'])->name('superadmin.konsultasi');
     Route::get('/superadmin/konsultasi/{id}', [KonsultasiController::class, 'showadmin'])->name('superadmin.konsultasi.show');
     Route::put('/konsultasi/{id}/jawaban', [KonsultasiController::class, 'updateJawaban'])->name('superadmin.konsultasi.updateJawaban');
+
+    Route::get('/superadmin/chat', function () {
+        return redirect()->route(config('chatify.routes.prefix'));  // Redirects to /
+    })->name('superadmin.chat');
 });
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/postlogin', [AuthController::class, 'postlogin']);
@@ -114,7 +123,7 @@ Route::get('/', function () {
 Route::get('/event', function () {
     return view('event');
 })->name('event');
-Route::get('/umkm', function () {
+Route::get('/index/umkm', function () {
     return view('umkm');
 })->name('umkm');
 
@@ -134,4 +143,9 @@ Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin
 Route::post('/postregister', [AuthController::class, 'postregister'])->name('postregister');
 Route::post('/registermahasiswa', [AuthController::class, 'registermahasiswa'])->name('registermahasiswa');
 Route::post('/registerumkm', [AuthController::class, 'registerumkm'])->name('umkmregister');
+
+
+// // Route untuk chat
+// Route::post('/send-message', [ChatController::class, 'sendMessage']);
+// Route::get('/fetch-messages/{id_receiver}', [ChatController::class, 'fetchMessages']);
 

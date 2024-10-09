@@ -158,6 +158,9 @@ class UmkmController extends Controller
         return redirect()->route('umkm.artikel.index')->with('success', 'Artikel berhasil dihapus');
     }
 
-    // Method untuk menampilkan form create pekerjaan
+
+    public function chat(){
+        return view('umkm.chat.chat');
+    }
 
 }

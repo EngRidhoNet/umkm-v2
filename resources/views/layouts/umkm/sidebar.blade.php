@@ -19,7 +19,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/') }}">
+            <a class="nav-link" href="{{ route('umkm.chat') }}">
                 <i class="bi bi-chat-dots"></i> <!-- Chat icon -->
                 <span>Chat</span>
             </a>

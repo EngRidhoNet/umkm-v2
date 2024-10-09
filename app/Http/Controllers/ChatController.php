@@ -2,40 +2,52 @@
 
 namespace App\Http\Controllers;
 use App\Models\chat;
+use App\Events\MessageSent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
     public function sendMessage(Request $request)
     {
+        // Validasi input
         $request->validate([
             'id_receiver' => 'required|exists:users,id',
-            'pesan' => 'required|string',
+            'message' => 'required|string',
         ]);
 
-        Chat::create([
-            'id_sender' => auth()->user()->id,
-            'id_receiver' => $request->receiver_id,
-            'pesan' => $request->pesan,
+        // Simpan pesan ke database
+        $chat = Chat::create([
+            'id_sender' => Auth::id(),
+            'id_receiver' => $request->id_receiver,
+            'pesan' => $request->message,
             'tanggal' => now(),
             'is_read' => false,
         ]);
 
-        return response()->json(['success' => 'Message sent successfully!']);
+        // Broadcast pesan dengan event
+        broadcast(new MessageSent($chat))->toOthers();
+
+        return response()->json(['status' => 'Message Sent!']);
     }
 
-    public function getMessages($receiverId)
+    public function fetchMessages($id_receiver)
     {
-        $messages = Chat::where(function ($query) use ($receiverId) {
-            $query->where('id_sender', auth()->id())
-                ->where('id_receiver', $receiverId);
-        })->orWhere(function ($query) use ($receiverId) {
-            $query->where('id_sender', $receiverId)
-                ->where('id_receiver', auth()->id());
-        })->orderBy('tanggal', 'asc')->get();
+        // Ambil pesan antara pengguna yang login dan penerima (receiver)
+        $messages = Chat::where(function ($query) use ($id_receiver) {
+            $query->where('id_sender', Auth::id())
+                ->where('id_receiver', $id_receiver);
+        })->orWhere(function ($query) use ($id_receiver) {
+            $query->where('id_sender', $id_receiver)
+                ->where('id_receiver', Auth::id());
+        })->get();
 
         return response()->json($messages);
     }
 
+    public function showChat($receiverId)
+    {
+        return view('chat', ['receiverId' => $receiverId]);
+    }
 
 }

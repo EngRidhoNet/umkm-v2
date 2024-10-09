@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('id_receiver')->references('id')->on('users');
             $table->string('pesan')->nullable();
             $table->datetime('tanggal');
-            $table->boolean('is_read');
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }

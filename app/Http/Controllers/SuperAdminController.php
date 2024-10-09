@@ -18,6 +18,10 @@ class SuperAdminController extends Controller
         return view('superadmin.mahasiswa.index', compact('mahasiswa'));
     }
 
+    public function chat(){
+        return view('superadmin.chat.chat');
+    }
+
     public function createMahasiswa()
     {
         return view('superadmin.mahasiswa.create');
