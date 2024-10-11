@@ -14,6 +14,7 @@ use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PekerjaanController;
@@ -36,14 +37,13 @@ Route::get('/api/districts/{regency_id}', function ($regency_id) {
 
 // Middleware untuk mahasiswa
 Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(function () {
-    Route::get('/mahasiswa', function () {
-        return view('mahasiswa.index');
-    })->name('mahasiswa.dashboard');
+    Route::get('/mahasiswa', [IndexController::class, 'getDataUmkm'])->name('mahasiswa.dashboard');
 
+    Route::get('/mahasiswa/chat', function () {
+        return redirect()->route(config('chatify.routes.prefix'));  // Redirects to /
+    })->name('mahasiswa.chat');
 
-    // Route::get('/chatify')->name('mahasiswa.chat');
-
-
+    Route::post('/apply/store', [ApplyController::class, 'store'])->name('apply.store');
 });
 
 // Middleware untuk umkm
@@ -77,6 +77,11 @@ Route::middleware(['auth', RoleMiddleware::class . ':umkm'])->group(function () 
     Route::get('/umkm/chat', function () {
         return redirect()->route(config('chatify.routes.prefix'));  // Redirects to /
     })->name('umkm.chat');
+
+
+    // Route untuk Apply
+    Route::get('/umkm/lamaran', [ApplyController::class, 'index'])->name('lamaran.index');
+    Route::post('/umkm/lamaran/update-status', [ApplyController::class, 'updateStatus'])->name('lamaran.updateStatus');
 });
 
 // Middleware untuk superadmin
@@ -117,17 +122,18 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/postlogin', [AuthController::class, 'postlogin']);
 
 // beranda
-Route::get('/', function () {
-    return view('index');
-})->name('index');
-Route::get('/event', function () {
-    return view('event');
-})->name('event');
+Route::get('/', [IndexController::class,'getDataUmkm'])->name('index');
+Route::get('/event', [IndexController::class, 'getDataEvent'])->name('event');
 Route::get('/index/umkm', function () {
     return view('umkm');
 })->name('umkm');
+Route::get('/mahasiswa/pekerjaan', [IndexController::class, 'getDataProject'])->name('mahasiswa.pekerjaan');
+Route::get('/mahasiswa/profile', [IndexController::class, 'getDataProfilMahasiswa'])->name('mahasiswa.profile');
+Route::get('/mahasiswa/pekerjaan/{category}', [IndexController::class, 'getDataProjectByCategory'])->name('mahasiswa.pekerjaan.category');
+Route::get('/mahasiswa/pekerjaan/show/{id}', [IndexController::class, 'showProject'])->name('mahasiswa.pekerjaan.show');
 
 
+// AUTH
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');

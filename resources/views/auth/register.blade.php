@@ -6,7 +6,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="bg-gradient-to-r from-blue-200 via-blue-300 to-blue-500 text-blue-900">
+<body class="bg-gradient-to-r from-[#0DBDE5] to-[#2DB08B] text-blue-900">
     <div class="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
         <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
             <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
@@ -34,7 +34,7 @@
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
                         </div>
-                        < <div class="w-full pt-4">
+                        <div class="w-full pt-4">
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                             <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('email') border-red-500 @enderror" placeholder="name@company.com" required>
                             @error('email')

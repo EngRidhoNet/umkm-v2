@@ -26,12 +26,12 @@
                             <h5 class="mb-3">{{ $umkm->nama_umkm }}</h5>
                         </div>
 
-                        <!-- Foto Sampul -->
+                        {{-- <!-- Foto Sampul -->
                         <div class="col-md-8">
                             <div class="card mb-3">
                                 <img src="{{ asset('storage/umkm/foto_sampul/' . $umkm->foto_sampul) }}" alt="Foto Sampul" class="img-fluid rounded">
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="row mt-4">

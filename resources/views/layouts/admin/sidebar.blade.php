@@ -1,32 +1,52 @@
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-            <a class="nav-link " href="{{ route('superadmin.dashboard') }}">
+            <a class="nav-link {{ Request::routeIs('superadmin.dashboard') ? 'active' : '' }}" href="{{ route('superadmin.dashboard') }}">
                 <i class="bi bi-house"></i>
                 <span>Dashboard</span>
             </a>
-            <a class="nav-link " href="{{ route('superadmin.mahasiswa') }}">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Request::routeIs('superadmin.mahasiswa') ? 'active' : '' }}" href="{{ route('superadmin.mahasiswa') }}">
                 <i class="bi bi-person"></i>
                 <span>Mahasiswa</span>
             </a>
-            <a class="nav-link " href="{{ route('superadmin.umkm') }}">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Request::routeIs('superadmin.umkm') ? 'active' : '' }}" href="{{ route('superadmin.umkm') }}">
                 <i class="bi bi-shop"></i>
                 <span>Umkm</span>
             </a>
-
-            <a class="nav-link" href="{{ route('superadmin.chat') }}">
-                <i class="bi bi-chat-dots"></i> <!-- Chat icon -->
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Request::routeIs('superadmin.chat') ? 'active' : '' }}" href="{{ route('superadmin.chat') }}">
+                <i class="bi bi-chat-dots"></i>
                 <span>Chat</span>
             </a>
-
-            <a class="nav-link " href="{{ route('superadmin.konsultasi') }}">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Request::routeIs('superadmin.konsultasi') ? 'active' : '' }}" href="{{ route('superadmin.konsultasi') }}">
                 <i class="bi bi-briefcase"></i>
                 <span>Konsultasi Bisnis</span>
             </a>
-            <a class="nav-link " href="{{ route('superadmin.verifikasi') }}">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Request::routeIs('superadmin.verifikasi') ? 'active' : '' }}" href="{{ route('superadmin.verifikasi') }}">
                 <i class="bi bi-patch-check"></i>
                 <span>Verifikasi UMKM</span>
             </a>
         </li>
     </ul>
 </aside>
+<style>
+    .nav-link.active {
+        background-color: #007bff; /* Change to your desired color */
+        color: white;
+        border-radius: 5px; /* Add rounded corners */
+        font-weight: bold; /* Make the text bold */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    }
+    .nav-link.active i {
+        color: white; /* Ensure icon color matches text color */
+    }
+</style>

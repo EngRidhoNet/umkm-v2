@@ -1,30 +1,23 @@
 <?php
-
 namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class apply extends Model
 {
     use HasFactory;
-
     protected $table = 'table_apply';
-
     protected $fillable = [
         'id_user',
-        'id_artikel',
+        'id_project',
         'status',
         'dokumen'
     ];
-
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
-
-    public function artikel()
+    public function project()
     {
-        return $this->belongsTo(artikel::class, 'id_artikel', 'id');
+        return $this->belongsTo(pekerjaan::class, 'id_project', 'id');
     }
 }

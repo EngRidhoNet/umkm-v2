@@ -16,7 +16,6 @@ class UmkmController extends Controller
     {
         // Mendapatkan id user yang sedang login
         $userId = Auth::id();
-
         // Mengambil data UMKM berdasarkan id user yang login
         $umkm = umkm::where('id_user', $userId)->first();
 

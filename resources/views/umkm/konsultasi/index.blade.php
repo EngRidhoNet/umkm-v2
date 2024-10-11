@@ -73,7 +73,7 @@
                                         <!-- Step 2: Detail Identitas -->
                                         <div class="tab-pane fade" id="step2" role="tabpanel"
                                             aria-labelledby="step2-tab">
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <label for="tipe_identitas" class="form-label">Tipe Identitas</label>
                                                 <select name="tipe_identitas" class="form-select">
                                                     <option value="NIK">NIK</option>
@@ -85,7 +85,7 @@
                                             <div class="mb-3">
                                                 <label for="no_identitas" class="form-label">Nomor Identitas</label>
                                                 <input type="number" name="no_identitas" class="form-control" required>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
@@ -97,7 +97,7 @@
                                                 <input type="text" name="alamat" class="form-control" required>
                                             </div>
 
-                                            <div class="row">
+                                            {{-- <div class="row">
                                                 <div class="col-md-6 mb-3">
                                                     <label for="provinsi" class="form-label">Provinsi</label>
                                                     <select name="provinsi" id="provinsi" class="form-control" required>
@@ -114,7 +114,7 @@
                                                     </select>
                                                 </div>
 
-                                            </div>
+                                            </div> --}}
 
                                             <button type="button" class="btn btn-secondary prev-step">Previous</button>
                                             <button type="button" class="btn btn-primary next-step">Next</button>

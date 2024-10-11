@@ -17,10 +17,16 @@ class pekerjaan extends Model
         'deskripsi',
         'tempat_bekerja',
         'tanggal',
+        'kategori'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function apply()
+    {
+        return $this->hasMany(apply::class, 'id_project', 'id');
     }
 }

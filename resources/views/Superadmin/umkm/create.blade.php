@@ -46,12 +46,12 @@
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
                     </div>
 
-                    <!-- Kategori -->
+                    {{-- <!-- Kategori -->
                     <div class="flex flex-col">
                         <label for="kategori" class="text-gray-700 font-bold">Kategori</label>
                         <input type="text" id="kategori" name="kategori" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
-                    </div>
+                    </div> --}}
                 </div>
 
                 <!-- Section 3: Foto -->
@@ -61,32 +61,32 @@
                     <!-- Foto Profil -->
                     <div class="flex flex-col">
                         <label for="foto_profil" class="text-gray-700 font-bold">Foto Profil</label>
-                        <input type="file" id="foto_profil" name="foto_profil" accept="image/jpeg, image/png" required
+                        <input type="file" id="foto_profil" name="foto_profil" accept="image/jpeg, image/png"
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
 
-                    <!-- Foto Sampul -->
+                    {{-- <!-- Foto Sampul -->
                     <div class="flex flex-col">
                         <label for="foto_sampul" class="text-gray-700 font-bold">Foto Sampul</label>
                         <input type="file" id="foto_sampul" name="foto_sampul" accept="image/jpeg, image/png" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
-                    </div>
+                    </div> --}}
                 </div>
 
                 <!-- Section 4: Informasi Lokasi -->
                 <div class="space-y-4">
                     <h3 class="text-xl font-bold text-gray-700 bg-blue-100 p-2 rounded">Informasi Lokasi</h3>
                     <!-- Provinsi -->
-                    <div class="flex flex-col">
+                    {{-- <div class="flex flex-col">
                         <label for="provinsi" class="text-gray-700 font-bold">Provinsi</label>
                         <select id="provinsi" name="provinsi" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
                             <option value="">Pilih Provinsi</option>
 
                         </select>
-                    </div>
+                    </div> --}}
 
-                    <!-- Kota -->
+                    {{-- <!-- Kota -->
                     <div class="flex flex-col">
                         <label for="kota" class="text-gray-700 font-bold">Kota</label>
                         <select id="kota" name="kota" required
@@ -95,9 +95,9 @@
 
                             <!-- Add more options as needed -->
                         </select>
-                    </div>
+                    </div> --}}
 
-                    <!-- Kecamatan -->
+                    {{-- <!-- Kecamatan -->
                     <div class="flex flex-col">
                         <label for="kecamatan" class="text-gray-700 font-bold">Kecamatan</label>
                         <select id="kecamatan" name="kecamatan" required
@@ -105,13 +105,13 @@
                             <option value="">Pilih Kecamatan</option>
                             <!-- Add more options as needed -->
                         </select>
-                    </div>
+                    </div> --}}
                     <!-- Kode Pos -->
-                    <div class="flex flex-col">
+                    {{-- <div class="flex flex-col">
                         <label for="kode_pos" class="text-gray-700 font-bold">Kode Pos</label>
                         <input type="text" id="kode_pos" name="kode_pos" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
-                    </div>
+                    </div> --}}
 
                     <!-- Alamat -->
                     <div class="flex flex-col">
@@ -131,13 +131,13 @@
                         <textarea id="informasi_pemilik" name="informasi_pemilik" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
                     </div>
-
+{{--
                     <!-- Informasi Bisnis -->
                     <div class="flex flex-col">
                         <label for="informasi_bisnis" class="text-gray-700 font-bold">Informasi Bisnis</label>
                         <textarea id="informasi_bisnis" name="informasi_bisnis" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <!-- Submit Button -->

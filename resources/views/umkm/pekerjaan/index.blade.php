@@ -23,6 +23,7 @@
                                 <th>Deskripsi</th>
                                 <th>Tanggal</th>
                                 <th>Tempat Bekerja</th>
+                                <th>Kategori</th>
                                 <th>Aksi</th> <!-- Action Column -->
                             </tr>
                         </thead>
@@ -34,6 +35,7 @@
                                 <td>{{ $data->deskripsi }}</td>
                                 <td>{{ $data->tanggal }}</td>
                                 <td>{{ $data->tempat_bekerja }}</td>
+                                <td>{{ $data->kategori }}</td>
                                 <td>
                                     <!-- Action buttons -->
                                     <a href="{{ route('umkm.pekerjaan.show', $data->id) }}" class="btn btn-info btn-sm">

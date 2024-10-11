@@ -20,11 +20,11 @@
                 </div>
 
                 <div class="col-md-8">
-                    <!-- Foto Sampul -->
+                    {{-- <!-- Foto Sampul -->
                     <div class="card mb-4">
                         <img src="{{ Storage::url('umkm/foto_sampul/' . $umkm->foto_sampul) }}" class="card-img-top"
                             alt="Foto Sampul UMKM">
-                    </div>
+                    </div> --}}
 
 
                     <!-- Informasi UMKM -->

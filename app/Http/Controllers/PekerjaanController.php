@@ -25,11 +25,13 @@ class PekerjaanController extends Controller
     // Store a newly created resource in storage
     public function store(Request $request)
     {
+        // dd($request);
         $validatedData = $request->validate([
             'posisi' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
             'tempat_bekerja' => 'required|string|max:255',
+            'kategori' => 'required',
         ]);
 
         // Create a new job for the authenticated user
@@ -39,6 +41,7 @@ class PekerjaanController extends Controller
             'tanggal' => $validatedData['tanggal'],
             'tempat_bekerja' => $validatedData['tempat_bekerja'],
             'id_user' => Auth::id(), // Associate job with the authenticated user
+            'kategori' => $request->kategori,
         ]);
 
         return redirect()->route('umkm.pekerjaan.index')->with('success', 'pekerjaan berhasil ditambahkan');

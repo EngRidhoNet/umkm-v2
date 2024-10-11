@@ -218,34 +218,31 @@ class SuperAdminController extends Controller
                 'nama_umkm' => 'required|string|max:255',
                 'deskripsi' => 'required|string',
                 'alamat' => 'required|string',
-                'kategori' => 'required|string',
-                'foto_profil' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-                'foto_sampul' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-                'provinsi' => 'required|string',
-                'kota' => 'required|string',
-                'kecamatan' => 'required|string',
-                'kode_pos' => 'required|string',
+                'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Foto Profil is optional
                 'informasi_pemilik' => 'required|string',
-                'informasi_bisnis' => 'required|string',
             ]);
 
             if ($validator->fails()) {
                 return back()->withErrors($validator)->withInput();
             }
 
-            // Store the profile and cover photos
-
-            $fotoProfil = $request->file('foto_profil')->store('umkm/foto_profil', 'public');
-            $fotoSampul = $request->file('foto_sampul')->store('umkm/foto_sampul', 'public');
-            function renameFile($file, $prefix)
+            // Function to rename file and store it
+            function renameAndStoreFile($file, $folder, $prefix)
             {
+                // Generate a new file name
                 $extension = $file->getClientOriginalExtension();
                 $newFileName = $prefix . '_' . time() . '.' . $extension;
+
+                // Store the file with the new name
+                $file->storeAs($folder, $newFileName, 'public');
+
                 return $newFileName;
             }
 
-            $fotoProfil = renameFile($request->file('foto_profil'), 'profil');
-            $fotoSampul = renameFile($request->file('foto_sampul'), 'sampul');
+            // Handle optional profile photo upload
+            $fotoProfil = $request->hasFile('foto_profil')
+            ? renameAndStoreFile($request->file('foto_profil'), 'umkm/foto_profil', 'profil')
+            : null; // Foto Profil is optional
 
             // Create User
             $user = User::create([
@@ -253,6 +250,7 @@ class SuperAdminController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => 'umkm',
+                'status' => 'active',
             ]);
 
             // Create UMKM profile linked to the User
@@ -261,16 +259,8 @@ class SuperAdminController extends Controller
                 'nama_umkm' => $request->nama_umkm,
                 'deskripsi' => $request->deskripsi,
                 'alamat' => $request->alamat,
-                'kategori' => $request->kategori,
-                'foto_profil' => $fotoProfil,
-                'foto_sampul' => $fotoSampul,
-                'provinsi' => $request->provinsi,
-                'kota' => $request->kota,
-                'kecamatan' => $request->kecamatan,
-                'kode_pos' => $request->kode_pos,
-                'alamat' => $request->alamat,
+                'foto_profil' => $fotoProfil, // Can be null if not uploaded
                 'informasi_pemilik' => $request->informasi_pemilik,
-                'informasi_bisnis' => $request->informasi_bisnis,
             ]);
 
             return redirect()->route('superadmin.umkm')->with('success', 'UMKM account created successfully');
