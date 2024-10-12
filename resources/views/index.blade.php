@@ -14,7 +14,7 @@
                             Dengan POSUMKM, mahasiswa dapat menerapkan pengetahuan akademis
                             mereka dalam konteks dunia industri, sekaligus memberikan kontribusi nyata
                             dalam pengembangan UMKM lokal.</p>
-                        <p><a href="" class="btn btn-secondary me-2">Apply Lowongan</a><a href="#"
+                        <p><a href="{{ route('mahasiswa.pekerjaan') }}" class="btn btn-secondary me-2">Apply Lowongan</a><a href="#"
                                 class="btn btn-grey-outline" style="color: white">Berita</a></p>
                     </div>
                 </div>
@@ -129,10 +129,9 @@
                 <div class="row">
                     <!-- Start Column 1 -->
                     <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
-                        <h2 class="mb-4 section-title">Temukan UMKM Di Sekitar Malang Raya.</h2>
-                        <p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit.
-                            Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
-                        <p><a href="shop.html" class="btn">Explore</a></p>
+                        <h2 class="mb-4 section-title">Temukan Project dengan mudah</h2>
+                        <p class="mb-4">Temukan berbagai proyek yang sesuai dengan minat dan keahlian Anda dengan mudah. Kami menyediakan platform yang memudahkan kolaborasi dan memberikan akses ke peluang terbaik. Mulai eksplorasi Anda sekarang dan wujudkan ide menjadi kenyataan.</p>
+                        <p><a href="{{ route('mahasiswa.pekerjaan') }}" class="btn">Explore</a></p>
                     </div>
                     <!-- End Column 1 -->
 
