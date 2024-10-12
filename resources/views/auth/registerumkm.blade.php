@@ -106,8 +106,10 @@
                         <div class="w-full pt-4">
                             <!-- Submit Button -->
                             <button type="submit"
-                                class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 border border-gray-300">Daftar
-                                UMKM</button>
+                                class="w-full text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-600 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 border border-gray-300">
+                                Daftar UMKM
+                            </button>
+
                         </div>
 
                         <div class="w-full pt-4">
