@@ -2,14 +2,15 @@
 
 <body>
     <div class="py-5 my-auto" style="background: linear-gradient(to right, #0DBDE5, #2DB08B)">
-        <div class="container py-5 my-auto"
-            style="min-height: 10vh; display: flex; flex-direction: column; justify-content: center;">
-            <!-- Baris pertama dengan 5 kartu -->
-            <div class="row justify-content-center text-center"> <!-- Tambahkan justify-content-center -->
-                <!-- Kartu 1: Animasi dari kiri -->
-                <div class="col-md-2 animate-from-left">
-                    <a href="{{ route('mahasiswa.pekerjaan.category', 'Agrikultur') }}">
-                    <div class="card shadow-sm p-3 mb-5 bg-white rounded-lg" style="height: 150px; border-radius: 10px;">
+    <div class="container py-5 my-auto"
+        style="min-height: 10vh; display: flex; flex-direction: column; justify-content: center;">
+
+        <!-- Baris pertama dengan 5 kartu -->
+        <div class="row justify-content-center text-center">
+            <!-- Kartu 1 -->
+            <div class="col-6 col-sm-4 col-md-2 animate-from-left mb-4">
+                <a href="{{ route('mahasiswa.pekerjaan.category', 'Agrikultur') }}">
+                    <div class="card shadow-sm p-3 bg-white rounded-lg h-100" style="border-radius: 10px;">
                         <div>
                             <img src="{{ asset('images/agrikultur.png') }}" class="card-img-top mx-auto"
                                 alt="Galeri UMKM" style="width: 50%;">
@@ -18,141 +19,141 @@
                             </div>
                         </div>
                     </div>
-                    </a>
-                </div>
-                <!-- Kartu 2: Animasi dari kanan -->
-                <div class="col-md-2 animate-from-right">
-                     <a href="{{ route('mahasiswa.pekerjaan.category', 'Akuntansi') }}">
-                    <div class="card shadow-sm p-3 mb-5 bg-white rounded-lg"
-                        style="height: 150px; border-radius: 10px;">
+                </a>
+            </div>
+
+            <!-- Kartu 2 -->
+            <div class="col-6 col-sm-4 col-md-2 animate-from-right mb-4">
+                <a href="{{ route('mahasiswa.pekerjaan.category', 'Akuntansi') }}">
+                    <div class="card shadow-sm p-3 bg-white rounded-lg h-100">
                         <img src="{{ asset('images/akuntansi.png') }}" class="card-img-top mx-auto"
                             alt="Konsultasi UMKM" style="width: 50%;">
                         <div class="card-body">
                             <h5 class="card-title" style="font-size: 14px;">Akuntansi</h5>
                         </div>
                     </div>
-                    </a>
-                </div>
-                <!-- Kartu 3: Animasi dari kiri -->
-                <div class="col-md-2 animate-from-left">
-                     <a href="{{ route('mahasiswa.pekerjaan.category', 'Edukasi') }}">
-                    <div class="card shadow-sm p-3 mb-5 bg-white rounded-lg"
-                        style="height: 150px; border-radius: 10px;">
-                        <img src="{{ asset('images/edukasi.png') }}" class="card-img-top mx-auto" alt="Informasi Bisnis"
-                            style="width: 50%;">
+                </a>
+            </div>
+
+            <!-- Kartu 3 -->
+            <div class="col-6 col-sm-4 col-md-2 animate-from-left mb-4">
+                <a href="{{ route('mahasiswa.pekerjaan.category', 'Edukasi') }}">
+                    <div class="card shadow-sm p-3 bg-white rounded-lg h-100">
+                        <img src="{{ asset('images/edukasi.png') }}" class="card-img-top mx-auto"
+                            alt="Informasi Bisnis" style="width: 50%;">
                         <div class="card-body">
                             <h5 class="card-title" style="font-size: 14px;">Edukasi</h5>
                         </div>
                     </div>
-                    </a>
-                </div>
-                <!-- Kartu 4: Animasi dari kanan -->
-                <div class="col-md-2 animate-from-right">
-                     <a href="{{ route('mahasiswa.pekerjaan.category', 'Finance') }}">
-                    <div class="card shadow-sm p-3 mb-5 bg-white rounded-lg"
-                        style="height: 150px; border-radius: 10px;">
+                </a>
+            </div>
+
+            <!-- Kartu 4 -->
+            <div class="col-6 col-sm-4 col-md-2 animate-from-right mb-4">
+                <a href="{{ route('mahasiswa.pekerjaan.category', 'Finance') }}">
+                    <div class="card shadow-sm p-3 bg-white rounded-lg h-100">
                         <img src="{{ asset('images/finance.png') }}" class="card-img-top mx-auto" alt="Chat"
                             style="width: 50%;">
                         <div class="card-body">
                             <h5 class="card-title" style="font-size: 14px;">Finance</h5>
                         </div>
                     </div>
-                    </a>
-                </div>
-                <!-- Kartu 5: Animasi dari kiri -->
-                <div class="col-md-2 animate-from-left">
-                     <a href="{{ route('mahasiswa.pekerjaan.category', 'Teknologi') }}">
-                    <div class="card shadow-sm p-3 mb-5 bg-white rounded-lg"
-                        style="height: 150px; border-radius: 10px;">
+                </a>
+            </div>
+
+            <!-- Kartu 5 -->
+            <div class="col-6 col-sm-4 col-md-2 animate-from-left mb-4">
+                <a href="{{ route('mahasiswa.pekerjaan.category', 'Teknologi') }}">
+                    <div class="card shadow-sm p-3 bg-white rounded-lg h-100">
                         <img src="{{ asset('images/tekonolgi.png') }}" class="card-img-top mx-auto" alt="Blog"
                             style="width: 50%;">
                         <div class="card-body">
                             <h5 class="card-title" style="font-size: 14px;">Teknologi</h5>
                         </div>
                     </div>
-                    </a>
-                </div>
+                </a>
             </div>
+        </div>
 
-            <!-- Baris kedua dengan 5 kartu -->
-            <div class="row justify-content-center text-center"> <!-- Tambahkan justify-content-center -->
-                <!-- Kartu 6: Animasi dari kiri -->
-                <div class="col-md-2 animate-from-left">
-                     <a href="{{ route('mahasiswa.pekerjaan.category', 'Kesehatan') }}">
-                    <div class="card shadow-sm p-3 mb-5 bg-white rounded-lg"
-                        style="height: 150px; border-radius: 10px;">
+        <!-- Baris kedua dengan 5 kartu -->
+        <div class="row justify-content-center text-center">
+            <!-- Kartu 6 -->
+            <div class="col-6 col-sm-4 col-md-2 animate-from-left mb-4">
+                <a href="{{ route('mahasiswa.pekerjaan.category', 'Kesehatan') }}">
+                    <div class="card shadow-sm p-3 bg-white rounded-lg h-100">
                         <img src="{{ asset('images/kesehatan.png') }}" class="card-img-top mx-auto" alt="Blog"
                             style="width: 50%;">
                         <div class="card-body">
                             <h5 class="card-title" style="font-size: 14px;">Kesehatan</h5>
                         </div>
                     </div>
-                    </a>
-                </div>
-                <!-- Kartu 7: Animasi dari kanan -->
-                <div class="col-md-2 animate-from-right">
-                     <a href="{{ route('mahasiswa.pekerjaan.category', 'Kreatif') }}">
-                    <div class="card shadow-sm p-3 mb-5 bg-white rounded-lg"
-                        style="height: 150px; border-radius: 10px;">
+                </a>
+            </div>
+
+            <!-- Kartu 7 -->
+            <div class="col-6 col-sm-4 col-md-2 animate-from-right mb-4">
+                <a href="{{ route('mahasiswa.pekerjaan.category', 'Kreatif') }}">
+                    <div class="card shadow-sm p-3 bg-white rounded-lg h-100">
                         <img src="{{ asset('images/kreativ.png') }}" class="card-img-top mx-auto" alt="Blog"
                             style="width: 50%;">
                         <div class="card-body">
                             <h5 class="card-title" style="font-size: 14px;">Kreatif</h5>
                         </div>
                     </div>
-                    </a>
-                </div>
-                <!-- Kartu 8: Animasi dari kiri -->
-                <div class="col-md-2 animate-from-left">
-                     <a href="{{ route('mahasiswa.pekerjaan.category', 'Lingkungan') }}">
-                    <div class="card shadow-sm p-3 mb-5 bg-white rounded-lg"
-                        style="height: 150px; border-radius: 10px;">
+                </a>
+            </div>
+
+            <!-- Kartu 8 -->
+            <div class="col-6 col-sm-4 col-md-2 animate-from-left mb-4">
+                <a href="{{ route('mahasiswa.pekerjaan.category', 'Lingkungan') }}">
+                    <div class="card shadow-sm p-3 bg-white rounded-lg h-100">
                         <img src="{{ asset('images/lingkungan.png') }}" class="card-img-top mx-auto" alt="Blog"
                             style="width: 50%;">
                         <div class="card-body">
                             <h5 class="card-title" style="font-size: 14px;">Lingkungan</h5>
                         </div>
                     </div>
-                    </a>
-                </div>
-                <!-- Kartu 9: Animasi dari kanan -->
-                <div class="col-md-2 animate-from-right">
-                    <a href="{{ route('mahasiswa.pekerjaan.category', 'Sosial') }}">
-                    <div class="card shadow-sm p-3 mb-5 bg-white rounded-lg"
-                        style="height: 150px; border-radius: 10px;">
+                </a>
+            </div>
+
+            <!-- Kartu 9 -->
+            <div class="col-6 col-sm-4 col-md-2 animate-from-right mb-4">
+                <a href="{{ route('mahasiswa.pekerjaan.category', 'Sosial') }}">
+                    <div class="card shadow-sm p-3 bg-white rounded-lg h-100">
                         <img src="{{ asset('images/sosial.png') }}" class="card-img-top mx-auto" alt="Blog"
                             style="width: 50%;">
                         <div class="card-body">
                             <h5 class="card-title" style="font-size: 14px;">Sosial</h5>
                         </div>
                     </div>
-                    </a>
-                </div>
-                <!-- Kartu 10: Animasi dari kiri -->
-                <div class="col-md-2 animate-from-left">
-                    <a href="{{ route('mahasiswa.pekerjaan.category', 'Lainnya') }}">
-                    <div class="card shadow-sm p-3 mb-5 bg-white rounded-lg"
-                        style="height: 150px; border-radius: 10px;">
+                </a>
+            </div>
+
+            <!-- Kartu 10 -->
+            <div class="col-6 col-sm-4 col-md-2 animate-from-left mb-4">
+                <a href="{{ route('mahasiswa.pekerjaan.category', 'Lainnya') }}">
+                    <div class="card shadow-sm p-3 bg-white rounded-lg h-100">
                         <img src="{{ asset('images/blog.png') }}" class="card-img-top mx-auto" alt="Blog"
                             style="width: 50%;">
                         <div class="card-body">
                             <h5 class="card-title" style="font-size: 14px;">Lainnya</h5>
                         </div>
                     </div>
-                    </a>
-
-                </div>
+                </a>
             </div>
-            <!-- Tombol untuk menampilkan semua proyek -->
-            <div class="row justify-content-center mt-4">
-                <div class="col-md-4 text-center">
-                    <a href="{{ route('show.all.pekerjaan') }}" class="btn btn-primary btn-lg">
-                        Lihat Semua Proyek
-                    </a>
-                </div>
+        </div>
+
+        <!-- Tombol untuk menampilkan semua proyek -->
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-4 text-center">
+                <a href="{{ route('show.all.pekerjaan') }}" class="btn btn-primary btn-lg">
+                    Lihat Semua Proyek
+                </a>
             </div>
         </div>
     </div>
+</div>
+
      @php
         $categories = ['Agrikultur', 'Akuntansi', 'Edukasi', 'Finance', 'Teknologi', 'Kesehatan', 'Kreatif', 'Lingkungan', 'Sosial', 'Lainnya'];
     @endphp
@@ -195,4 +196,5 @@
         </div>
     </div>
     @endforeach
+    @include('layouts.footer')
 
