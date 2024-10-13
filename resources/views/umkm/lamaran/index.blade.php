@@ -13,28 +13,32 @@
                         <tr>
                             <th>User</th>
                             <th>Posisi</th>
+                            <th>Nama</th>
+                            <th>Deskripsi Diri</th>
+                            <th>Jurusan</th>
+                            <th>Pengalaman Organisasi</th>
+                            <th>Pengalaman Kerja</th>
                             <th>Status</th>
-                            <th>Dokumen</th>
                             <th>Tanggal Apply</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach($applies as $apply)
+                        @if($apply->status == 'pending')
                         <tr>
                             <td>{{ $apply->user->name ?? 'N/A' }}</td>
                             <td>{{ $apply->project->posisi ?? 'N/A' }}</td>
+                            <td>{{ $apply->nama ?? 'N/A' }}</td>
+                            <td>{{ $apply->deskripsi_diri ?? 'N/A' }}</td>
+                            <td>{{ $apply->jurusan ?? 'N/A' }}</td>
+                            <td>{{ $apply->pengalaman_organisasi ?? 'N/A' }}</td>
+                            <td>{{ $apply->pengalaman_kerja ?? 'N/A' }}</td>
                             <td>
                                 <span id="status-{{ $apply->id }}">
                                     {{ ucfirst($apply->status) }}
                                 </span>
-                            </td>
-                            <td>
-                                @if($apply->dokumen)
-                                    <a href="{{ asset('storage/'.$apply->dokumen) }}" target="_blank">Lihat Dokumen</a>
-                                @else
-                                    N/A
-                                @endif
                             </td>
                             <td>{{ $apply->created_at->format('d M Y') }}</td>
                             <td>
@@ -50,6 +54,7 @@
                                 @endif
                             </td>
                         </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>
@@ -57,6 +62,7 @@
         </div>
     </div>
 </section>
+
 <script>
     $(document).ready(function() {
         var table = $('#applyTable').DataTable({

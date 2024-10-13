@@ -36,6 +36,12 @@
                 <span>Konsultasi</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Request::routeIs('umkm.manage') ? 'active' : '' }}" href="{{ route('umkm.manage') }}">
+            <i class="bi bi-tools"></i> <!-- Manage Project icon -->
+            <span>Manage Project</span>
+            </a>
+        </li>
     </ul>
 </aside>
 <style>

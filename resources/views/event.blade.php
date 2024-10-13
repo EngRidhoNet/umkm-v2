@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div class="border-bottom py-3">
-                            <a href="#" class="display-4 text-dark mb-0 link-hover">{{ $item->judul }}</a>
+                            <a href="{{ route('event.detail', $item->id) }}" class="display-4 text-dark mb-0 link-hover">{{ $item->judul }}</a>
                         </div>
                         <p class="mt-3 mb-4">{{ Str::limit($item->isi, 150) }}...</p>
                     @endforeach
@@ -68,9 +68,7 @@
                                         <img src="{{ Storage::url($related->foto) }}" class="img-fluid rounded img-zoomin" alt="{{ $related->judul }}">
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="h4 mb-2">{{ $related->judul }}</a>
-                                        <p class="fs-5 mb-0"><i class="fa fa-clock"></i> {{ $related->created_at->diffInMinutes() }} minute read</p>
-                                        <p class="fs-5 mb-0"><i class="fa fa-eye"></i> 3.5k Views</p>
+                                        <a href="{{ route('event.detail', $related->id) }}" class="h4 mb-2">{{ $related->judul }}</a>
                                     </div>
                                 </div>
                             @endforeach

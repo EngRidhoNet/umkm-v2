@@ -25,10 +25,10 @@ class UmkmController extends Controller
     // Menampilkan data artikel
     public function indexArtikel()
     {
-        $artikel = artikel::all();
+        $userId = auth()->user()->id;
+        $artikel = artikel::where('id_user', $userId)->get();
         return view('umkm.artikel.index', compact('artikel'));
     }
-
     // Menampilkan data pekerjaan
 
     // Method show untuk menampilkan detail UMKM
@@ -114,9 +114,6 @@ class UmkmController extends Controller
         // Redirect kembali dengan pesan sukses
         return redirect()->route('umkm.artikel.index')->with('success', 'Artikel berhasil dibuat');
     }
-
-
-
     // Method untuk menampilkan detail artikel
     public function showArtikel($id)
     {
@@ -124,7 +121,6 @@ class UmkmController extends Controller
 
         return view('umkm.artikel.show', compact('artikel'));
     }
-
     // Method untuk menampilkan form edit artikel
     public function editArtikel($id)
     {
@@ -132,7 +128,6 @@ class UmkmController extends Controller
 
         return view('umkm.artikel.edit', compact('artikel'));
     }
-
     // Method untuk mengupdate artikel
     public function updateArtikel(Request $request, $id)
     {
@@ -147,7 +142,6 @@ class UmkmController extends Controller
 
         return redirect()->route('umkm.artikel.index')->with('success', 'Artikel berhasil diperbarui');
     }
-
     // Method untuk menghapus artikel
     public function destroyArtikel($id)
     {

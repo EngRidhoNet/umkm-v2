@@ -91,4 +91,16 @@ class PekerjaanController extends Controller
         $pekerjaan->delete();
         return redirect()->route('umkm.pekerjaan.index')->with('success', 'Pekerjaan deleted successfully!');
     }
+
+    public function getAllDataProject()
+    {
+        $categories = ['Agrikultur', 'Akuntansi', 'Edukasi', 'Finance', 'Teknologi', 'Kesehatan', 'Kreatif', 'Lingkungan', 'Sosial', 'Lainnya'];
+
+        $projects = pekerjaan::all()->groupBy('kategori');
+        // dd($projects);
+
+        return view('mahasiswa.all_project', compact('categories', 'projects'));
+    }
+
+    
 }

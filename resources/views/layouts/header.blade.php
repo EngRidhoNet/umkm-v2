@@ -57,8 +57,8 @@
                 </li>
                 {{-- PROJECT --}}
                 {{-- UMKM --}}
-                <li class="nav-item {{ request()->routeIs('umkm') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('umkm') }}">UMKM</a>
+                <li class="nav-item {{ request()->routeIs('umkm.index.beranda') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('umkm.index.beranda') }}">UMKM</a>
                 </li>
                 @if (Auth::check() && Auth::user()->role === 'mahasiswa')
                     <li class="nav-item {{ request()->routeIs('mahasiswa.pekerjaan') ? 'active' : '' }}">

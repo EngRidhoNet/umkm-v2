@@ -10,7 +10,12 @@ class apply extends Model
         'id_user',
         'id_project',
         'status',
-        'dokumen'
+        'dokumen',
+        'nama',
+        'deskripsi_diri',
+        'jurusan',
+        'pengalaman_organisasi',
+        'pengalaman_kerja'
     ];
     public function user()
     {

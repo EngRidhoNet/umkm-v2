@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\umkm;
 use App\Models\User;
+use App\Models\artikel;
 use App\Models\mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -349,5 +350,82 @@ class SuperAdminController extends Controller
             Log::error('Error in destroyUmkm: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Gagal menghapus UMKM');
         }
+    }
+
+    public function indexArtikel()
+    {
+        $userId = auth()->user()->id;
+        $artikel = artikel::where('id_user', $userId)->get();
+        return view('superadmin.artikel.index', compact('artikel'));
+    }
+
+
+    // Method untuk menyimpan data artikel baru
+    public function storeArtikel(Request $request)
+    {
+        // dd($request);
+        // Validasi input
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        // Buat array untuk menyimpan data artikel
+        $data = $request->only(['judul', 'isi', 'tanggal']);
+
+        // Menyimpan id_user dari user yang sedang login
+        $data['id_user'] = auth()->user()->id;
+
+        // Cek apakah gambar diupload
+        if ($request->hasFile('foto')) {
+            // Simpan foto ke folder 'public/uploads/artikel'
+            $path = $request->file('foto')->store('uploads/artikel', 'public');
+
+            // Tambahkan path foto ke dalam data artikel
+            $data['foto'] = $path;
+        }
+
+        // Simpan artikel ke database
+        artikel::create($data);
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('superadmin.artikel.index')->with('success', 'Artikel berhasil dibuat');
+    }
+    // Method untuk menampilkan detail artikel
+    public function showArtikel($id)
+    {
+        $artikel = artikel::findOrFail($id);
+
+        return view('superadmin.artikel.show', compact('artikel'));
+    }
+    // Method untuk menampilkan form edit artikel
+    public function editArtikel($id)
+    {
+        $artikel = artikel::findOrFail($id);
+
+        return view('superadmin.artikel.edit', compact('artikel'));
+    }
+    // Method untuk mengupdate artikel
+    public function updateArtikel(Request $request, $id)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $artikel = artikel::findOrFail($id);
+        $artikel->update($request->all());
+
+        return redirect()->route('superadmin.artikel.index')->with('success', 'Artikel berhasil diperbarui');
+    }
+    // Method untuk menghapus artikel
+    public function destroyArtikel($id)
+    {
+        $artikel = artikel::findOrFail($id);
+        $artikel->delete();
+
+        return redirect()->route('superadmin.artikel.index')->with('success', 'Artikel berhasil dihapus');
     }
 }

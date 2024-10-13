@@ -8,12 +8,12 @@
     <meta name="keywords" content="bootstrap, bootstrap4" />
 
     <!-- Bootstrap CSS -->
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="{{asset('css/tiny-slider.css')}}" rel="stylesheet">
-    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/tiny-slider.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
-    <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <style>
         .card-img-top {
             width: 50px;
@@ -59,60 +59,71 @@
 </head>
 
 <body>
-@include('layouts.header')
-
-    <div class="product-section shadow-lg">
+    @include('layouts.header')
+    <div class="product-section shadow-lg py-5">
         <div class="container">
-            <div class="row">
-                <br>
-                <!-- Start Column 1 -->
-                <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
-                    <h2 class="mb-4 section-title">Lebih Dari 100 UMKM .</h2>
-                    <p class="mb-4">UMKM Kami tersedia di seluruh karesidenan Malang Raya</p>
-                    <p><a href="shop.html" class="btn">Explore</a></p>
+            <div class="row justify-content-center">
+                <!-- Kolom deskripsi -->
+                <div class="col-md-12 col-lg-8 text-center mb-4">
+                    <h2 class="mb-3 section-title">Lebih Dari {{ $umkms->total() }} UMKM Tersedia</h2>
+                    <p class="mb-4">UMKM Kami tersedia di seluruh karesidenan Malang Raya. Jelajahi UMKM pilihan Anda.
+                    </p>
                 </div>
-                <!-- End Column 1 -->
 
-                <!-- Start Column 2 -->
-                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="cart.html">
-                        <img src="{{asset('images/pakgembuslogor.png')}}" class="img-fluid product-thumbnail">
-                        <h3 class="product-title">Pak Gembus Suhat</h3>
-                        <strong class="product-price"></strong>
-
-                        <span class="icon-cross">
-                            <img src="{{asset('images/pakgembuslogor.png')}}" class="img-fluid">
-                        </span>
-                    </a>
+                <!-- Search form -->
+                <div class="col-md-8 mb-4">
+                    <form action="{{ route('umkm.index.beranda') }}" method="GET"
+                        class="form-inline d-flex justify-content-center">
+                        <div class="input-group w-100">
+                            <input type="text" name="search" class="form-control" placeholder="Cari UMKM..."
+                                value="{{ $search ?? '' }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary ml-2" type="submit">Cari</button>
+                                <!-- Tambahkan class ml-2 untuk margin -->
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <!-- End Column 2 -->
 
-                <!-- Start Column 3 -->
-                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="cart.html">
-                        <img src="{{asset('images/susujuper.png')}}" class="img-fluid product-thumbnail">
-                        <h3 class="product-title">Susu Jupe </h3>
-                        <strong class="product-price"></strong>
 
-                        <span class="icon-cross">
-                            <img src="{{asset('images/susujuper.png')}}" class="img-fluid">
-                        </span>
-                    </a>
+                <!-- Menampilkan semua UMKM dalam list card vertikal -->
+                @foreach ($umkms as $umkm)
+                    <div class="col-12 col-md-8 mb-4">
+                        <div class="card shadow-sm border-0">
+                            <div class="row no-gutters">
+                                <!-- Bagian gambar -->
+                                <div class="col-md-4">
+                                    <img src="{{ Storage::url('umkm/foto_profil/' . $umkm->foto_profil) }}"
+                                        class="img-fluid h-100" alt="{{ $umkm->nama_umkm }}" style="object-fit: cover;">
+                                </div>
+
+                                <!-- Bagian teks -->
+                                <div class="col-md-8">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div>
+                                            <h5 class="card-title">{{ $umkm->nama_umkm }}</h5>
+                                            <p class="card-text text-muted">
+                                                {{ \Illuminate\Support\Str::limit($umkm->deskripsi, 100) }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="card-text">
+                                                <small class="text-muted">{{ $umkm->kota }},
+                                                    {{ $umkm->provinsi }}</small>
+                                            </p>
+                                            <a href="{{ route('umkm.show', $umkm->id) }}"
+                                                class="btn btn-primary btn-sm">Lihat Detail</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+                <!-- Pagination -->
+                <div class="col-12 d-flex justify-content-center">
+                    {{ $umkms->links() }}
                 </div>
-                <!-- End Column 3 -->
-                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                    <a class="product-item" href="cart.html">
-                        <img src="{{asset('images/pakgembuslogor.png')}}" class="img-fluid product-thumbnail">
-                        <h3 class="product-title">Pak Gembus Sigura-gura </h3>
-                        <strong class="product-price"></strong>
-
-                        <span class="icon-cross">
-                            <img src="{{asset('images/pakgembuslogor.png')}}" class="img-fluid">
-                        </span>
-                    </a>
-                </div>
-                <!-- End Column 4 -->
-             
             </div>
         </div>
     </div>

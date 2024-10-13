@@ -13,6 +13,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link {{ Request::routeIs('superadmin.artikel.index') ? 'active' : '' }}" href="{{ route('superadmin.artikel.index') }}">
+                <i class="bi bi-file-earmark-text"></i> <!-- Article icon -->
+                <span>Artikel</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link {{ Request::routeIs('superadmin.umkm') ? 'active' : '' }}" href="{{ route('superadmin.umkm') }}">
                 <i class="bi bi-shop"></i>
                 <span>Umkm</span>
