@@ -9,13 +9,13 @@
 
 <body class="bg-gradient-to-r from-[#0DBDE5] to-[#2DB08B] text-blue-900">
     <div class="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
-        <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+        <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-white">
             <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
             POS UMKM
         </a>
-        <div class="w-full max-w-4xl bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+        <div class="w-full max-w-4xl bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">
             <div class="p-4 sm:p-6 md:p-8 space-y-4">
-                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
                     Buat Akun
                 </h1>
                 <!-- Tambahkan notifikasi error global -->
@@ -32,10 +32,10 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div class="w-full pt-4">
                             <label for="nama"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                class="block mb-2 text-sm font-medium text-white">Nama
                                 Panjang</label>
                             <input type="text" name="nama" id="nama"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('nama') border-red-500 @enderror"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('nama') border-red-500 @enderror"
                                 required>
                             @error('nama')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
@@ -43,9 +43,9 @@
                         </div>
                         <div class="w-full pt-4">
                             <label for="email"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                class="block mb-2 text-sm font-medium text-white">Email</label>
                             <input type="email" name="email" id="email"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('email') border-red-500 @enderror"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('email') border-red-500 @enderror"
                                 placeholder="name@company.com" required>
                             @error('email')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
@@ -54,9 +54,9 @@
 
                         <div class="w-full pt-4">
                             <label for="password"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                class="block mb-2 text-sm font-medium text-white">Password</label>
                             <input type="password" name="password" id="password" placeholder="••••••••"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('password') border-red-500 @enderror"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('password') border-red-500 @enderror"
                                 required>
                             @error('password')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
@@ -64,10 +64,10 @@
                         </div>
                         <div class="w-full pt-4">
                             <label for="universitas"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Asal
+                                class="block mb-2 text-sm font-medium text-white">Asal
                                 Universitas</label>
                             <input type="text" name="universitas" id="universitas"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('universitas') border-red-500 @enderror"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('universitas') border-red-500 @enderror"
                                 required>
                             @error('universitas')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
@@ -75,10 +75,10 @@
                         </div>
                         <div class="w-full pt-4">
                             <label for="tanggal_lahir"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                class="block mb-2 text-sm font-medium text-white">Tanggal
                                 Lahir</label>
                             <input type="date" name="tanggal_lahir" id="tanggal_lahir"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('tanggal_lahir') border-red-500 @enderror"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('tanggal_lahir') border-red-500 @enderror"
                                 required>
                             @error('tanggal_lahir')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
@@ -86,10 +86,10 @@
                         </div>
                         <div class="w-full pt-4">
                             <label for="jenis_kelamin"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
+                                class="block mb-2 text-sm font-medium text-white">Jenis
                                 Kelamin</label>
                             <select name="jenis_kelamin" id="jenis_kelamin"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                                 <option value="">Pilih Jenis Kelamin</option>
                                 <option value="L">Laki-Laki</option>
@@ -98,40 +98,40 @@
                         </div>
                         <div class="w-full pt-4">
                             <label for="no_hp"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
+                                class="block mb-2 text-sm font-medium text-white">Nomor
                                 Telepon</label>
                             <input type="tel" name="no_hp" id="no_hp"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                         </div>
                         <div class="w-full pt-4">
                             <label for="penghasilan"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pemasukan</label>
+                                class="block mb-2 text-sm font-medium text-white">Pemasukan</label>
                             <input type="number" name="penghasilan" id="penghasilan"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                         </div>
                         <div class="w-full pt-4">
                             <label for="pekerjaan"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pekerjaan</label>
+                                class="block mb-2 text-sm font-medium text-white">Pekerjaan</label>
                             <input type="text" name="pekerjaan" id="pekerjaan"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                         </div>
                         <div class="w-full pt-4">
                             <label for="foto_profil"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Foto
+                                class="block mb-2 text-sm font-medium text-white">Upload Foto
                                 Profil</label>
                             <input type="file" name="foto_profil" id="foto_profil" accept="image/*"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                         </div>
 
                         <div class="w-full pt-4">
                             <label for="provinsi"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
+                                class="block mb-2 text-sm font-medium text-white">Provinsi</label>
                             <select name="provinsi" id="provinsi"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                                 <option value="">Pilih Provinsi</option>
                             </select>
@@ -139,9 +139,9 @@
                         <!-- Kota Select -->
                         <div class="w-full pt-4">
                             <label for="kota"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kota</label>
+                                class="block mb-2 text-sm font-medium text-white">Kota</label>
                             <select name="kota" id="kota"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                                 <option value="">Pilih Kota</option>
                             </select>
@@ -149,9 +149,9 @@
                         <!-- Kecamatan Select -->
                         <div class="w-full pt-4">
                             <label for="kecamatan"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
+                                class="block mb-2 text-sm font-medium text-white">Kecamatan</label>
                             <select name="kecamatan" id="kecamatan"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                                 <option value="">Pilih Kecamatan</option>
                             </select>
@@ -159,27 +159,27 @@
 
                         <div class="w-full pt-4">
                             <label for="kode_pos"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode Pos</label>
+                                class="block mb-2 text-sm font-medium text-white">Kode Pos</label>
                             <input type="text" name="kode_pos" id="kode_pos"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                         </div>
                     </div>
                     <div class="w-full pt-4">
                         <label for="alamat"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat lengkap</label>
+                            class="block mb-2 text-sm font-medium text-white">Alamat lengkap</label>
                         <textarea name="alamat" id="alamat" rows="3"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required></textarea>
                     </div>
                     <div class="w-full">
                         <button type="submit"
-                            class="w-full text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-600 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 border border-gray-300">Buat
+                            class="w-full text-white bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 border border-gray-600">Buat
                             Akun</button>
                     </div>
-                    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                    <p class="text-sm font-light text-gray-400">
                         Sudah Punya Akun? <a href="{{ route('login') }}"
-                            class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login Disini</a>
+                            class="font-medium text-primary-500 hover:underline">Login Disini</a>
                     </p>
                 </form>
             </div>

@@ -15,7 +15,7 @@ class IndexController extends Controller
     {
         $pekerjaan = pekerjaan::inRandomOrder()->take(3)->get(); // Get 3 random pekerjaan entries
         $umkm = umkm::inRandomOrder()->take(3)->get(); // Get 3 random UMKM entries
-        $artikel = artikel::inRandomOrder()->take(3)->get(); // Get 3 random artikel entries
+        $artikel = artikel::all(); // Get 3 random artikel entries
 
         return view('index', compact('umkm', 'artikel','pekerjaan'));
     }

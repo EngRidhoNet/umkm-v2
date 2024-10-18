@@ -111,6 +111,27 @@
         background-color: #007bff;
     }
 
+    .nav-tabs .nav-link {
+        color: #495057;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .nav-tabs .nav-link.active {
+        color: #007bff;
+        background-color: #fff;
+        border-bottom-color: transparent;
+    }
+
+    .nav-tabs .nav-link:hover {
+        border-color: #e9ecef #e9ecef #dee2e6;
+    }
+
     @media (max-width: 768px) {
         .featured-card .card-img-top {
             height: 200px;
@@ -146,43 +167,62 @@
         </div>
 
         <h2 class="section-title mt-5" data-aos="fade-right">All Articles</h2>
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="row">
-                    @foreach ($artikel->skip(3) as $item)
-                        <div class="col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                            <div class="card">
-                                <img src="{{ Storage::url($item->foto) }}" class="card-img-top" alt="{{ $item->judul }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $item->judul }}</h5>
-                                    <div class="article-meta">
-                                        <span class="me-3"><i class="far fa-clock"></i> {{ $item->created_at->diffForHumans() }}</span>
-                                        <span><i class="far fa-comment"></i> {{ rand(5, 50) }} Comments</span>
+
+        <ul class="nav nav-tabs mb-4" id="articleTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="event-tab" data-bs-toggle="tab" data-bs-target="#event" type="button" role="tab" aria-controls="event" aria-selected="true">Events</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="news-tab" data-bs-toggle="tab" data-bs-target="#news" type="button" role="tab" aria-controls="news" aria-selected="false">News</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tips-tab" data-bs-toggle="tab" data-bs-target="#tips" type="button" role="tab" aria-controls="tips" aria-selected="false">Tips</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="articleTabsContent">
+            @foreach (['event', 'news', 'tips'] as $category)
+                <div class="tab-pane fade {{ $category === 'event' ? 'show active' : '' }}" id="{{ $category }}" role="tabpanel" aria-labelledby="{{ $category }}-tab">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="row">
+                                @foreach ($artikel->where('category', $category)->skip(3) as $item)
+                                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                                        <div class="card">
+                                            <img src="{{ Storage::url($item->foto) }}" class="card-img-top" alt="{{ $item->judul }}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $item->judul }}</h5>
+                                                <div class="article-meta">
+                                                    <span class="me-3"><i class="far fa-clock"></i> {{ $item->created_at->diffForHumans() }}</span>
+                                                    <span><i class="far fa-comment"></i> {{ rand(5, 50) }} Comments</span>
+                                                </div>
+                                                <p class="card-text">{{ Str::limit($item->isi, 80) }}</p>
+                                                <a href="{{ route('event.detail', $item->id) }}" class="btn btn-read-more">Read More</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p class="card-text">{{ Str::limit($item->isi, 80) }}</p>
-                                    <a href="{{ route('event.detail', $item->id) }}" class="btn btn-read-more">Read More</a>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="col-lg-4" data-aos="fade-left" data-aos-delay="200">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-4">Related {{ ucfirst($category) }}</h5>
+                                    @foreach ($artikel->where('category', $category)->take(5) as $related)
+                                        <div class="d-flex mb-3">
+                                            <img src="{{ Storage::url($related->foto) }}" class="rounded" width="70" height="70" style="object-fit: cover;" alt="{{ $related->judul }}">
+                                            <div class="ms-3">
+                                                <h6 class="mb-1"><a href="{{ route('event.detail', $related->id) }}" class="text-dark">{{ Str::limit($related->judul, 40) }}</a></h6>
+                                                <small class="text-muted">{{ $related->created_at->format('M d, Y') }}</small>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                </div>
-            </div>
-            <div class="col-lg-4" data-aos="fade-left" data-aos-delay="200">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title mb-4">Related Articles</h5>
-                        @foreach ($artikel->take(5) as $related)
-                            <div class="d-flex mb-3">
-                                <img src="{{ Storage::url($related->foto) }}" class="rounded" width="70" height="70" style="object-fit: cover;" alt="{{ $related->judul }}">
-                                <div class="ms-3">
-                                    <h6 class="mb-1"><a href="{{ route('event.detail', $related->id) }}" class="text-dark">{{ Str::limit($related->judul, 40) }}</a></h6>
-                                    <small class="text-muted">{{ $related->created_at->format('M d, Y') }}</small>
-                                </div>
-                            </div>
-                        @endforeach
                     </div>
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
 

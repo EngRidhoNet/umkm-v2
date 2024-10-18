@@ -51,8 +51,8 @@
     </ul>
 </aside>
 <style>
-    .nav-link.active {
-        background-color: #007bff; /* Change to your desired color */
+     .nav-link.active {
+        background: linear-gradient(to right, #0DBDE5, #2DB08B); /* Gradient background */
         color: white;
         border-radius: 5px; /* Add rounded corners */
         font-weight: bold; /* Make the text bold */

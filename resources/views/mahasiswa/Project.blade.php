@@ -159,7 +159,7 @@
     @endphp
 
 {{-- {{ route('jobs.show', $job->id) }} --}}
-    @foreach($categories as $category)
+@foreach($categories as $category)
     <div class="shadow-lg">
         <div class="product-section shadow-sm">
             <div class="container">
@@ -173,13 +173,16 @@
                     <!-- End Column 1 -->
 
                     @php
-                        $jobs = App\Models\pekerjaan::where('kategori', $category)->take(3)->get();
+                        $jobs = App\Models\pekerjaan::where('kategori', $category)
+                            ->where('status', 'active') // Kondisi hanya menampilkan pekerjaan dengan status active
+                            ->take(3)
+                            ->get();
                     @endphp
 
                     @foreach($jobs as $job)
                     <!-- Job Listing -->
                     <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                        <a class="product-item" href="">
+                        <a class="product-item" href="{{ route('mahasiswa.pekerjaan.show', $job->id) }}">
                             <img src="{{ asset('images/logosme.jpg') }}" class="img-fluid product-thumbnail">
                             <h3 class="product-title">{{ $job->posisi }}</h3>
                             <strong class="product-price">{{ $job->tempat_bekerja }}</strong>
@@ -195,6 +198,7 @@
             </div>
         </div>
     </div>
-    @endforeach
+@endforeach
+
     @include('layouts.footer')
 

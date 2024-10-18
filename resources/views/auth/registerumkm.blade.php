@@ -9,13 +9,13 @@
 
 <body class="bg-gradient-to-r from-[#0DBDE5] to-[#2DB08B] text-blue-900">
     <div class="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
-        <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+        <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-white">
             <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
             POS UMKM
         </a>
-        <div class="w-full max-w-4xl bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+        <div class="w-full max-w-4xl bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">
             <div class="p-4 sm:p-6 md:p-8 space-y-4">
-                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
                     Buat Akun UMKM
                 </h1>
                 @if ($errors->any())
@@ -34,9 +34,9 @@
                         <!-- Email -->
                         <div class="w-full pt-4">
                             <label for="email"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                class="block mb-2 text-sm font-medium text-white">Email</label>
                             <input type="email" name="email" id="email"
-                                class="bg-gray-50 border {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }} text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border {{ $errors->has('email') ? 'border-red-500' : 'border-gray-600' }} text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="name@company.com" required>
                             @error('email')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
@@ -46,9 +46,9 @@
                         <!-- Password -->
                         <div class="w-full pt-4">
                             <label for="password"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                class="block mb-2 text-sm font-medium text-white">Password</label>
                             <input type="password" name="password" id="password"
-                                class="bg-gray-50 border {{ $errors->has('password') ? 'border-red-500' : 'border-gray-300' }} text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border {{ $errors->has('password') ? 'border-red-500' : 'border-gray-600' }} text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="••••••••" required>
                             @error('password')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
@@ -58,18 +58,18 @@
                         <!-- Nama UMKM -->
                         <div class="w-full pt-4">
                             <label for="nama_umkm"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama UMKM</label>
+                                class="block mb-2 text-sm font-medium text-white">Nama UMKM</label>
                             <input type="text" name="nama_umkm" id="nama_umkm"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                         </div>
                         <!-- Kategori UMKM -->
                         <div class="w-full pt-4">
                             <label for="kategori_umkm"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori
+                                class="block mb-2 text-sm font-medium text-white">Kategori
                                 UMKM</label>
                             <select name="kategori" id="kategori_umkm"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                                 <option value="">Pilih Kategori</option>
                                 <option value="F&B">F&B</option>
@@ -90,28 +90,28 @@
                         <!-- Informasi Pemilik -->
                         <div class="w-full pt-4">
                             <label for="informasi_pemilik"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                class="block mb-2 text-sm font-medium text-white">
                                 Pemilik UMKM
                             </label>
                             <textarea name="informasi_pemilik" id="informasi_pemilik" rows="3"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required></textarea>
                         </div>
 
                         <div class="w-full pt-4">
                             <label for="alamat"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                                class="block mb-2 text-sm font-medium text-white">Alamat</label>
                             <input type="text" name="alamat" id="alamat"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required>
                         </div>
 
                         <!-- Deskripsi -->
                         <div class="w-full pt-4">
                             <label for="deskripsi"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
+                                class="block mb-2 text-sm font-medium text-white">Deskripsi</label>
                             <textarea name="deskripsi" id="deskripsi" rows="3"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required></textarea>
                         </div>
 
@@ -120,25 +120,25 @@
                         <!-- Foto Profil -->
                         <div class="w-full pt-4">
                             <label for="foto_profil"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Profil
+                                class="block mb-2 text-sm font-medium text-white">Foto Profil
                                 (Opsional)</label>
                             <input type="file" name="foto_profil" id="foto_profil" accept="image/*"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                class="bg-gray-700 border border-gray-600 text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         </div>
 
                         <div class="w-full pt-4">
                             <!-- Submit Button -->
                             <button type="submit"
-                                class="w-full text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-600 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 border border-gray-300">
+                                class="w-full text-white bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 border border-gray-600">
                                 Daftar UMKM
                             </button>
 
                         </div>
 
                         <div class="w-full pt-4">
-                            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                            <p class="text-sm font-light text-gray-400">
                                 Sudah Punya Akun? <a href="{{ route('login') }}"
-                                    class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login
+                                    class="font-medium text-primary-500 hover:underline">Login
                                     Disini</a>
                             </p>
                         </div>

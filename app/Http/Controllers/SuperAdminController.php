@@ -378,18 +378,32 @@ class SuperAdminController extends Controller
         $artikel = artikel::where('id_user', $userId)->get();
         return view('superadmin.artikel.index', compact('artikel'));
     }
-
+    public function createArtikel()
+    {
+        return view('superadmin.artikel.create');
+    }
 
     // Method untuk menyimpan data artikel baru
     public function storeArtikel(Request $request)
     {
-        // dd($request);
-        // Validasi input
         $request->validate([
             'judul' => 'required|string|max:255',
-            'isi' => 'required|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'isi' => 'required',
+            'category' => 'required|string',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi basic
+            'tanggal' => 'required|date',
         ]);
+
+        if ($request->hasFile('foto')) {
+            $image = getimagesize($request->file('foto'));
+            $width = $image[0];
+            $height = $image[1];
+
+            // Cek ukuran foto berdasarkan kategori yang dipilih
+            if ($request->category == 'event' && ($width != 3200 || $height != 1550)) {
+                return redirect()->back()->withErrors(['foto' => 'Image harus berukuran 3200 x 1550 untuk Event category.'])->withInput();
+            }
+        }
 
         // Buat array untuk menyimpan data artikel
         $data = $request->only(['judul', 'isi', 'tanggal']);
@@ -433,6 +447,7 @@ class SuperAdminController extends Controller
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'category' => 'required|string'
         ]);
 
         $artikel = artikel::findOrFail($id);

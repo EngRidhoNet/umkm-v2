@@ -17,7 +17,8 @@ class pekerjaan extends Model
         'deskripsi',
         'tempat_bekerja',
         'tanggal',
-        'kategori'
+        'kategori',
+        'status'
     ];
 
     public function user()

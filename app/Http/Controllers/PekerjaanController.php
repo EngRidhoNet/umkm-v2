@@ -8,6 +8,33 @@ use Illuminate\Support\Facades\Auth;
 
 class PekerjaanController extends Controller
 {
+    // Archive the specified resource
+    public function archive($id)
+    {
+        $pekerjaan = pekerjaan::findOrFail($id);
+
+        // Check if the authenticated user owns this job
+        if ($pekerjaan->id_user !== Auth::id()) {
+            return redirect()->route('umkm.pekerjaan.index')->with('error', 'Anda tidak memiliki izin untuk mengarsipkan pekerjaan ini.');
+        }
+
+        $pekerjaan->update(['status' => 'archive']);
+        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Project berhasil diarsipkan.');
+    }
+
+    // Unarchive the specified resource
+    public function unarchive($id)
+    {
+        $pekerjaan = pekerjaan::findOrFail($id);
+
+        // Check if the authenticated user owns this job
+        if ($pekerjaan->id_user !== Auth::id()) {
+            return redirect()->route('umkm.pekerjaan.index')->with('error', 'Anda tidak memiliki izin untuk mengaktifkan pekerjaan ini.');
+        }
+
+        $pekerjaan->update(['status' => 'active']);
+        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Project berhasil diaktifkan kembali.');
+    }
     // Display a listing of the resource
     public function index()
     {
@@ -44,7 +71,7 @@ class PekerjaanController extends Controller
             'kategori' => $request->kategori,
         ]);
 
-        return redirect()->route('umkm.pekerjaan.index')->with('success', 'pekerjaan berhasil ditambahkan');
+        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Project berhasil ditambahkan');
     }
 
     // Display the specified resource
@@ -77,7 +104,7 @@ class PekerjaanController extends Controller
         }
 
         $pekerjaan->update($request->all());
-        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Pekerjaan updated successfully!');
+        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Project updated successfully!');
     }
 
     // Remove the specified resource from storage
@@ -89,7 +116,7 @@ class PekerjaanController extends Controller
         }
 
         $pekerjaan->delete();
-        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Pekerjaan deleted successfully!');
+        return redirect()->route('umkm.pekerjaan.index')->with('success', 'Project deleted successfully!');
     }
 
     public function getAllDataProject()
@@ -102,5 +129,5 @@ class PekerjaanController extends Controller
         return view('mahasiswa.all_project', compact('categories', 'projects'));
     }
 
-    
+
 }

@@ -82,6 +82,8 @@ Route::middleware(['auth', RoleMiddleware::class . ':umkm'])->group(function () 
     Route::get('/umkm/pekerjaan/{id}/edit', [PekerjaanController::class, 'edit'])->name('umkm.pekerjaan.edit');
     Route::put('/umkm/pekerjaan/{id}', [PekerjaanController::class, 'update'])->name('umkm.pekerjaan.update');
     Route::delete('/umkm/pekerjaan/{id}', [PekerjaanController::class, 'destroy'])->name('umkm.pekerjaan.destroy');
+    Route::patch('/umkm/pekerjaan/{id}/archive', [PekerjaanController::class, 'archive'])->name('umkm.pekerjaan.archive');
+    Route::patch('/umkm/pekerjaan/{id}/unarchive', [PekerjaanController::class, 'unarchive'])->name('umkm.pekerjaan.unarchive');
     Route::get('/umkm/chat', function () {
         return redirect()->route(config('chatify.routes.prefix'));  // Redirects to /
     })->name('umkm.chat');

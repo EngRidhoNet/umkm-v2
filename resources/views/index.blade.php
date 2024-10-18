@@ -151,46 +151,39 @@
             <div class="col-lg-6 fade-in">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <ol class="carousel-indicators">
-                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+                        @php $first = true; @endphp
+                        @foreach ($artikel as $key => $item)
+                            @if ($item->category == 'event')
+                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $key }}" class="{{ $first ? 'active' : '' }}"></li>
+                                @php $first = false; @endphp
+                            @endif
+                        @endforeach
                     </ol>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img class="d-block w-100" src="{{ asset('images/banner 2.jpg') }}" alt="First slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="{{ asset('images/banner1.jpg') }}" alt="Second slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="{{ asset('images/banner 2.jpg') }}" alt="Third slide">
-                        </div>
+                        @php $first = true; @endphp
+                        @foreach ($artikel as $key => $item)
+                            @if ($item->category == 'event')
+                                <div class="carousel-item {{ $first ? 'active' : '' }}">
+                                    <img class="d-block w-100" src="{{ Storage::url($item->foto) }}" alt="Slide {{ $key + 1 }}">
+                                </div>
+                                @php $first = false; @endphp
+                            @endif
+                        @endforeach
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                        data-bs-slide="prev">
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                        data-bs-slide="next">
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
-
                 </div>
             </div>
             <div class="col-lg-5 fade-in">
                 <div class="intro-excerpt" id="dynamic-bg">
                     <h1 class="title-animate">Pos<span class="d-block">UMKM</span></h1>
-                    <p class="mb-4 text-justify">POSUMKM adalah sebuah bisnis sociopreneurship yang berfokus pada
-                        pemberdayaan pendidikan dan pertumbuhan UMKM. Kami menghubungkan mahasiswa, dosen, dan pelaku
-                        usaha menengah ke bawah untuk menciptakan solusi inovatif yang menjawab tantangan nyata yang
-                        dihadapi oleh UMKM.</p>
-                    <p>
-                        {{-- <a href="{{ route('mahasiswa.pekerjaan') }}" class="btn btn-primary me-2 btn-animate">Apply
-                            Lowongan</a>
-                        <a href="#" class="btn btn-outline-light btn-animate">Berita</a> --}}
-                    </p>
+                    <p class="mb-4 text-justify">POSUMKM adalah sebuah bisnis sociopreneurship yang berfokus pada pemberdayaan pendidikan dan pertumbuhan UMKM. Kami menghubungkan mahasiswa, dosen, dan pelaku usaha menengah ke bawah untuk menciptakan solusi inovatif yang menjawab tantangan nyata yang dihadapi oleh UMKM.</p>
                 </div>
             </div>
         </div>
@@ -264,7 +257,7 @@
         </div>
 
         <div class="row">
-            @foreach ($artikel as $item)
+            @foreach ($artikel->random(3) as $item)
                 <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0 fade-in">
                     <div class="post-entry">
                         <a href="{{ route('event.detail', $item->id) }}" class="post-thumbnail">
