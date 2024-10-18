@@ -232,7 +232,7 @@ class SuperAdminController extends Controller
 
             DB::commit();
 
-            return redirect()->route('login')->with('success', 'Akun anda sedang dalam verifikasi.');
+            return redirect()->route('superadmin.umkm')->with('success', 'Akun UMKM berhasil dibuat');
         } catch (\Exception $e) {
             DB::rollback();
 
@@ -278,7 +278,7 @@ class SuperAdminController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'umkm',
-            'status' => 'inactive',
+            'status' => 'active',
         ]);
     }
 
