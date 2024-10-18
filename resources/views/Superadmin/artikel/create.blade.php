@@ -22,7 +22,8 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('superadmin.artikel.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('superadmin.artikel.store') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-4">
                                     <label for="judul" class="form-label">Title</label>
@@ -37,15 +38,11 @@
                                 <div class="mb-4">
                                     <label for="category" class="form-label">Category</label>
                                     <select class="form-control" id="category" name="category" required>
-                                        <option value="event" {{ old('category') == 'event' ? 'selected' : '' }}>Event
-                                        </option>
-                                        <option value="news" {{ old('category') == 'news' ? 'selected' : '' }}>News
-                                        </option>
-                                        <option value="tips" {{ old('category') == 'tips' ? 'selected' : '' }}>Tips
-                                        </option>
+                                        <option value="event">Event</option>
+                                        <option value="news">News</option>
+                                        <option value="tips">Tips</option>
                                     </select>
                                 </div>
-
                                 <div class="mb-4">
                                     <label for="foto" class="form-label">Image</label>
                                     <input type="file" class="form-control" id="foto" name="foto" required>
