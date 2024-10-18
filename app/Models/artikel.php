@@ -16,6 +16,7 @@ class artikel extends Model
         'foto',
         'isi',
         'tanggal',
+        'category'
     ];
 
     public function user()
