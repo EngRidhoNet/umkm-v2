@@ -90,10 +90,6 @@ Route::middleware(['auth', RoleMiddleware::class . ':umkm'])->group(function () 
     Route::get('/umkm/manage', [ApplyController::class, 'manageProject'])->name('umkm.manage');
     Route::post('/umkm/manage/update-status', [ApplyController::class, 'updateStatusManage'])->name('apply.updateStatus');
 
-
-    // sertifikat
-    Route::get('/send-certificate/{id}', [CertificateController::class, 'sendCertificate'])->name('sertifikat');
-    // Route untuk Apply
     Route::get('/umkm/lamaran', [ApplyController::class, 'index'])->name('lamaran.index');
     Route::post('/umkm/lamaran/update-status', [ApplyController::class, 'updateStatus'])->name('lamaran.updateStatus');
 });
@@ -140,6 +136,10 @@ Route::middleware(['auth', RoleMiddleware::class . ':superadmin'])->group(functi
     Route::get('/superadmin/chat', function () {
         return redirect()->route(config('chatify.routes.prefix'));  // Redirects to /
     })->name('superadmin.chat');
+    // Route manage project mahasisw
+    Route::get('/send-certificate/{id}', [CertificateController::class, 'sendCertificate'])->name('sertifikat.superadmin');
+    Route::get('/superadmin/manage', [CertificateController::class, 'completedProjects'])->name('superadmin.manage');
+
 });
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/postlogin', [AuthController::class, 'postlogin']);
@@ -157,7 +157,7 @@ Route::get('/mahasiswa/detail', [PekerjaanController::class, 'getAllDataProject'
 Route::get('/mahasiswa/pekerjaan/show/{id}', [IndexController::class, 'showProject'])->name('mahasiswa.pekerjaan.show');
 Route::get('/index/umkm', [IndexController::class, 'indexUmkm'])->name('umkm.index.beranda');
 Route::get('/index/umkm/{id}', [IndexController::class, 'showUmkm'])->name('umkm.show');
-
+Route::get('/check-login', [AuthController::class, 'checkLogin'])->name('check.login');
 
 // AUTH
 Route::get('/register', function () {

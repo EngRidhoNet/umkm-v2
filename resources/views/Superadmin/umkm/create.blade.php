@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('title', 'UMKM / Create')
+@section('title', 'UMKM / Tambah')
 
 @section('content')
     <div class="min-h-screen flex items-center justify-center">
@@ -38,6 +38,27 @@
                         <input type="text" id="nama_umkm" name="nama_umkm" required maxlength="255"
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
+
+                    {{-- Kategori --}}
+                    <div class="flex flex-col">
+                        <label for="kategori_umkm" class="text-gray-700 font-bold">Kategori UMKM</label>
+                        <select id="kategori_umkm" name="kategori" required
+                            class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
+                            <option value="">Pilih Kategori</option>
+                            <option value="F&B">F&B</option>
+                            <option value="Retail">Retail</option>
+                            <option value="Jasa">Jasa</option>
+                            <option value="Produksi">Produksi</option>
+                            <option value="Pendidikan">Pendidikan</option>
+                            <option value="Kesehatan dan Kecantikan">Kesehatan dan Kecantikan</option>
+                            <option value="Teknologi dan Digital">Teknologi dan Digital</option>
+                            <option value="Pariwisata dan Hospitality">Pariwisata dan Hospitality</option>
+                            <option value="Agribisnis">Agribisnis</option>
+                            <option value="Kesenian dan Hiburan">Kesenian dan Hiburan</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+
 
                     <!-- Deskripsi -->
                     <div class="flex flex-col">
@@ -131,7 +152,7 @@
                         <textarea id="informasi_pemilik" name="informasi_pemilik" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
                     </div>
-{{--
+                    {{--
                     <!-- Informasi Bisnis -->
                     <div class="flex flex-col">
                         <label for="informasi_bisnis" class="text-gray-700 font-bold">Informasi Bisnis</label>

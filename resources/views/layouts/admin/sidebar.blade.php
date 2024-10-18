@@ -42,6 +42,12 @@
                 <span>Verifikasi UMKM</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Request::routeIs('superadmin.manage') ? 'active' : '' }}" href="{{ route('superadmin.manage') }}">
+            <i class="bi bi-award"></i>
+            <span>Kelola Sertifikat Mahasiswa</span>
+            </a>
+        </li>
     </ul>
 </aside>
 <style>

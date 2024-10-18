@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,43 +17,111 @@
 
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <style>
-        .card-img-top {
-            width: 50px;
-            margin-top: 15px;
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
         }
-
-        .card-body {
-            padding: 10px;
-        }
-
-        .card-title {
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .my-section {
-            position: relative;
-            top: -50px;
-            /* Sesuaikan nilai ini untuk memposisikan elemen lebih dekat ke bagian biru */
-            z-index: 10;
-            /* Pastikan elemen ini berada di atas konten lainnya */
-        }
-
-        .cards {
-            padding: 0%;
-        }
-
         .custom-gradient {
-            /* Background linear gradient */
-            background: linear-gradient(to right, #0dbde6, #2eaf88);
-            height: 100vh;
-            /* Full page height */
-        }
-
-        .content {
+            background: linear-gradient(135deg, #0dbde6, #2eaf88);
             color: white;
-            text-align: center;
-            padding-top: 100px;
+            padding: 80px 0;
+            margin-bottom: 40px;
+        }
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .search-form {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .search-form:hover, .search-form:focus-within {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        .search-form input {
+            flex-grow: 1;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            outline: none;
+        }
+        .search-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .search-form button {
+            background: white;
+            color: #2eaf88;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .search-form button:hover {
+            background: #2eaf88;
+            color: white;
+            transform: scale(1.1);
+        }
+        .category-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .category-title {
+            color: #2eaf88;
+            border-bottom: 2px solid #0dbde6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        .card-text {
+            color: #666;
+        }
+        .btn-primary {
+            background-color: #0dbde6;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #2eaf88;
+        }
+        .pagination {
+            justify-content: center;
         }
     </style>
 
@@ -60,73 +130,45 @@
 
 <body>
     @include('layouts.header')
-    <div class="product-section shadow-lg py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <!-- Kolom deskripsi -->
-                <div class="col-md-12 col-lg-8 text-center mb-4">
-                    <h2 class="mb-3 section-title">Lebih Dari {{ $umkms->total() }} UMKM Tersedia</h2>
-                    <p class="mb-4">UMKM Kami tersedia di seluruh karesidenan Malang Raya. Jelajahi UMKM pilihan Anda.
-                    </p>
-                </div>
-
-                <!-- Search form -->
-                <div class="col-md-8 mb-4">
-                    <form action="{{ route('umkm.index.beranda') }}" method="GET"
-                        class="form-inline d-flex justify-content-center">
-                        <div class="input-group w-100">
-                            <input type="text" name="search" class="form-control" placeholder="Cari UMKM..."
-                                value="{{ $search ?? '' }}">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary ml-2" type="submit">Cari</button>
-                                <!-- Tambahkan class ml-2 untuk margin -->
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
-                <!-- Menampilkan semua UMKM dalam list card vertikal -->
-                @foreach ($umkms as $umkm)
-                    <div class="col-12 col-md-8 mb-4">
-                        <div class="card shadow-sm border-0">
-                            <div class="row no-gutters">
-                                <!-- Bagian gambar -->
-                                <div class="col-md-4">
-                                    <img src="{{ Storage::url('umkm/foto_profil/' . $umkm->foto_profil) }}"
-                                        class="img-fluid h-100" alt="{{ $umkm->nama_umkm }}" style="object-fit: cover;">
-                                </div>
-
-                                <!-- Bagian teks -->
-                                <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column justify-content-between">
-                                        <div>
-                                            <h5 class="card-title">{{ $umkm->nama_umkm }}</h5>
-                                            <p class="card-text text-muted">
-                                                {{ \Illuminate\Support\Str::limit($umkm->deskripsi, 100) }}</p>
-                                        </div>
-                                        <div>
-                                            <p class="card-text">
-                                                <small class="text-muted">{{ $umkm->kota }},
-                                                    {{ $umkm->provinsi }}</small>
-                                            </p>
-                                            <a href="{{ route('umkm.show', $umkm->id) }}"
-                                                class="btn btn-primary btn-sm">Lihat Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-
-                <!-- Pagination -->
-                <div class="col-12 d-flex justify-content-center">
-                    {{ $umkms->links() }}
-                </div>
+    <div class="custom-gradient">
+        <div class="container text-center">
+            <h1 class="display-4 mb-4">Jelajahi UMKM Kami</h1>
+            <p class="lead mb-5">Lebih Dari {{ $umkms->total() }} UMKM Tersedia di Malang Raya</p>
+            <div class="search-container">
+                <form action="{{ route('umkm.index.beranda') }}" method="GET" class="search-form">
+                    <input type="text" name="search" placeholder="Cari UMKM..." value="{{ $search ?? '' }}">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
             </div>
         </div>
     </div>
+    <div class="container">
+        <!-- Category sections and cards remain the same -->
+        @foreach (['F&B', 'Retail', 'Jasa', 'Produksi', 'Pendidikan', 'Kesehatan dan Kecantikan', 'Teknologi dan Digital', 'Pariwisata dan Hospitality', 'Agribisnis', 'Kesenian dan Hiburan', 'Lainnya'] as $category)
+        <div class="category-section">
+            <h3 class="category-title mb-4">{{ $category }}</h3>
+            <div class="row">
+                @foreach ($umkms->where('kategori', $category) as $umkm)
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ $umkm->foto_profil ? Storage::url('umkm/foto_profil/' . $umkm->foto_profil) : asset('images/default.png') }}" class="card-img-top" alt="{{ $umkm->nama_umkm }}">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ $umkm->nama_umkm }}</h5>
+                            <p class="card-text flex-grow-1">{{ \Illuminate\Support\Str::limit($umkm->deskripsi, 100) }}</p>
+                            <a href="{{ route('umkm.show', $umkm->id) }}" class="btn btn-primary mt-auto">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @endforeach
 
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center mt-4 mb-5">
+            {{ $umkms->links() }}
+        </div>
+    </div>
     @include('layouts.footer')
 </body>
+</html>

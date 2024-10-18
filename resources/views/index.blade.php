@@ -89,6 +89,59 @@
         opacity: 1;
     }
 
+      .custom-alert {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .alert-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+        }
+
+        .alert-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .alert-message {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .alert-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .alert-button:hover {
+            background-color: #45a049;
+        }
     /* ... rest of your existing styles ... */
 </style>
 
@@ -174,8 +227,8 @@
             </div>
             @foreach ($pekerjaan as $item)
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0 fade-in">
-
-                    <a class="product-item" href="{{ route('mahasiswa.pekerjaan.show', $item->id) }}">
+                    <a class="product-item" href="{{ route('mahasiswa.pekerjaan.show', $item->id) }}"
+                        onclick="checkLogin(event)">
                         <!-- Gambar pekerjaan -->
                         <img src="{{ asset('images/complete.png') }}" class="img-fluid product-thumbnail"
                             alt="{{ $item->posisi }}">
@@ -189,6 +242,13 @@
             @endforeach
 
         </div>
+    </div>
+</div>
+<div id="customAlert" class="custom-alert">
+    <div class="alert-content">
+        <h2 class="alert-title">Peringatan</h2>
+        <p id="alertMessage" class="alert-message"></p>
+        <button class="alert-button" onclick="closeAlert()">OK</button>
     </div>
 </div>
 
@@ -225,7 +285,7 @@
 </div>
 
 @include('layouts.footer')
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/tiny-slider.js') }}"></script>
 <script>
@@ -254,4 +314,55 @@
             });
         });
     });
+
+    function checkLogin(event) {
+        event.preventDefault(); // Menghentikan link dari navigate secara default
+
+        fetch('{{ route('check.login') }}')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Jika pengguna terautentikasi, lanjutkan ke halaman tujuan
+                    window.location.href = event.currentTarget.href;
+                } else {
+                    // Jika pengguna tidak terautentikasi, tampilkan pesan error
+                    showCustomAlert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showCustomAlert('Terjadi kesalahan, silakan coba lagi.');
+            });
+    }
+
+    function showCustomAlert(message) {
+        const alertElement = document.getElementById('customAlert');
+        const messageElement = document.getElementById('alertMessage');
+        messageElement.textContent = message;
+        alertElement.style.display = 'flex';
+
+        gsap.fromTo(alertElement, {
+            opacity: 0,
+            scale: 0.8
+        }, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.3,
+            ease: "back.out(1.7)"
+        });
+    }
+
+    function closeAlert() {
+        const alertElement = document.getElementById('customAlert');
+
+        gsap.to(alertElement, {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.2,
+            ease: "power2.in",
+            onComplete: () => {
+                alertElement.style.display = 'none';
+            }
+        });
+    }
 </script>

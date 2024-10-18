@@ -63,6 +63,29 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required>
                         </div>
+                        <!-- Kategori UMKM -->
+                        <div class="w-full pt-4">
+                            <label for="kategori_umkm"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori
+                                UMKM</label>
+                            <select name="kategori" id="kategori_umkm"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
+                                <option value="">Pilih Kategori</option>
+                                <option value="F&B">F&B</option>
+                                <option value="Retail">Retail</option>
+                                <option value="Jasa">Jasa</option>
+                                <option value="Produksi">Produksi</option>
+                                <option value="Pendidikan">Pendidikan</option>
+                                <option value="Kesehatan dan Kecantikan">Kesehatan dan Kecantikan</option>
+                                <option value="Teknologi dan Digital">Teknologi dan Digital</option>
+                                <option value="Pariwisata dan Hospitality">Pariwisata dan Hospitality</option>
+                                <option value="Agribisnis">Agribisnis</option>
+                                <option value="Kesenian dan Hiburan">Kesenian dan Hiburan</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+
 
                         <!-- Informasi Pemilik -->
                         <div class="w-full pt-4">

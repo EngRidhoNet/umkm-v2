@@ -72,10 +72,6 @@
                                                 <td>{{ $umkm->informasi_bisnis }}</td>
                                             </tr>
                                             <tr>
-                                                <th class="bg-light">Status</th>
-                                                <td>{{ $umkm->status }}</td>
-                                            </tr>
-                                            <tr>
                                                 <th class="bg-light">Dibuat pada</th>
                                                 <td>{{ $umkm->created_at }}</td>
                                             </tr>

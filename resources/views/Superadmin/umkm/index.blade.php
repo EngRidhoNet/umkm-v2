@@ -18,10 +18,11 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nama UMKM</th>
+                                <th>Kategori UMKM</th>
                                 {{-- <th>Foto Profil</th>
                                 <th>Foto Sampul</th> --}}
                                 <th>Deskripsi</th>
-                                <th>Kategori</th>
+                                {{-- <th>Kategori</th> --}}
                                 <th>Provinsi</th>
                                 <th>Kota</th>
                                 <th>Kecamatan</th>
@@ -37,6 +38,7 @@
                             <tr>
                                 <td>{{ $umkm->id }}</td>
                                 <td>{{ $umkm->nama_umkm }}</td>
+                                <td>{{ $umkm->kategori }}</td>
                                 {{-- <td>
                                     <img src="{{ asset('storage/app/public/umkm/foto_profil/' . $umkm->foto_profil) }}" alt="Foto Profil" width="50" height="50">
                                 </td>
@@ -44,7 +46,6 @@
                                     <img src="{{ asset('storage/' . $umkm->foto_sampul) }}" alt="Foto Sampul" width="100" height="50">
                                 </td> --}}
                                 <td>{{ $umkm->deskripsi }}</td>
-                                <td>{{ $umkm->kategori }}</td>
                                 <td>{{ $umkm->provinsi }}</td>
                                 <td>{{ $umkm->kota }}</td>
                                 <td>{{ $umkm->kecamatan }}</td>

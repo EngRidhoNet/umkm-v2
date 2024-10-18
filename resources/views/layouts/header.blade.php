@@ -53,7 +53,7 @@
                 </li>
                 {{-- EVENT --}}
                 <li class="nav-item {{ request()->routeIs('event') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('event') }}">Event</a>
+                    <a class="nav-link" href="{{ route('event') }}">Artikel</a>
                 </li>
                 {{-- PROJECT --}}
                 {{-- UMKM --}}

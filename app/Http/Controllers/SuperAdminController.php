@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\artikel;
 use App\Models\mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -210,70 +211,37 @@ class SuperAdminController extends Controller
         return view('superadmin.umkm.show', compact('umkm'));
     }
 
+    // Assuming you have imported the necessary classes at the top of your controller file
+
     public function storeUmkm(Request $request)
     {
+        $validator = $this->validateUMKM($request);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $fotoProfil = $this->handleProfilePhoto($request);
+
+        // Transaction to ensure both user and UMKM are created or none at all
+        DB::beginTransaction();
         try {
-            $validator = Validator::make($request->all(), [
-                'email' => 'required|email|unique:users',
-                'password' => 'required',
-                'nama_umkm' => 'required|string|max:255',
-                'deskripsi' => 'required|string',
-                'alamat' => 'required|string',
-                'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Foto Profil is optional
-                'informasi_pemilik' => 'required|string',
-            ]);
+            $user = $this->createUser($request);
 
-            if ($validator->fails()) {
-                return back()->withErrors($validator)->withInput();
-            }
+            $this->createUMKMProfile($request, $user->id, $fotoProfil);
 
-            // Function to rename file and store it
-            function renameAndStoreFile($file, $folder, $prefix)
-            {
-                // Generate a new file name
-                $extension = $file->getClientOriginalExtension();
-                $newFileName = $prefix . '_' . time() . '.' . $extension;
+            DB::commit();
 
-                // Store the file with the new name
-                $file->storeAs($folder, $newFileName, 'public');
-
-                return $newFileName;
-            }
-
-            // Handle optional profile photo upload
-            $fotoProfil = $request->hasFile('foto_profil')
-            ? renameAndStoreFile($request->file('foto_profil'), 'umkm/foto_profil', 'profil')
-            : null; // Foto Profil is optional
-
-            // Create User
-            $user = User::create([
-                'name' => $request->nama_umkm,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role' => 'umkm',
-                'status' => 'active',
-            ]);
-
-            // Create UMKM profile linked to the User
-            Umkm::create([
-                'id_user' => $user->id,
-                'nama_umkm' => $request->nama_umkm,
-                'deskripsi' => $request->deskripsi,
-                'alamat' => $request->alamat,
-                'foto_profil' => $fotoProfil, // Can be null if not uploaded
-                'informasi_pemilik' => $request->informasi_pemilik,
-            ]);
-
-            return redirect()->route('superadmin.umkm')->with('success', 'UMKM account created successfully');
+            return redirect()->route('login')->with('success', 'Akun anda sedang dalam verifikasi.');
         } catch (\Exception $e) {
-            // Log the error
+            DB::rollback();
+
             Log::error('Error in registerumkm: ' . $e->getMessage(), [
                 'line' => $e->getLine(),
                 'file' => $e->getFile(),
                 'trace' => $e->getTraceAsString()
             ]);
 
-            // Return a JSON response with the error details
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),
@@ -282,6 +250,58 @@ class SuperAdminController extends Controller
                 'trace' => $e->getTraceAsString()
             ], 500);
         }
+    }
+
+    private function validateUMKM(Request $request)
+    {
+        return Validator::make($request->all(), [
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'nama_umkm' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'alamat' => 'required|string',
+            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'informasi_pemilik' => 'required|string',
+            'kategori' => 'required|string|in:F&B,Retail,Jasa,Produksi,Pendidikan,Kesehatan dan Kecantikan,Teknologi dan Digital,Pariwisata dan Hospitality,Agribisnis,Kesenian dan Hiburan,Lainnya'
+        ]);
+    }
+
+    private function handleProfilePhoto(Request $request)
+    {
+        return $request->hasFile('foto_profil') ? renameAndStoreFile($request->file('foto_profil'), 'umkm/foto_profil', 'profil') : null;
+    }
+
+    private function createUser(Request $request)
+    {
+        return User::create([
+            'name' => $request->nama_umkm,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'umkm',
+            'status' => 'inactive',
+        ]);
+    }
+
+    private function createUMKMProfile(Request $request, $userId, $fotoProfil)
+    {
+        Umkm::create([
+            'id_user' => $userId,
+            'nama_umkm' => $request->nama_umkm,
+            'deskripsi' => $request->deskripsi,
+            'alamat' => $request->alamat,
+            'kategori' => $request->kategori,  // Make sure to capture and save this field from the request
+            'foto_profil' => $fotoProfil,
+            'informasi_pemilik' => $request->informasi_pemilik,
+        ]);
+    }
+
+    // Global function or helper function
+    function renameAndStoreFile($file, $folder, $prefix)
+    {
+        $extension = $file->getClientOriginalExtension();
+        $newFileName = $prefix . '_' . time() . '.' . $extension;
+        $file->storeAs($folder, $newFileName, 'public');
+        return $newFileName;
     }
 
     public function editUmkm($id)

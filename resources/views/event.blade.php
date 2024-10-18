@@ -1,10 +1,3 @@
-<!-- /*
-* Bootstrap 5
-* Template Name: Furni
-* Template Author: Untree.co
-* Template URI: https://untree.co/
-* License: https://creativecommons.org/licenses/by/3.0/
-*/ -->
 <!doctype html>
 <html lang="en">
 
@@ -14,73 +7,219 @@
     <meta name="author" content="Untree.co">
     <link rel="shortcut icon" href="favicon.png">
 
-    <meta name="description" content="" />
-    <meta name="keywords" content="bootstrap, bootstrap4" />
+    <meta name="description" content="Explore expertly curated articles across various domains." />
+    <meta name="keywords" content="articles, insights, news, professional" />
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS and Custom Styling -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="{{ asset('css/tiny-slider.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
+    <!-- AOS Animation library for scroll animations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+
+    <!-- Custom Styles -->
     <style>
-        .img-zoomin {
-            width: 100%;
-            height: 300px; /* Atur tinggi sesuai kebutuhan */
-            object-fit: cover; /* Pastikan gambar terisi tanpa merusak proporsi */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        border: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 15px;
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .card:hover .card-img-top {
+        transform: scale(1.05);
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+
+    .card-text {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    .btn-read-more {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 30px;
+        transition: background-color 0.3s ease;
+        font-size: 0.9rem;
+    }
+
+    .btn-read-more:hover {
+        background-color: #0056b3;
+        color: white;
+    }
+
+    .article-meta {
+        font-size: 0.8rem;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
+
+    .featured-card .card-img-top {
+        height: 300px;
+    }
+
+    .featured-card .card-title {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: #007bff;
+    }
+
+    @media (max-width: 768px) {
+        .featured-card .card-img-top {
+            height: 200px;
         }
+    }
     </style>
 
-    <title>Pos UMKM</title>
+    <title>Pos UMKM - Artikel Terbaru</title>
 </head>
 
 <body>
     @include('layouts.header')
 
-    <!-- Main Event Section Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="row g-4">
-                <div class="col-lg-7 col-xl-8 mt-0">
-                    @foreach ($artikel as $item)
-                        <div class="position-relative overflow-hidden rounded mb-4">
-                            <img src="{{ Storage::url($item->foto) }}" class="img-fluid rounded img-zoomin" alt="{{ $item->judul }}">
-                            <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
-                                <a href="#" class="text-white me-3 link-hover"><i class="fa fa-clock"></i> {{ $item->created_at->diffInMinutes() }} minute read</a>
-                                <a href="#" class="text-white me-3 link-hover"><i class="fa fa-eye"></i> 3.5k Views</a>
-                                <a href="#" class="text-white me-3 link-hover"><i class="fa fa-comment-dots"></i> 05 Comment</a>
-                                <a href="#" class="text-white link-hover"><i class="fa fa-arrow-up"></i> 1.5k Share</a>
+    <div class="container py-5">
+        <h2 class="section-title" data-aos="fade-right">Featured Articles</h2>
+        <div class="row">
+            @foreach ($artikel->take(3) as $featured)
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                    <div class="card featured-card">
+                        <img src="{{ Storage::url($featured->foto) }}" class="card-img-top" alt="{{ $featured->judul }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $featured->judul }}</h5>
+                            <div class="article-meta">
+                                <span class="me-3"><i class="far fa-clock"></i> {{ $featured->created_at->diffForHumans() }}</span>
+                                <span><i class="far fa-eye"></i> {{ number_format(rand(1000, 10000)) }} Views</span>
+                            </div>
+                            <p class="card-text">{{ Str::limit($featured->isi, 100) }}</p>
+                            <a href="{{ route('event.detail', $featured->id) }}" class="btn btn-read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <h2 class="section-title mt-5" data-aos="fade-right">All Articles</h2>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    @foreach ($artikel->skip(3) as $item)
+                        <div class="col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                            <div class="card">
+                                <img src="{{ Storage::url($item->foto) }}" class="card-img-top" alt="{{ $item->judul }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $item->judul }}</h5>
+                                    <div class="article-meta">
+                                        <span class="me-3"><i class="far fa-clock"></i> {{ $item->created_at->diffForHumans() }}</span>
+                                        <span><i class="far fa-comment"></i> {{ rand(5, 50) }} Comments</span>
+                                    </div>
+                                    <p class="card-text">{{ Str::limit($item->isi, 80) }}</p>
+                                    <a href="{{ route('event.detail', $item->id) }}" class="btn btn-read-more">Read More</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="border-bottom py-3">
-                            <a href="{{ route('event.detail', $item->id) }}" class="display-4 text-dark mb-0 link-hover">{{ $item->judul }}</a>
-                        </div>
-                        <p class="mt-3 mb-4">{{ Str::limit($item->isi, 150) }}...</p>
                     @endforeach
                 </div>
-                <div class="col-lg-5 col-xl-4">
-                    <div class="bg-light rounded p-4 pt-0">
-                        <h3 class="mb-4">Related Articles</h3>
-                        <div class="row g-4">
-                            @foreach ($artikel as $related)
-                                <div class="col-12">
-                                    <div class="rounded overflow-hidden mb-3">
-                                        <img src="{{ Storage::url($related->foto) }}" class="img-fluid rounded img-zoomin" alt="{{ $related->judul }}">
-                                    </div>
-                                    <div class="d-flex flex-column">
-                                        <a href="{{ route('event.detail', $related->id) }}" class="h4 mb-2">{{ $related->judul }}</a>
-                                    </div>
+            </div>
+            <div class="col-lg-4" data-aos="fade-left" data-aos-delay="200">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Related Articles</h5>
+                        @foreach ($artikel->take(5) as $related)
+                            <div class="d-flex mb-3">
+                                <img src="{{ Storage::url($related->foto) }}" class="rounded" width="70" height="70" style="object-fit: cover;" alt="{{ $related->judul }}">
+                                <div class="ms-3">
+                                    <h6 class="mb-1"><a href="{{ route('event.detail', $related->id) }}" class="text-dark">{{ Str::limit($related->judul, 40) }}</a></h6>
+                                    <small class="text-muted">{{ $related->created_at->format('M d, Y') }}</small>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- AOS and Bootstrap Scripts -->
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/tiny-slider.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            mirror: false
+        });
+
+        // Lazy loading images
+        document.addEventListener("DOMContentLoaded", function() {
+            var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+            if ("IntersectionObserver" in window) {
+                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImage.classList.remove("lazy");
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                });
+
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            }
+        });
+    </script>
+
     @include('layouts.footer')
 </body>
 

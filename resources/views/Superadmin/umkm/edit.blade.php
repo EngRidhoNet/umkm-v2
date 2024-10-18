@@ -5,7 +5,8 @@
 @section('content')
     <div class="min-h-screen flex items-center justify-center">
         <div class="w-full max-w-4xl bg-white p-8 shadow-lg rounded-lg">
-            <form action="{{ route('superadmin.umkm.update', $umkm->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <form action="{{ route('superadmin.umkm.update', $umkm->id) }}" method="POST" enctype="multipart/form-data"
+                class="space-y-6">
                 @csrf
                 @method('PUT') <!-- Gunakan method PUT untuk update data -->
                 <h2 class="text-3xl font-bold text-center text-blue-600 mb-8">Edit UMKM</h2>
@@ -17,13 +18,15 @@
                     <!-- Email -->
                     <div class="flex flex-col">
                         <label for="email" class="text-gray-700 font-bold">Email</label>
-                        <input type="email" id="email" name="email" value="{{ old('email', $umkm->email) }}" required
+                        <input type="email" id="email" name="email" value="{{ old('email', $umkm->email) }}"
+                            required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
 
                     <!-- Password -->
                     <div class="flex flex-col">
-                        <label for="password" class="text-gray-700 font-bold">Password (Kosongkan jika tidak ingin mengubah)</label>
+                        <label for="password" class="text-gray-700 font-bold">Password (Kosongkan jika tidak ingin
+                            mengubah)</label>
                         <input type="password" id="password" name="password"
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
@@ -36,22 +39,47 @@
                     <!-- Nama UMKM -->
                     <div class="flex flex-col">
                         <label for="nama_umkm" class="text-gray-700 font-bold">Nama UMKM</label>
-                        <input type="text" id="nama_umkm" name="nama_umkm" value="{{ old('nama_umkm', $umkm->nama_umkm) }}" required maxlength="255"
+                        <input type="text" id="nama_umkm" name="nama_umkm"
+                            value="{{ old('nama_umkm', $umkm->nama_umkm) }}" required maxlength="255"
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
+
+                    <div class="flex flex-col">
+                        <label for="kategori_umkm" class="text-gray-700 font-bold">Kategori UMKM</label>
+                        <select id="kategori_umkm" name="kategori" required
+                            class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
+                            <option value="">Pilih Kategori</option>
+                            <option value="F&B" {{ old('kategori') == 'F&B' ? 'selected' : '' }}>F&B</option>
+                            <option value="Retail" {{ old('kategori') == 'Retail' ? 'selected' : '' }}>Retail</option>
+                            <option value="Jasa" {{ old('kategori') == 'Jasa' ? 'selected' : '' }}>Jasa</option>
+                            <option value="Produksi" {{ old('kategori') == 'Produksi' ? 'selected' : '' }}>Produksi</option>
+                            <option value="Pendidikan" {{ old('kategori') == 'Pendidikan' ? 'selected' : '' }}>Pendidikan
+                            </option>
+                            <option value="Kesehatan dan Kecantikan"
+                                {{ old('kategori') == 'Kesehatan dan Kecantikan' ? 'selected' : '' }}>Kesehatan dan
+                                Kecantikan</option>
+                            <option value="Teknologi dan Digital"
+                                {{ old('kategori') == 'Teknologi dan Digital' ? 'selected' : '' }}>Teknologi dan Digital
+                            </option>
+                            <option value="Pariwisata dan Hospitality"
+                                {{ old('kategori') == 'Pariwisata dan Hospitality' ? 'selected' : '' }}>Pariwisata dan
+                                Hospitality</option>
+                            <option value="Agribisnis" {{ old('kategori') == 'Agribisnis' ? 'selected' : '' }}>Agribisnis
+                            </option>
+                            <option value="Kesenian dan Hiburan"
+                                {{ old('kategori') == 'Kesenian dan Hiburan' ? 'selected' : '' }}>Kesenian dan Hiburan
+                            </option>
+                            <option value="Lainnya" {{ old('kategori') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                        </select>
+                    </div>
+
+
 
                     <!-- Deskripsi -->
                     <div class="flex flex-col">
                         <label for="deskripsi" class="text-gray-700 font-bold">Deskripsi</label>
                         <textarea id="deskripsi" name="deskripsi" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">{{ old('deskripsi', $umkm->deskripsi) }}</textarea>
-                    </div>
-
-                    <!-- Kategori -->
-                    <div class="flex flex-col">
-                        <label for="kategori" class="text-gray-700 font-bold">Kategori</label>
-                        <input type="text" id="kategori" name="kategori" value="{{ old('kategori', $umkm->kategori) }}" required
-                            class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
                 </div>
 
@@ -64,8 +92,9 @@
                         <label for="foto_profil" class="text-gray-700 font-bold">Foto Profil</label>
                         <input type="file" id="foto_profil" name="foto_profil" accept="image/jpeg, image/png"
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
-                        @if($umkm->foto_profil)
-                            <img src="{{ Storage::url('umkm/foto_profil/' . $umkm->foto_profil) }}" alt="Foto Profil" class="mt-2 w-32 h-32 rounded">
+                        @if ($umkm->foto_profil)
+                            <img src="{{ Storage::url('umkm/foto_profil/' . $umkm->foto_profil) }}" alt="Foto Profil"
+                                class="mt-2 w-32 h-32 rounded">
                         @endif
                     </div>
 
@@ -74,8 +103,9 @@
                         <label for="foto_sampul" class="text-gray-700 font-bold">Foto Sampul</label>
                         <input type="file" id="foto_sampul" name="foto_sampul" accept="image/jpeg, image/png"
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
-                        @if($umkm->foto_sampul)
-                            <img src="{{ Storage::url('umkm/foto_sampul/' . $umkm->foto_sampul) }}" alt="Foto Sampul" class="mt-2 w-full rounded">
+                        @if ($umkm->foto_sampul)
+                            <img src="{{ Storage::url('umkm/foto_sampul/' . $umkm->foto_sampul) }}" alt="Foto Sampul"
+                                class="mt-2 w-full rounded">
                         @endif
                     </div>
                 </div>
@@ -89,7 +119,7 @@
                         <label for="provinsi" class="text-gray-700 font-bold">Provinsi</label>
                         <select id="provinsi" name="provinsi" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
-                               <option value="">{{$umkm->provinsi}}</option>
+                            <option value="">{{ $umkm->provinsi }}</option>
                         </select>
                     </div>
 
@@ -98,7 +128,7 @@
                         <label for="kota" class="text-gray-700 font-bold">Kota</label>
                         <select id="kota" name="kota" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
-                            <option value="">{{$umkm->kota}}</option>
+                            <option value="">{{ $umkm->kota }}</option>
                         </select>
                     </div>
 
@@ -107,14 +137,15 @@
                         <label for="kecamatan" class="text-gray-700 font-bold">Kecamatan</label>
                         <select id="kecamatan" name="kecamatan" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
-                            <option value="">{{$umkm->kecamatan}}</option>
+                            <option value="">{{ $umkm->kecamatan }}</option>
                         </select>
                     </div>
 
                     <!-- Kode Pos -->
                     <div class="flex flex-col">
                         <label for="kode_pos" class="text-gray-700 font-bold">Kode Pos</label>
-                        <input type="text" id="kode_pos" name="kode_pos" value="{{ old('kode_pos', $umkm->kode_pos) }}" required
+                        <input type="text" id="kode_pos" name="kode_pos"
+                            value="{{ old('kode_pos', $umkm->kode_pos) }}" required
                             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
 
@@ -156,7 +187,7 @@
         </div>
     </div>
 
-     <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const provinsiSelect = document.getElementById('provinsi');
             const kotaSelect = document.getElementById('kota');

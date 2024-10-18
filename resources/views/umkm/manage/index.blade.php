@@ -1,6 +1,6 @@
 @extends('layouts.umkm.app')
 
-@section('title', 'Daftar Apply')
+@section('title', 'Manage Project UMKM')
 
 @section('content')
     <section class="section dashboard">
@@ -13,20 +13,19 @@
             @endif
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Daftar Apply</h5>
+                    <h5 class="card-title">Manage Project UMKM</h5>
                     <table id="applyTable" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
                                 <th>User</th>
                                 <th>Posisi</th>
                                 <th>Nama</th>
-                                <th>Deskripsi Diri</th>
+                                {{-- <th>Deskripsi Diri</th>
                                 <th>Jurusan</th>
                                 <th>Pengalaman Organisasi</th>
-                                <th>Pengalaman Kerja</th>
+                                <th>Pengalaman Kerja</th> --}}
                                 <th>Status</th>
                                 <th>Tanggal Apply</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,10 +34,10 @@
                                     <td>{{ $apply->user->name ?? 'N/A' }}</td>
                                     <td>{{ $apply->project->posisi ?? 'N/A' }}</td>
                                     <td>{{ $apply->nama ?? 'N/A' }}</td>
-                                    <td>{{ $apply->deskripsi_diri ?? 'N/A' }}</td>
+                                    {{-- <td>{{ $apply->deskripsi_diri ?? 'N/A' }}</td>
                                     <td>{{ $apply->jurusan ?? 'N/A' }}</td>
                                     <td>{{ $apply->pengalaman_organisasi ?? 'N/A' }}</td>
-                                    <td>{{ $apply->pengalaman_kerja ?? 'N/A' }}</td>
+                                    <td>{{ $apply->pengalaman_kerja ?? 'N/A' }}</td> --}}
                                     <td>
                                         <select class="form-select"
                                             onchange="updateStatus({{ $apply->id }}, this.value)">
@@ -55,11 +54,6 @@
                                         </select>
                                     </td>
                                     <td>{{ $apply->created_at->format('d M Y') }}</td>
-                                    <td>
-                                        <form action="{{ route('sertifikat', $apply->user->id) }}" method="get">
-                                            <button class="btn btn-primary" type="submit">Kirim Sertifikat</button>
-                                        </form>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

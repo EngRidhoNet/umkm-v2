@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\mahasiswa;
+use App\Models\apply;
+
 use Illuminate\Support\Facades\Mail;
 
 class CertificateController extends Controller
@@ -24,7 +27,6 @@ class CertificateController extends Controller
 
         // Tentukan warna untuk teks (hitam dalam hal ini)
         $black = imagecolorallocate($image, 0, 0, 0);
-
         // Tentukan font yang akan digunakan dan ukuran
         $fontPath = public_path('fonts/Roboto-Regular.ttf');
         $fontSize = 48;
@@ -50,5 +52,16 @@ class CertificateController extends Controller
         });
 
         return back()->with('success', 'Certificate sent to ' . $user->email);
+    }
+
+    public function completedProjects()
+    {
+        $mahasiswa = mahasiswa::whereHas('user.apply', function ($query) {
+            $query->where('status', 'completed');
+        })->with(['user.apply' => function ($query) {
+            $query->where('status', 'completed');
+        }])->get();
+
+        return view('superadmin.manage.index', ['mahasiswa' => $mahasiswa]);
     }
 }
