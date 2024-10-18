@@ -105,7 +105,7 @@ class UmkmController extends Controller
         }
 
         // Buat array untuk menyimpan data artikel
-        $data = $request->only(['judul', 'isi', 'tanggal']);
+        $data = $request->only(['judul', 'isi', 'tanggal', 'category']);
 
         // Menyimpan id_user dari user yang sedang login
         $data['id_user'] = auth()->user()->id;
