@@ -10,7 +10,7 @@
 <body class="bg-gradient-to-r from-[#0DBDE5] to-[#2DB08B] text-blue-900">
     <div class="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
         <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-white">
-            <img class="w-8 h-8 mr-2" src="{{ asset('assets/img/logoo.png') }}" alt="logo">
+            <img class="w-8 h-8 mr-2" src="{{ asset('assets/img/logo.png') }}" alt="logo">
             POS UMKM
         </a>
         <div class="w-full max-w-4xl bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">
