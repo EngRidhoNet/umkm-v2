@@ -131,6 +131,18 @@
 
             <!-- Kartu 10 -->
             <div class="col-6 col-sm-4 col-md-2 animate-from-left mb-4">
+                <a href="{{ route('mahasiswa.pekerjaan.category','Marketing') }}">
+                    <div class="card shadow-sm p-3 bg-white rounded-lg h-100">
+                        <img src="{{ asset('images/marketing.png') }}" class="card-img-top mx-auto" alt="Blog"
+                            style="width: 50%;">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 14px;">Marketing</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Kartu 10 -->
+            <div class="col-6 col-sm-4 col-md-2 animate-from-left mb-4">
                 <a href="{{ route('mahasiswa.pekerjaan.category', 'Lainnya') }}">
                     <div class="card shadow-sm p-3 bg-white rounded-lg h-100">
                         <img src="{{ asset('images/blog.png') }}" class="card-img-top mx-auto" alt="Blog"
@@ -155,7 +167,7 @@
 </div>
 
      @php
-        $categories = ['Agrikultur', 'Akuntansi', 'Edukasi', 'Finance', 'Teknologi', 'Kesehatan', 'Kreatif', 'Lingkungan', 'Sosial', 'Lainnya'];
+        $categories = ['Agrikultur', 'Akuntansi', 'Edukasi', 'Finance', 'Teknologi', 'Kesehatan', 'Kreatif', 'Lingkungan', 'Sosial','Marketing','Lainnya'];
     @endphp
 
 {{-- {{ route('jobs.show', $job->id) }} --}}

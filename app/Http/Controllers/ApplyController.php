@@ -108,12 +108,12 @@ class ApplyController extends Controller
 
     public function updateStatusManage(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'id' => 'required|exists:table_apply,id',
-            'status' => 'required|in:pending,accepted,rejected,active,completed',
+            'status' => 'required|in:active,completed',
         ]);
 
-        $apply = apply::find($request->id);
+        $apply = Apply::findOrFail($request->id);
         $apply->status = $request->status;
         $apply->save();
 
@@ -123,8 +123,22 @@ class ApplyController extends Controller
 
     public function manageProject()
     {
+        // Mendapatkan user yang sedang login
         $user = Auth::user();
-        $applies = apply::all();
-        return view('umkm.manage.index', compact('applies', 'user'));
+
+        // Mendapatkan ID project yang dimiliki oleh user
+        $projectIds = $user->pekerjaan()->pluck('id'); // Menggunakan relasi pekerjaan
+
+        // Mengambil data apply yang terkait dengan project user
+        $applies = apply::whereIn('id_project', $projectIds)
+            ->with(['user', 'project']) // Mengambil relasi user dan project
+            ->get();
+
+        // Mengembalikan view dengan data applies
+        return view('umkm.manage.index', compact('applies'));
     }
+
+
+
+    //  $pekerjaan = pekerjaan::where('id_user', Auth::id())->get();
 }

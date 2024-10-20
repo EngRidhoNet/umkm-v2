@@ -3,112 +3,103 @@
 @section('title', 'Manage Project UMKM')
 
 @section('content')
-    <section class="section dashboard">
-        <div class="container">
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Manage Project UMKM</h5>
-                    <table id="applyTable" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
+<section class="section dashboard">
+    <div class="container">
+        <div id="statusAlert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+            <span id="statusMessage"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Manage Project UMKM</h5>
+                <table id="applyTable" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Posisi</th>
+                            <th>Nama</th>
+                            <th>Status</th>
+                            <th>Tanggal Apply</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($applies as $apply)
                             <tr>
-                                <th>User</th>
-                                <th>Posisi</th>
-                                <th>Nama</th>
-                                {{-- <th>Deskripsi Diri</th>
-                                <th>Jurusan</th>
-                                <th>Pengalaman Organisasi</th>
-                                <th>Pengalaman Kerja</th> --}}
-                                <th>Status</th>
-                                <th>Tanggal Apply</th>
+                                <td>{{ $apply->user->name ?? 'N/A' }}</td>
+                                <td>{{ $apply->project->posisi ?? 'N/A' }}</td>
+                                <td>{{ $apply->nama ?? 'N/A' }}</td>
+                                <td>
+                                    <select class="form-select status-select" data-apply-id="{{ $apply->id }}">
+                                        @foreach(['active', 'completed'] as $status)
+                                            <option value="{{ $status }}" {{ $apply->status === $status ? 'selected' : '' }}>
+                                                {{ ucfirst($status) }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>{{ $apply->created_at->format('d M Y') }}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($applies as $apply)
-                                <tr>
-                                    <td>{{ $apply->user->name ?? 'N/A' }}</td>
-                                    <td>{{ $apply->project->posisi ?? 'N/A' }}</td>
-                                    <td>{{ $apply->nama ?? 'N/A' }}</td>
-                                    {{-- <td>{{ $apply->deskripsi_diri ?? 'N/A' }}</td>
-                                    <td>{{ $apply->jurusan ?? 'N/A' }}</td>
-                                    <td>{{ $apply->pengalaman_organisasi ?? 'N/A' }}</td>
-                                    <td>{{ $apply->pengalaman_kerja ?? 'N/A' }}</td> --}}
-                                    <td>
-                                        <select class="form-select"
-                                            onchange="updateStatus({{ $apply->id }}, this.value)">
-                                            <option value="pending" {{ $apply->status == 'pending' ? 'selected' : '' }}>
-                                                Pending</option>
-                                            <option value="accepted" {{ $apply->status == 'accepted' ? 'selected' : '' }}>
-                                                Accepted</option>
-                                            <option value="rejected" {{ $apply->status == 'rejected' ? 'selected' : '' }}>
-                                                Rejected</option>
-                                            <option value="active" {{ $apply->status == 'active' ? 'selected' : '' }}>
-                                                Active</option>
-                                            <option value="completed"
-                                                {{ $apply->status == 'completed' ? 'selected' : '' }}>Completed</option>
-                                        </select>
-                                    </td>
-                                    <td>{{ $apply->created_at->format('d M Y') }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
-    </section>
-    <script>
+    </div>
+</section>
+<script>
+    $(document).ready(function() {
+        var table = $('#applyTable').DataTable({
+            responsive: true,
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ entri",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                infoFiltered: "(disaring dari _MAX_ total entri)",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                },
+            }
+        });
+
+        $('.status-select').on('change', function() {
+            var applyId = $(this).data('apply-id');
+            var newStatus = $(this).val();
+            updateStatus(applyId, newStatus);
+        });
+
         function updateStatus(applyId, newStatus) {
             $.ajax({
-                url: "{{ route('apply.updateStatus') }}", // Define your route
+                url: "{{ route('apply.updateStatus') }}",
                 method: "POST",
                 data: {
-                    _token: "{{ csrf_token() }}", // CSRF token for security
                     id: applyId,
-                    status: newStatus
+                    status: newStatus,
+                    _token: "{{ csrf_token() }}"
                 },
                 success: function(response) {
-                    // Optionally show a success message or update the UI
-                    var successAlert = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                        'Status updated successfully!' +
-                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                        '</div>';
-                    $('.container').prepend(successAlert);
+                    showAlert('success', response.success);
                 },
                 error: function(xhr) {
-                    // Handle errors
-                    var errorAlert = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
-                        'Error updating status: ' + xhr.responseText +
-                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                        '</div>';
-                    $('.container').prepend(errorAlert);
+                    showAlert('danger', 'Error updating status: ' + xhr.responseText);
                 }
             });
         }
-    </script>
-    <script>
-        $(document).ready(function() {
-            var table = $('#applyTable').DataTable({
-                responsive: true,
-                language: {
-                    search: "Cari:",
-                    lengthMenu: "Tampilkan _MENU_ entri",
-                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                    infoFiltered: "(disaring dari _MAX_ total entri)",
-                    paginate: {
-                        first: "Pertama",
-                        last: "Terakhir",
-                        next: "Selanjutnya",
-                        previous: "Sebelumnya"
-                    },
-                }
-            });
-        });
-    </script>
+
+        function showAlert(type, message) {
+            var alertElement = $('#statusAlert');
+            alertElement.removeClass('d-none alert-success alert-danger')
+                        .addClass('alert-' + type)
+                        .find('#statusMessage').text(message);
+            alertElement.fadeIn();
+            setTimeout(function() {
+                alertElement.fadeOut();
+            }, 3000);
+        }
+    });
+</script>
 @endsection
+

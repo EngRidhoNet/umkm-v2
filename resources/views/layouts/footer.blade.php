@@ -14,10 +14,10 @@
                     sekarang dan wujudkan ide menjadi kenyataan.
                 </p>
                 <ul class="list-unstyled custom-social d-flex justify-content-center">
-                    <li><a href="#" class="me-2"><span class="fa fa-brands fa-facebook-f"></span></a></li>
-                    <li><a href="#" class="me-2"><span class="fa fa-brands fa-twitter"></span></a></li>
-                    <li><a href="#" class="me-2"><span class="fa fa-brands fa-instagram"></span></a></li>
-                    <li><a href="#" class="me-2"><span class="fa fa-brands fa-linkedin"></span></a></li>
+                    {{-- <li><a href="#" class="me-2"><span class="fa fa-brands fa-facebook-f"></span></a></li> --}}
+                    {{-- <li><a href="#" class="me-2"><span class="fa fa-brands fa-twitter"></span></a></li> --}}
+                    <li><a href="https://www.instagram.com/posumkm.id/" class="me-2"><span class="fa fa-brands fa-instagram"></span></a></li>
+                    {{-- <li><a href="#" class="me-2"><span class="fa fa-brands fa-linkedin"></span></a></li> --}}
                 </ul>
             </div>
             <div class="col-lg-8 col-md-6">

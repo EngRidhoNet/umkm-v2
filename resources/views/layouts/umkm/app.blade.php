@@ -9,8 +9,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="POS UMKM">
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="POS UMKM">
+   <link href="{{ asset('assets/img/favicon.png') }}" rel="icon" type="image/png">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Untree.co">
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="POS UMKM">
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon" type="image/png">
     {{-- <link href="{{ asset('assets/img/favicon.png') }}" rel="POS UMKM"> --}}
 
     <meta name="description" content="" />
@@ -28,7 +28,7 @@
         }
     </style>
     <script>
-        
+
     </script>
 </head>
 

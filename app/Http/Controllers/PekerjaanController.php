@@ -121,7 +121,7 @@ class PekerjaanController extends Controller
 
     public function getAllDataProject()
     {
-        $categories = ['Agrikultur', 'Akuntansi', 'Edukasi', 'Finance', 'Teknologi', 'Kesehatan', 'Kreatif', 'Lingkungan', 'Sosial', 'Lainnya'];
+        $categories = ['Agrikultur', 'Akuntansi', 'Edukasi', 'Finance', 'Teknologi', 'Kesehatan', 'Kreatif', 'Lingkungan', 'Sosial','Marketing','Lainnya'];
 
         $projects = pekerjaan::all()->groupBy('kategori');
         // dd($projects);

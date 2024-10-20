@@ -65,7 +65,7 @@ class IndexController extends Controller
     public function getDataProjectByCategory($category)
     {
         // Definisikan kategori yang valid
-        $categories = ['Agrikultur', 'Akuntansi', 'Edukasi', 'Finance', 'Teknologi', 'Kesehatan', 'Kreatif', 'Lingkungan', 'Sosial', 'Lainnya'];
+        $categories = ['Agrikultur', 'Akuntansi', 'Edukasi', 'Finance', 'Teknologi', 'Kesehatan', 'Kreatif', 'Lingkungan', 'Sosial','Marketing','Lainnya'];
 
         // Cek apakah kategori yang dipilih valid
         if (!in_array($category, $categories)) {

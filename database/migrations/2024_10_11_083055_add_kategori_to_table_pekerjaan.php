@@ -15,10 +15,6 @@ return new class extends Migration
             $table->enum('kategori', ['Agrikultur','Akuntansi','Edukasi','Kesehatan','Lingkungan','Kreatif','Finance','Teknologi','Sosial','Lainnya'])->default('Lainnya')->after('tempat_bekerja');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('table_pekerjaan', function (Blueprint $table) {

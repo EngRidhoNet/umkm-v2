@@ -1,4 +1,6 @@
-@include('layouts.header')
+@extends('layouts.header')
+
+@section('content')
 <style>
     .fade-in {
         opacity: 0;
@@ -89,62 +91,62 @@
         opacity: 1;
     }
 
-      .custom-alert {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
+    .custom-alert {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
 
-        .alert-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 90%;
-            width: 400px;
-        }
+    .alert-content {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 90%;
+        width: 400px;
+    }
 
-        .alert-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
+    .alert-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+    }
 
-        .alert-message {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            color: #666;
-        }
+    .alert-message {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        color: #666;
+    }
 
-        .alert-button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
+    .alert-button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
 
-        .alert-button:hover {
-            background-color: #45a049;
-        }
+    .alert-button:hover {
+        background-color: #45a049;
+    }
+
     /* ... rest of your existing styles ... */
 </style>
-
 <div class="hero intro-excerpt" id="dynamic-bg">
     <div class="container">
         <div class="row justify-content-between align-items-center">
@@ -154,7 +156,8 @@
                         @php $first = true; @endphp
                         @foreach ($artikel as $key => $item)
                             @if ($item->category == 'event')
-                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $key }}" class="{{ $first ? 'active' : '' }}"></li>
+                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $key }}"
+                                    class="{{ $first ? 'active' : '' }}"></li>
                                 @php $first = false; @endphp
                             @endif
                         @endforeach
@@ -164,26 +167,32 @@
                         @foreach ($artikel as $key => $item)
                             @if ($item->category == 'event')
                                 <div class="carousel-item {{ $first ? 'active' : '' }}">
-                                    <img class="d-block w-100" src="{{ Storage::url($item->foto) }}" alt="Slide {{ $key + 1 }}">
+                                    <img class="d-block w-100" src="{{ Storage::url($item->foto) }}"
+                                        alt="Slide {{ $key + 1 }}">
                                 </div>
                                 @php $first = false; @endphp
                             @endif
                         @endforeach
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                    {{-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                        <span class="visually-hidden">Next</span>
+                    </button> --}}
                 </div>
             </div>
             <div class="col-lg-5 fade-in">
                 <div class="intro-excerpt" id="dynamic-bg">
                     <h1 class="title-animate">Pos<span class="d-block">UMKM</span></h1>
-                    <p class="mb-4 text-justify">POSUMKM adalah sebuah bisnis sociopreneurship yang berfokus pada pemberdayaan pendidikan dan pertumbuhan UMKM. Kami menghubungkan mahasiswa, dosen, dan pelaku usaha menengah ke bawah untuk menciptakan solusi inovatif yang menjawab tantangan nyata yang dihadapi oleh UMKM.</p>
+                    <p class="mb-4 text-justify">POSUMKM adalah sebuah bisnis sociopreneurship yang berfokus pada
+                        pemberdayaan pendidikan dan pertumbuhan UMKM. Kami menghubungkan mahasiswa, dosen, dan pelaku
+                        usaha menengah ke bawah untuk menciptakan solusi inovatif yang menjawab tantangan nyata yang
+                        dihadapi oleh UMKM.</p>
                 </div>
             </div>
         </div>
@@ -359,3 +368,4 @@
         });
     }
 </script>
+@endsection

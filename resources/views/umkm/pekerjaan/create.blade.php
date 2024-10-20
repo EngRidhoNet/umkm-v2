@@ -49,10 +49,9 @@
                                     </option>
                                     <option value="Teknologi" {{ old('kategori') == 'Teknologi' ? 'selected' : '' }}>
                                         Teknologi</option>
-                                    <option value="Sosial" {{ old('kategori') == 'Sosial' ? 'selected' : '' }}>Sosial
-                                    </option>
-                                    <option value="Lainnya"
-                                        {{ old('kategori', 'Lainnya') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                                    <option value="Sosial" {{ old('kategori') == 'Sosial' ? 'selected' : '' }}>Sosial</option>
+                                    <option value="Marketing" {{ old('Marketing') == 'Marketing' ? 'selected' : '' }}>Marketing</option>
+                                    <option value="Lainnya" {{ old('kategori', 'Lainnya') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                                 </select>
                             </div>
 
