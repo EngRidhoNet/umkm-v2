@@ -252,6 +252,24 @@ class SuperAdminController extends Controller
         }
     }
 
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'new_password' => ['required', 'min:6', 'confirmed'],
+        ]);
+
+        auth()->user()->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->back()->with('status', 'Password successfully updated');
+    }
+
+    public function gantipass(){
+        return view('superadmin.password.password');
+    }
+
     private function validateUMKM(Request $request)
     {
         return Validator::make($request->all(), [

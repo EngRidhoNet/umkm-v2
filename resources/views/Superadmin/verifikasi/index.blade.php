@@ -13,6 +13,7 @@
                     {{-- Tombol tambah dihapus sesuai permintaan --}}
                 </div>
                 <div class="card-body">
+                    <div class="table-responsive">
                     <table id="umkmTable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -58,6 +59,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

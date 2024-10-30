@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\umkm;
+use App\Models\apply;
 use App\Models\artikel;
 use App\Models\mahasiswa;
 use App\Models\pekerjaan;
+use App\Models\Achievement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
@@ -55,6 +58,82 @@ class IndexController extends Controller
         // Pass the data to the view
         return view('mahasiswa.profile-mahasiswa', compact('mahasiswa'));
     }
+
+    public function updateBio(Request $request)
+    {
+        $request->validate([
+            'bio' => 'required|string', // Set any necessary validation rules for the bio
+        ]);
+
+        // Retrieve the mahasiswa model for the currently authenticated user
+        $mahasiswa = mahasiswa::where('id_user', auth()->id())->first();
+
+        if (!$mahasiswa) {
+            if ($request->ajax()) {
+                return response()->json(['error' => 'Mahasiswa data not found'], 404);
+            }
+            return redirect()->back()->with('error', 'Mahasiswa data not found');
+        }
+
+        // Update the bio
+        $mahasiswa->update([
+            'bio' => $request->input('bio'),
+        ]);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => 'Bio updated successfully'], 200);
+        }
+
+        // Redirect back with a success message for non-AJAX requests
+        return redirect()->back()->with('success', 'Bio updated successfully');
+    }
+
+
+
+    // Achievement
+    public function store(Request $request)
+    {
+        try {
+            // Validasi request
+            $validated = $request->validate([
+                'apply_id' => 'required|exists:table_apply,id',
+                'task_file' => 'required|file|mimes:pdf,doc,docx,zip,rar|max:10240' // 10MB max
+            ]);
+
+            // Cek apakah file ada di request
+            if ($request->hasFile('task_file')) {
+                $file = $request->file('task_file');
+                $filename = time() . '_' . $file->getClientOriginalName();
+
+                // Store file di storage/app/public/tasks dan buat link publiknya
+                $path = $file->storeAs('tasks', $filename, 'public');
+
+                // Mencatat path penyimpanan file untuk debugging
+                Log::info('File stored at: ' . $path);
+
+                // Membuat record achievement dengan deskripsi yang menyimpan nama file
+                Achievement::create([
+                    'apply_id' => $request->apply_id,
+                    'deskripsi' => $path  // Simpan path lengkap jika dibutuhkan untuk referensi
+                ]);
+
+                // Redirect dengan pesan sukses
+                return redirect()->back()->with('success', 'File uploaded successfully.');
+            }
+
+            // Redirect dengan pesan error jika file tidak ada
+            return redirect()->back()->with('error', 'No file uploaded.');
+        } catch (\Exception $e) {
+            // Mencatat kesalahan yang terjadi
+            Log::error('Failed to upload file: ' . $e->getMessage());
+
+            // Redirect dengan pesan error dan informasi detail kesalahan
+            return redirect()->back()->with('error', 'Failed to upload file: ' . $e->getMessage());
+        }
+    }
+
+
+
 
     public function getDataProject()
     {
@@ -140,20 +219,16 @@ class IndexController extends Controller
 
         $mahasiswa->save();
 
-        return redirect()->route('mahasiswa.edit-profile', $mahasiswa->id)->with('success', 'Profil berhasil diperbarui.');
+        return redirect()->route('mahasiswa.profile.edit', $mahasiswa->id)->with('success', 'Profil berhasil diperbarui.');
     }
 
     public function editProfile($id)
     {
-        $mahasiswa = mahasiswa::find($id);
-
-        // Pastikan mahasiswa ditemukan
+        $mahasiswa = mahasiswa::where('id_user', Auth::id())->first();
         if (!$mahasiswa) {
             return redirect()->back()->with('error', 'Mahasiswa tidak ditemukan.');
         }
 
         return view('mahasiswa.edit-profile', compact('mahasiswa'));
     }
-
-
 }

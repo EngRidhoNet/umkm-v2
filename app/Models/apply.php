@@ -25,4 +25,8 @@ class apply extends Model
     {
         return $this->belongsTo(pekerjaan::class, 'id_project', 'id');
     }
+    public function achievements()
+    {
+        return $this->hasMany(Achievement::class, 'apply_id', 'id');
+    }
 }

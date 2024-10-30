@@ -15,6 +15,7 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h5 class="card-title">Kelola Sertifikat Mahasiswa</h5>
+                <div class="table-responsive">
                 <table id="completedProjectsTable" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
@@ -46,6 +47,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

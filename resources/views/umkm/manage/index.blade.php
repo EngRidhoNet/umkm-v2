@@ -12,36 +12,38 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h5 class="card-title">Manage Project UMKM</h5>
-                <table id="applyTable" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Posisi</th>
-                            <th>Nama</th>
-                            <th>Status</th>
-                            <th>Tanggal Apply</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($applies as $apply)
+                <div class="table-responsive">
+                    <table id="applyTable" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
                             <tr>
-                                <td>{{ $apply->user->name ?? 'N/A' }}</td>
-                                <td>{{ $apply->project->posisi ?? 'N/A' }}</td>
-                                <td>{{ $apply->nama ?? 'N/A' }}</td>
-                                <td>
-                                    <select class="form-select status-select" data-apply-id="{{ $apply->id }}">
-                                        @foreach(['active', 'completed'] as $status)
-                                            <option value="{{ $status }}" {{ $apply->status === $status ? 'selected' : '' }}>
-                                                {{ ucfirst($status) }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td>{{ $apply->created_at->format('d M Y') }}</td>
+                                <th>User</th>
+                                <th>Posisi</th>
+                                <th>Nama</th>
+                                <th>Status</th>
+                                <th>Tanggal Apply</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($applies as $apply)
+                                <tr>
+                                    <td>{{ $apply->user->name ?? 'N/A' }}</td>
+                                    <td>{{ $apply->project->posisi ?? 'N/A' }}</td>
+                                    <td>{{ $apply->nama ?? 'N/A' }}</td>
+                                    <td>
+                                        <select class="form-select status-select" data-apply-id="{{ $apply->id }}">
+                                            @foreach(['active', 'completed'] as $status)
+                                                <option value="{{ $status }}" {{ $apply->status === $status ? 'selected' : '' }}>
+                                                    {{ ucfirst($status) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>{{ $apply->created_at->format('d M Y') }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -102,4 +104,3 @@
     });
 </script>
 @endsection
-

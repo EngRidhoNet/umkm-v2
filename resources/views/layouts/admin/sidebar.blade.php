@@ -48,6 +48,12 @@
             <span>Kelola Sertifikat Mahasiswa</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Request::routeIs('password') ? 'active' : '' }}" href="{{ route('password') }}">
+            <i class="bi bi-key"></i>
+            <span>Ganti Password</span>
+            </a>
+        </li>
     </ul>
 </aside>
 <style>

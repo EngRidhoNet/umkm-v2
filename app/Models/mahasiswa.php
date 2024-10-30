@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use App\Models\apply;
 // use Laravel\Sanctum\HasApiTokens;
 // use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
 class mahasiswa extends Authenticatable
 {
@@ -27,7 +28,7 @@ class mahasiswa extends Authenticatable
         'provinsi_mahasiswa',
         'kota_mahasiswa',
         'kecamatan_mahasiswa',
-        // 'kelurahan_mahasiswa',
+        'bio',
         'kode_pos',
         'alamat_mahasiswa',
     ];
@@ -37,5 +38,8 @@ class mahasiswa extends Authenticatable
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
 
-
+    public function applies()
+    {
+        return $this->hasMany(apply::class, 'id_user', 'id_user');
+    }
 }

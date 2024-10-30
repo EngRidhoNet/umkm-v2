@@ -84,6 +84,7 @@ Route::middleware(['auth', RoleMiddleware::class . ':umkm'])->group(function () 
     Route::delete('/umkm/pekerjaan/{id}', [PekerjaanController::class, 'destroy'])->name('umkm.pekerjaan.destroy');
     Route::patch('/umkm/pekerjaan/{id}/archive', [PekerjaanController::class, 'archive'])->name('umkm.pekerjaan.archive');
     Route::patch('/umkm/pekerjaan/{id}/unarchive', [PekerjaanController::class, 'unarchive'])->name('umkm.pekerjaan.unarchive');
+
     Route::get('/umkm/chat', function () {
         return redirect()->route(config('chatify.routes.prefix'));  // Redirects to /
     })->name('umkm.chat');
@@ -142,6 +143,10 @@ Route::middleware(['auth', RoleMiddleware::class . ':superadmin'])->group(functi
     Route::get('/send-certificate/{id}', [CertificateController::class, 'sendCertificate'])->name('sertifikat.superadmin');
     Route::get('/superadmin/manage', [CertificateController::class, 'completedProjects'])->name('superadmin.manage');
 
+    // GANTI PASSWORD
+    Route::post('superadmin/password/update', [SuperAdminController::class, 'updatePassword'])->name('password.update');
+    Route::get('superadmin/password', [SuperAdminController::class, 'gantipass'])->name('password');
+
 });
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/postlogin', [AuthController::class, 'postlogin']);
@@ -151,9 +156,15 @@ Route::get('/', [IndexController::class,'getDataUmkm'])->name('index');
 Route::get('/event', [IndexController::class, 'getDataEvent'])->name('event');
 Route::get('/artikel/{id}', [IndexController::class, 'showArtikel'])->name('event.detail');
 Route::get('/mahasiswa/pekerjaan', [IndexController::class, 'getDataProject'])->name('mahasiswa.pekerjaan');
+
+// Profile
 Route::get('/mahasiswa/profile', [IndexController::class, 'getDataProfilMahasiswa'])->name('mahasiswa.profile');
-Route::get('/mahasiswa/{id}/edit', [IndexController::class, 'editProfile'])->name('mahasiswa.profile.edit');
+Route::get('/mahasiswa/edit/{id}', [IndexController::class, 'editProfile'])->name('mahasiswa.profile.edit');
 Route::put('/mahasiswa/{id}', [IndexController::class, 'updateProfile'])->name('mahasiswa.profile.update');
+Route::put  ('/mahasiswa/profile/bio', [IndexController::class, 'updateBio'])->name('mahasiswa.bio.update');
+Route::post('/mahasiswa/achievement', [IndexController::class, 'store'])->name('mahasiswa.achievement.store');
+
+
 Route::get('/mahasiswa/pekerjaan/{category}', [IndexController::class, 'getDataProjectByCategory'])->name('mahasiswa.pekerjaan.category');
 Route::get('/mahasiswa/detail', [PekerjaanController::class, 'getAllDataProject'])->name('show.all.pekerjaan');
 Route::get('/mahasiswa/pekerjaan/show/{id}', [IndexController::class, 'showProject'])->name('mahasiswa.pekerjaan.show');
