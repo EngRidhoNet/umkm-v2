@@ -25,6 +25,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link {{ Request::routeIs('pekerjaan.index') ? 'active' : '' }}" href="{{ route('pekerjaan.index') }}">
+            <i class="bi bi-briefcase"></i> <!-- Updated icon -->
+            <span>Project UMKM</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link {{ Request::routeIs('superadmin.chat') ? 'active' : '' }}" href="{{ route('superadmin.chat') }}">
                 <i class="bi bi-chat-dots"></i>
                 <span>Chat</span>

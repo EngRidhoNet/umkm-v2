@@ -127,11 +127,11 @@ class ApplyController extends Controller
         $user = Auth::user();
 
         // Mendapatkan ID project yang dimiliki oleh user
-        $projectIds = $user->pekerjaan()->pluck('id'); // Menggunakan relasi pekerjaan
+        $projectIds = $user->pekerjaan()->pluck('id');
 
         // Mengambil data apply yang terkait dengan project user
         $applies = apply::whereIn('id_project', $projectIds)
-            ->with(['user', 'project']) // Mengambil relasi user dan project
+            ->with(['user', 'project', 'achievements']) // Include achievements relation
             ->get();
 
         // Mengembalikan view dengan data applies

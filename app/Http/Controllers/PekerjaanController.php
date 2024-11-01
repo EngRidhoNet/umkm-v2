@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\pekerjaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class PekerjaanController extends Controller
 {
@@ -127,6 +128,52 @@ class PekerjaanController extends Controller
         // dd($projects);
 
         return view('mahasiswa.all_project', compact('categories', 'projects'));
+    }
+
+    public function superindex()
+    {
+        $categories = ['Agrikultur',
+            'Akuntansi',
+            'Edukasi',
+            'Kesehatan',
+            'Lingkungan',
+            'Kreatif',
+            'Finance',
+            'Teknologi',
+            'Sosial',
+            'Marketing',
+            'Lainnya'
+        ];
+        return view('superadmin.project.index', compact('categories'));
+    }
+
+    public function getData()
+    {
+        $query = Pekerjaan::with(['user', 'apply'])->select('table_pekerjaan.*');
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return view('admin.pekerjaan.action_buttons', ['row' => $row])->render();
+            })
+            ->addColumn('applicants_count', function ($row) {
+                return $row->apply->count();
+            })
+            ->editColumn('created_at', function ($row) {
+                return $row->created_at->format('d M Y H:i');
+            })
+            ->editColumn('status', function ($row) {
+                $statusClass = $row->status === 'active' ? 'success' : 'danger';
+                return sprintf(
+                    '<span class="badge bg-%s">%s</span>',
+                    $statusClass,
+                    ucfirst($row->status)
+                );
+            })
+            ->filterColumn('status', function ($query, $keyword) {
+                $query->where('status', 'like', "%{$keyword}%");
+            })
+            ->rawColumns(['action', 'status'])
+            ->make(true);
     }
 
 

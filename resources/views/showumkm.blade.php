@@ -135,10 +135,10 @@
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span><strong>Alamat:</strong> {{ $umkm->alamat }}, {{ $umkm->kota }}, {{ $umkm->provinsi }} {{ $umkm->kode_pos }}</span>
                             </div>
-                            <div class="info-item">
+                            {{-- <div class="info-item">
                                 <i class="fas fa-user"></i>
                                 <span><strong>Informasi Pemilik:</strong> {{ $umkm->informasi_pemilik }}</span>
-                            </div>
+                            </div> --}}
                             <div class="info-item">
                                 <i class="fas fa-briefcase"></i>
                                 <span><strong>Informasi Bisnis:</strong> {{ $umkm->informasi_bisnis }}</span>

@@ -22,6 +22,7 @@ use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\ProjectController;
 
 Route::get('/send-email', function () {
     Mail::to('ridho.aulia7324@gmail.com')->send(new TestEmail());
@@ -146,6 +147,14 @@ Route::middleware(['auth', RoleMiddleware::class . ':superadmin'])->group(functi
     // GANTI PASSWORD
     Route::post('superadmin/password/update', [SuperAdminController::class, 'updatePassword'])->name('password.update');
     Route::get('superadmin/password', [SuperAdminController::class, 'gantipass'])->name('password');
+
+    // Project
+    Route::get('/pekerjaan', [ProjectController::class, 'index'])->name('pekerjaan.index');
+    Route::get('/pekerjaan/data', [ProjectController::class, 'data'])->name('pekerjaan.data');
+    Route::post('/pekerjaan/store', [ProjectController::class, 'store'])->name('pekerjaan.store');
+    Route::get('/pekerjaan/{id}', [ProjectController::class, 'show'])->name('pekerjaan.show');
+    Route::put('/pekerjaan/update/{id}', [ProjectController::class, 'update'])->name('pekerjaan.update');
+    Route::delete('/pekerjaan/delete/{id}', [ProjectController::class, 'delete'])->name('pekerjaan.delete');
 
 });
 Route::get('/login', [AuthController::class, 'login'])->name('login');
